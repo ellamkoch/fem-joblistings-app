@@ -1,0 +1,18 @@
+//This file has aliases within it. Whenever you import something in a vite project, this can reference the components to make importing files easier.
+// It defines the path or alias names and where they're located.
+{
+    "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+        "@/*": ["./src/*"],
+        "@components/*": ["./src/components/*"],
+        "@hooks/*": ["./src/hooks/*"],
+        "@lib/*": ["./src/lib/*"],
+        "@styles/*": ["./src/styles/*"],
+        "@assets/*": ["./src/assets/*"],
+        "@tests/*": ["./src/tests/*"],
+        "@utils/*": ["./src/utils/*"],
+        "@providers/*": ["./src/providers/*"]
+        }
+    }
+}
