@@ -25,7 +25,9 @@ export default defineConfig({
             '@tests': path.resolve(__dirname, './src/tests'),
             '@utils': path.resolve(__dirname, './src/utils'),
             "@test": path.resolve(__dirname, './test'),
-            "@providers": path.resolve(__dirname, './src/providers')
+            "@providers": path.resolve(__dirname, './src/providers'),
+            "@pages": path.resolve(__dirname, './src/pages'),
+            "@router": path.resolve(__dirname, '/src/router')
         }
       },
             coverage: {
