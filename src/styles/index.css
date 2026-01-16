@@ -3,6 +3,7 @@
 
 /* ---break--- */
 @custom-variant dark (&:is(.dark *));
+@custom-variant contrast (&:is(.contrast *));
 
 /* ---break--- */
 @theme inline {
@@ -74,7 +75,16 @@
   --input: hsl(0 0% 100%);
   --ring: hsl(180 29% 50%);
 
-  --font-sans: "Josefin Sans", system-ui, sans-serif;
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+
+  --muted: hsl(180 31% 95%);
+  --secondary: hsl(180 31% 95%);
+  --secondary-foreground: var(--foreground);
+
+  --destructive: hsl(0 84% 60%);
+
+  --font-sans: "League Spartan", system-ui, sans-serif;
 }
 
 /* ---break--- */
@@ -96,6 +106,15 @@
   --border: hsl(180 10% 25%);
   --input: hsl(180 10% 14%);
   --ring: hsl(180 45% 45%);
+
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+
+  --muted: hsl(180 31% 95%);
+  --secondary: hsl(180 31% 95%);
+  --secondary-foreground: var(--foreground);
+
+  --destructive: hsl(0 84% 60%);
 }
 
 .contrast {
@@ -111,6 +130,15 @@
   --muted-foreground: hsl(180 14% 10%);
   --border: hsl(180 14% 10%);
   --ring: hsl(180 100% 20%);
+
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+
+  --muted: hsl(180 31% 95%);
+  --secondary: hsl(180 31% 95%);
+  --secondary-foreground: var(--foreground);
+
+  --destructive: hsl(0 84% 60%);
 }
 
 /* ---break--- */
@@ -120,8 +148,8 @@
   }
 
   body {
-  @apply bg-background text-foreground;
-  font-family: var(--font-sans);
-  font-size: 18px;
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-size: 15px;
   }
 }
