@@ -7,7 +7,7 @@ function MainLayout ({ children }) {
     return (
         <div className="app-shell">
             <Header />
-            {children}
+                {children}
             <Footer />
         </div>
     );

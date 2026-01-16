@@ -1,16 +1,39 @@
-# React + Vite
+# FEM Job Listings App with Filtering
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the repo for my Capstone for Level 3 with CodeX. This app is still in progress.
 
-Currently, two official plugins are available:
+## Project Overview & Capstone Goals
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project implements the **Frontend Mentor – Job Listings with Filtering** challenge as a CodeX Level 3 capstone.
 
-## React Compiler
+The goal is to build a multi-page React application that:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Fetches job listing data from Supabase
+* Displays listings with interactive, AND-based tag filtering
+* Supports job detail views and graceful 404 handling
+* Uses modern component architecture, routing, and state management
+* Meets accessibility and responsiveness requirements
+* Includes component and logic testing using Vitest
+* Demonstrates clean separation of layout, routing, UI components, and logic
 
-## Expanding the ESLint configuration
+The focus is on **correct architecture, clarity, testability, and maintainability** , not pixel-perfect styling.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Here's my Project Status.
+
+## Project Status
+
+* Project scaffolded with Vite + React
+* Tailwind CSS installed and configured
+* shadcn/ui components installed and available for UI primitives
+* Supabase client configured with environment variables
+* Global layout implemented with shared header and footer
+* Header includes hero background and theme selector
+* Hero background uses a scoped Sass partial for breakpoint-based image swapping
+* Routing structure established for job list, job detail, and not found pages
+* Page-level UI and data rendering in progress
+
+## Resources
+
+* The Truth about CSS Breakpoints Most Teams Miss [https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints](https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints)
+*
+
