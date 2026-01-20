@@ -24,6 +24,7 @@ resolve: {
       '@utils': path.resolve(__dirname, './src/utils'),
       '@providers': path.resolve(__dirname, './src/providers'),
       "@pages": path.resolve(__dirname, './src/pages'),
+      "@ui": path.resolve(__dirname, './src/ui'),
       "@router": path.resolve(__dirname, '/src/router')
     },
   },

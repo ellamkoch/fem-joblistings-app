@@ -7,7 +7,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ["Josefin Sans", "ui-sans-serif", "system-ui"],
+      sans: ["League Spartan", "ui-sans-serif", "system-ui"],
     },
     extend: {
       colors: {},
