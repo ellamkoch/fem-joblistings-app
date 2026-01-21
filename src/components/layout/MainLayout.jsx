@@ -7,7 +7,9 @@ function MainLayout ({ children }) {
     return (
         <div className="app-shell">
             <Header />
-                {children}
+                <main className="mx-auto max-w-full p-8">
+                    {children}
+                </main>
             <Footer />
         </div>
     );

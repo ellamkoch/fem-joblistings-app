@@ -2,7 +2,7 @@
 //This file handles the render for the info on the main page - JobListPage. It pulls info with the custom hook useJobs from Supabase.
 
 //react imports
-// import { useState, useMemo } from "react";
+import { useMemo } from "react";
 
 import { Skeleton } from "@components/ui/skeleton";
 // import Card from "@components/shared/Card.component";
@@ -15,6 +15,7 @@ import JobCard from "@components/jobs/JobCard";
 import useJobs from "@hooks/useJobs";
 
 function JobList() {
+    // const [filter, setFilter] = useState("all");
     //1. need to destructure the custom hook
     const {
         jobs,
@@ -22,6 +23,12 @@ function JobList() {
         error
     } = useJobs();
 
+    // const allJobs = useMemo(() => jobs.length, [jobs]);
+
+    // const jobs = useMemo(() => jobs.filter((job) => {
+    //     // if (filter === "active") return !job.
+    //     // return true;
+    // }) [jobs ]);
     return (
         <>
             <div className="error">
@@ -31,7 +38,7 @@ function JobList() {
                         </p>
                     )}
 
-                    {!loading & !error && jobs.length === 0 && (
+                    {!loading && !error && jobs.length === 0 && (
                         <p className="no-jobs text-center text-lg">
                             All jobs have been filled at this time. Check back later.
                         </p>
@@ -47,7 +54,13 @@ function JobList() {
                             ))}
                         </div>
                     ) : (
-                        <div className="flex center">
+                        <div className="job-list">
+                            {jobs.map((job) => (
+                                <JobCard
+                                key={job.id}
+                                job={job}
+                                />
+                            ))}
                             <JobCard />
                         </div>
                     )

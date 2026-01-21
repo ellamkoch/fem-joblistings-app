@@ -3,14 +3,14 @@
 import { Routes, Route } from "react-router-dom";
 
 import NotFoundPage from "@pages/NotFoundPage";
-// import JobDetailPage from "@pages/JobDetailPage";
+import JobDetailPage from "@pages/JobDetailPage";
 import JobListPage from "@pages/JobListPage";
 
 function AppRouter() {
     return (
        <Routes>
             <Route path="/" element={<JobListPage />} />
-            {/* <Route path="/jobs/:id" element={<JobDetailPage />} /> */}
+            <Route path="/job/:id" element={<JobDetailPage />} />
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
 

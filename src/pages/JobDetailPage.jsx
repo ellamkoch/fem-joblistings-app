@@ -13,8 +13,12 @@ function JobDetailPage() {
     return (
         <div>
         <h1> These are the job details </h1>
+
         </div>
     );
 }
 
 export default JobDetailPage;
+
+
+//Idea - add in a prop to make the link "false on jobCArd for the reuise. "

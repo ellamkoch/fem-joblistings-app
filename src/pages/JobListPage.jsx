@@ -14,10 +14,10 @@ function JobListPage() {
     return (
         <>
         <div>
-       <Heading hLevel={1} className="text-xl primary">Job Listings</Heading>
+            <Heading hLevel={1} className="flex text-xl primary">Job Listings</Heading>
        </div>
        <div>
-        <JobList />
+            <JobList />
 
         </div>
         </>

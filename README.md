@@ -40,9 +40,15 @@ Here's my Project Status.
 * Confirmed loading skeleton renders during asynchronous data fetch
 * Integrated an initial JobCard render to validate visible job data output
 * Stabilized the baseline UI after resolving import/export mismatches and className issues
+* Job listings now render dynamically as cards using live Supabase data
+* Implemented JobCard component to display core job summary information
+* Wired dynamic routing from job titles to individual job detail pages (`/jobs/:id`)
+* Verified route parameter handling and successful navigation from list to detail view
+* Job detail page now renders as a valid route and is ready for data integration
 
 ## Resources
 
 * The Truth about CSS Breakpoints Most Teams Miss [https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints](https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints)
 * Random string from an array ideas for random Not Found Msg [https://forum.freecodecamp.org/t/is-it-possible-to-get-a-random-letter-from-a-string-element-inside-an-array/319223](https://forum.freecodecamp.org/t/is-it-possible-to-get-a-random-letter-from-a-string-element-inside-an-array/319223), [https://teamtreehouse.com/community/how-do-i-use-mathrandom-on-an-array-of-questions](https://teamtreehouse.com/community/how-do-i-use-mathrandom-on-an-array-of-questions), [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#:~:text=Math.-,random(),getRandomValues()%20method.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#:~:text=Math.-,random(),getRandomValues()%20method.)
+* React Router Docs [https://reactrouter.com/home](https://reactrouter.com/home)
 
