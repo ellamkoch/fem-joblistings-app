@@ -34,6 +34,12 @@ Here's my Project Status.
 * Theme context files added (ThemeProvider, useTheme, constants); wiring in progress
 * Not Found page implemented with a stable randomly selected message that persists across re-renders
 * Testing setup planned with Vitest per capstone requirements
+* Implemented a custom `useJobs` hook to retrieve job listings from Supabase (read-only, ordered by posting date)
+* Verified end-to-end data flow from Supabase through the hook and into the UI
+* Wired `JobList` to consume `useJobs`, including loading, error, and empty states
+* Confirmed loading skeleton renders during asynchronous data fetch
+* Integrated an initial JobCard render to validate visible job data output
+* Stabilized the baseline UI after resolving import/export mismatches and className issues
 
 ## Resources
 
