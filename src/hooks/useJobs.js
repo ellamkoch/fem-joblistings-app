@@ -3,7 +3,7 @@
 
 //imports
 import { useCallback, useEffect, useState } from "react";
-import { supabase } from "@lib/supabaseClient";
+import { supabase } from "@/lib/supabaseClient";
 
 function useJobs() {
     //1st - Need to set states owned by the hook
@@ -27,7 +27,7 @@ function useJobs() {
         } else {
             setJobs(data);
         }
-        setLoading(false);1
+        setLoading(false);
     }, []);
 
     // 3. Initial load when hook is first used

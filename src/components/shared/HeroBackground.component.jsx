@@ -5,8 +5,9 @@ import '@styles/_hero.scss';
 
 export default function HeroBackground() {
     return(
-        <div className="hero-container">
-            <div className="hero-img"></div>
+        <div className="hero-container h-full w-full object-contain">
+
+            <div className="hero-img">  </div>
         </div>
     );
 }
