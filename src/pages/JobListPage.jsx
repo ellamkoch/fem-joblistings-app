@@ -7,14 +7,13 @@ import JobList from "@components/jobs/JobList";
 // import Card from "@/components/shared/Card.component";
 // import FilterBar from "@components/jobs/FilterBar";
 
-// import { Skeleton } from "@/components/ui/skeleton";
 
 function JobListPage() {
 
     return (
         <>
         <div>
-            <Heading hLevel={1} className="flex text-xl primary">Job Listings</Heading>
+            <h1 className="hidden">Job Listings</h1>
        </div>
        <div>
             <JobList />

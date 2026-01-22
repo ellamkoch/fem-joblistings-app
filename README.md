@@ -46,9 +46,15 @@ Here's my Project Status.
 * Verified route parameter handling and successful navigation from list to detail view
 * Job detail page now renders as a valid route and is ready for data integration
 
+## Future Ideas
+
+In the current implementation, the job detail page reuses the existing `useJobs` hook and selects a single job by ID. In a production setting, this could be refactored to fetch an individual job record directly (e.g., via a dedicated `useJob(id)` hook) to reduce data fetching and improve scalability.
+
 ## Resources
 
 * The Truth about CSS Breakpoints Most Teams Miss [https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints](https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints)
 * Random string from an array ideas for random Not Found Msg [https://forum.freecodecamp.org/t/is-it-possible-to-get-a-random-letter-from-a-string-element-inside-an-array/319223](https://forum.freecodecamp.org/t/is-it-possible-to-get-a-random-letter-from-a-string-element-inside-an-array/319223), [https://teamtreehouse.com/community/how-do-i-use-mathrandom-on-an-array-of-questions](https://teamtreehouse.com/community/how-do-i-use-mathrandom-on-an-array-of-questions), [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#:~:text=Math.-,random(),getRandomValues()%20method.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#:~:text=Math.-,random(),getRandomValues()%20method.)
 * React Router Docs [https://reactrouter.com/home](https://reactrouter.com/home)
+* Find() in MDN docs for arrays [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+* TailwindCSS docs [https://tailwindcss.com/docs]9https://tailwindcss.com/docs)
 

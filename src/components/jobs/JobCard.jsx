@@ -15,8 +15,9 @@ import { Link } from "react-router";
 
 
 // import StatusBadge from "@components/shared/StatusBadge.component";
-// import JobBadge from "@components/shared/JobBadge.component";
-import { Card, CardHeader, CardAction, CardTitle, CardDescription, CardContent } from "@components/ui/card";
+import StatusBadge from "@components/shared/StatusBadge.component";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@components/ui/card";
+import { Separator } from "@components/ui/separator";
 // import Heading from "@components/shared/Heading.component";
 
 export default function JobCard ({ job }) {
@@ -28,6 +29,10 @@ export default function JobCard ({ job }) {
  //created variable to hold the template literal for the logo url saved in the table. logos are saved in a supabase folder and then public links to them are in the table in text.
     const logoSrc = job.logo_url;
 
+    //StatusBadge variables to convert the booleans from Supabase for the conditional UI
+    const newJob = job.is_new;
+    const featuredJob = job.is_featured;
+
     // const handleBadgeToggle = () => {
     //     onBadgeClick(job.id, !job.role, !job.level, !job.languages, !job.tools);
     // };
@@ -38,27 +43,42 @@ export default function JobCard ({ job }) {
     // };
 
     return (
-        <Card className="job-card-container flex">
-            <div className="logo w-auto h-auto">
+        <Card className="job-card-container px-4 md:mb-5 relative sm:py-5 py-15 xs:pb-10 mb-10 sm:static">
+            {/* <div className="error">
+                    {!newJob || !featuredJob || (
+                        <p className="job-badges hidden"></p>
+                    )}
+                </div> */}
+
+            <div className="flex sm:gap-2">
+            <div className="logo w-auto h-auto absolute -top-12 px-0 sm:static ">
                 {logoSrc && <img src={logoSrc} alt={`${job.company} logo`}/>}
             </div>
-                <CardHeader className="top-line">
-                    {job.company}
-                    <CardAction>
-                    <p> New/Featured Badges go here</p>
-                    </CardAction>
-                </CardHeader>
+                <div className="top-line px-4" >
+                        <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-primary font-bold pr-4">{job.company}</span>
+                            {(newJob || featuredJob) && (
+                                <StatusBadge isNew={newJob} isFeatured={featuredJob} />
+                            )}
+                        </div>
+                    </div>
+            </div>
             <CardTitle className="position">
                 <Link to={`/job/${job.id}`}>
                     {job.position}
                 </Link>
             </CardTitle>
+            <div className="justify-between">
             <CardDescription>
                 {job.posted_at} &middot; {job.contract} &middot; {job.location}
             </CardDescription>
-            <CardContent>
+            </div>
+            <Separator className="sm:hidden"></Separator>
+            <div className="">
+            <CardContent className="px-0">
                 <p>Job Badges will go here</p>
             </CardContent>
+            </div>
 
         </Card>
     );
