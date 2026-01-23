@@ -8,12 +8,12 @@ $desktop-breakpoint: 1024px; //common breakpoint to switch to desktop
     background-size: cover;
     background-position: center;
     background-image: url('../../public/images/bg-header-mobile.svg'); //mobile img
-    background-color: hsl(180, 29%, 50%);
+    background-color: hsl(180deg, 29%, 50%);
 
     //Desktop Styles 1020px & up
     @media (min-width: $desktop-breakpoint) {
         height: 200px;
         background-image: url('../../public/images/bg-header-desktop.svg');
-        background-color: hsl(180, 29%, 50%);
+        background-color: hsl(180deg, 29%, 50%);
     }
 }

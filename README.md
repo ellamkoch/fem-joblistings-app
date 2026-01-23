@@ -2,6 +2,32 @@
 
 This is the repo for my Capstone for Level 3 with CodeX. This app is still in progress.
 
+## Links
+
+Live Site:
+Repository: [https://github.com/ellamkoch/fem-joblistings-app](https://github.com/ellamkoch/fem-joblistings-app)
+
+## Setup & Running the Project
+
+1. Clone the repository
+2. Install dependencies:
+   npm install
+3. Create a `.env` file with the following variables:
+   VITE_SUPABASE_URL=...
+   VITE_SUPABASE_ANON_KEY=...
+4. Start the development server:
+   npm run dev
+
+## Environment Variables
+
+This project uses Vite environment variables for Supabase configuration:
+
+VITE_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY
+
+These values are required to run the app locally and should not be committed to the repository.
+
+
 ## Project Overview & Capstone Goals
 
 This project implements the **Frontend Mentor – Job Listings with Filtering** challenge as a CodeX Level 3 capstone.
@@ -18,7 +44,74 @@ The goal is to build a multi-page React application that:
 
 The focus is on **correct architecture, clarity, testability, and maintainability** , not pixel-perfect styling.
 
-Here's my Project Status.
+## My Process
+
+I approached this capstone by focusing on **one reliable end-to-end flow first** , then layering in additional behavior once the foundation was stable.
+
+I started by establishing a clean data pipeline from Supabase into React using a custom hook (`useJobs`) with explicit loading, error, and empty states. Once data rendering was stable, I implemented routing, core UI components, and responsive layout before introducing filtering behavior.
+
+Filtering was built using **React state only** , mirroring patterns used earlier in the course. Active filters are stored as state, while the visible job list is derived using `useMemo` and array helpers (`filter` and `reduce`) to support AND-based logic without mutating source data.
+
+Visual polish and responsiveness were addressed after functional correctness. Testing and coverage are intentionally deferred to a separate branch so the demo build remains stable and easy to reason about.
+
+## Architecture Overview
+
+* **Data Source:** Supabase (read-only; SELECT only)
+* **Custom Hook:** `useJobs`
+  * Fetches jobs
+  * Manages loading and error state
+  * Acts as the single source of truth for job data
+* **State:**
+  * Filter state stored locally in React
+  * No URL query syncing (per requirement)
+* **Derived Data:**
+  * `visibleJobs` computed from jobs + active filters using `useMemo`
+* **Filtering Logic:**
+  * AND-based badge filtering stored in React state
+  * Tag values normalized for consistent comparison
+  * Filtered job list derived via `useMemo` using `filter` and `reduce`
+  * Original job data is never mutated
+
+## Routes
+
+* **`/` — Job List Page**
+  * Fetches jobs via `useJobs`
+  * Renders loading, error, empty, and filtered states
+  * Supports interactive badge-based filtering
+* **`/jobs/:id` — Job Detail Page**
+  * Displays a single job by route parameter
+  * Reuses existing job data when available
+  * Handles “job not found” defensively
+* **`*` — Not Found Page**
+  * Catches invalid routes
+  * Displays one of three predefined messages
+  * Message is selected once on mount and remains stable across re-renders
+
+## Accessibility Notes
+
+Accessibility considerations are included throughout the UI:
+
+* Semantic HTML structure is used where possible
+* Interactive elements include appropriate `aria-labels`
+* Clickable badges and buttons are keyboard accessible
+* Focus states and hover states are preserved for usability
+* Empty and error states provide clear user feedback
+
+## Testing (Planned)
+
+* Vitest is configured for unit and component testing
+* Tests will be implemented on a separate branch to preserve demo stability
+* Planned coverage includes:
+  * Filter logic (unit test)
+  * UI behavior (component test)
+  * Snapshot test for a stable layout component
+
+### Test Commands
+
+npm run test:run
+npm run test:ui
+npm run test:coverage
+
 
 ## Project Status
 
@@ -68,7 +161,7 @@ Here's my Project Status.
 * Built reusable UI components for filter interactions, including display-only Filter Badges, per-filter remove (X) button, and Clear Filters button using shadcn/ui primitives
 * Scaffolded the FilterBar component to render active filters conditionally, deferring list-filtering logic to the Job List page
 * Prepared the filtering UI architecture for final wiring without introducing schema changes or hook refactors
-  * Completed end-to-end wiring of interactive job filtering using badge-based AND logic, allowing users to dynamically narrow results by role, level, language, and tools
+* Completed end-to-end wiring of interactive job filtering using badge-based AND logic, allowing users to dynamically narrow results by role, level, language, and tools
 * Centralized filter state management within the Job List component to mirror prior Todo app architecture and simplify explanation of derived data patterns
 * Implemented `useMemo`-based derived job list computation to efficiently recalculate visible jobs based on active filter state
 * Verified correct filter behavior for add, remove (single badge), and clear-all interactions without mutating original job data
@@ -80,6 +173,12 @@ Here's my Project Status.
 * Completed visual stabilization of filter interactions, including hover states, accessibility labels, and click targets
 * Verified complete demo-ready user flow: badge click → filter activation → dynamic list update → individual filter removal → full reset
 * Project is now functionally complete for capstone demo, with remaining scope focused on testing and validation
+* * Configured Stylelint to support Tailwind CSS and shadcn/ui by selectively relaxing import and at-rule validation
+* Resolved linter conflicts related to modern CSS syntax and framework-specific at-rules without modifying generated styles
+* Validated Stylelint configuration changes through incremental fixes rather than blanket autofix to prevent unintended style regressions
+* Confirmed clean Stylelint output for project CSS files after configuration updates
+* Stabilized linting workflow to support continued development and upcoming test implementation
+* Project codebase is now lint-clean and ready for deployment and test branch creation
 
 ## Future Ideas
 
