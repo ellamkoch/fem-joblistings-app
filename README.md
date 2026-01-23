@@ -62,6 +62,12 @@ Here's my Project Status.
 * Verified stable behavior for direct navigation to job detail routes (including page refreshes)
 * Confirmed end-to-end data flow from Supabase → custom hook → routed detail view without schema changes
 * Locked Job Detail page scope to functional completeness per capstone requirements (intentionally deferring visual polish)
+* Implemented reusable filter utility helpers (`normalizeTag`, `toggleFilter`, `removeFilter`, `clearFilter`) to manage active job badge filters using immutable array patterns
+* Incorporated `slice` and `splice` intentionally to demonstrate non-mutative state updates in filter logic (aligned with instructional guidance)
+* Finalized normalization strategy to ensure consistent filter comparison while preserving original badge casing for display
+* Built reusable UI components for filter interactions, including display-only Filter Badges, per-filter remove (X) button, and Clear Filters button using shadcn/ui primitives
+* Scaffolded the FilterBar component to render active filters conditionally, deferring list-filtering logic to the Job List page
+* Prepared the filtering UI architecture for final wiring without introducing schema changes or hook refactors
 
 ## Future Ideas
 
@@ -72,7 +78,7 @@ Additional potential enhancements include:
 * Introducing a prop-based option on the `JobCard` component to disable navigation links when reused within the Job Detail page
 * Refactoring long-form job text sections into smaller, presentational-only components to improve readability and maintainability
 * Enhancing semantic structure on the Job Detail page (e.g., converting multiline text fields into structured lists where appropriate)
-* Adding visual section separators and typography refinements to improve content hierarchy once core functionality is complete
+* Adding typography refinements to improve content hierarchy once core functionality is complete
 * Implementing memoized selectors or derived helpers for job lookup logic as data volume increases
 * Expanding accessibility considerations for long-form content (e.g., landmark regions and improved heading structure)
 
@@ -81,6 +87,7 @@ Additional potential enhancements include:
 * The Truth about CSS Breakpoints Most Teams Miss [https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints](https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints)
 * Random string from an array ideas for random Not Found Msg [https://forum.freecodecamp.org/t/is-it-possible-to-get-a-random-letter-from-a-string-element-inside-an-array/319223](https://forum.freecodecamp.org/t/is-it-possible-to-get-a-random-letter-from-a-string-element-inside-an-array/319223), [https://teamtreehouse.com/community/how-do-i-use-mathrandom-on-an-array-of-questions](https://teamtreehouse.com/community/how-do-i-use-mathrandom-on-an-array-of-questions), [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#:~:text=Math.-,random(),getRandomValues()%20method.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#:~:text=Math.-,random(),getRandomValues()%20method.)
 * React Router Docs [https://reactrouter.com/home](https://reactrouter.com/home)
-* Find() in MDN docs for arrays [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
-* TailwindCSS docs [https://tailwindcss.com/docs]9https://tailwindcss.com/docs)
+* MDN docs for Find(), splice(), slice(), filter(), reduce(), .findIndex, string normalization [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+* TailwindCSS docs [https://tailwindcss.com/docs](https://tailwindcss.com/docs)
+*
 
