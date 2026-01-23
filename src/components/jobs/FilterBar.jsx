@@ -4,36 +4,41 @@
 //  * X Button
 //  * ClearBtn.
 //Filter logic will be pulled into the JobList
+import { Card } from "@components/ui/card";
 
-import ClearBtn from "@components/shared/ClearBtn";
+import ClearBtn from "@components/shared/ClearBtn.component";
 import XBtn from "@components/shared/XBtn.component";
 import FilterBadge from "@components/shared/FilterBadge.component";
 
-  function FilterBar( {activeTags, removeFilter, clearFilter }) {
+  function FilterBar( {badges, removeFilter, clearFilter }) {
     //Guard so it doesn't render if there are no active filters running
-    if (!activeTags || activeTags.length === 0) {
+    if (!badges || badges.length === 0) {
         return null;
     }
 
     return (
-        <div className="filter-bar-container">
-            <div className="filter-card ">
-                <div className="flex flex-wrap gap-3">
-                    {activeTags.map((tag) => (
-                        <div
-                            key={tag}
-                            className="flex items-center ">
-                            <FilterBadge
-                            label={tag}/>
-                            <XBtn label={tag}
-                            removeFilter={removeFilter}
-                            />
-                        </div>
-                    ))}
-                </div>
+        <div className="filter-bar-container -mt-20 mb-15 relative z-10">
+            <Card className="filter-card rounded-lg shadow-md px-6 mt-3">
+                <div className="flex items-center justify-between gap-4">
+                    <div className="flex flex-wrap gap-3 flex-1">
+                        {badges.map((tag) => (
+                            <div
+                                key={tag}
+                                className="flex items-stretch overflow-hidden rounded-md ">
+                                <FilterBadge
+                                label={tag}/>
+                                <XBtn label={tag}
+                                removeFilter={removeFilter}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <div className="shrink-0">
                     <ClearBtn
                         clearFilter={clearFilter} />
-            </div>
+                        </div>
+                </div>
+            </Card>
         </div>
     );
   }

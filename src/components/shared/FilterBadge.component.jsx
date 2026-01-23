@@ -7,7 +7,8 @@ function FilterBadge({ label }) {
 
     return (
         <div className="pointer-events-none">
-            <JobBadge label={label}/>
+            <JobBadge label={label}
+            className="rounded-r-none hover:bg-secondary hover:text-inherit"/>
         </div>
     )
 

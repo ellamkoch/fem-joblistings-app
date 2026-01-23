@@ -11,8 +11,9 @@ function XBtn({ removeFilter, label }) {
       aria-label={`Remove ${label} filter`}
       onClick={() => removeFilter(label)}
       className="
-        h-4 w-4 p-0
-        bg-primary text-white
+        h-8 w-8 p-0
+        rounded-l-none rounded-r-xs
+        bg-primary text-secondary font-semibold
         hover:bg-black"
     >✕
     </Button>

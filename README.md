@@ -68,6 +68,18 @@ Here's my Project Status.
 * Built reusable UI components for filter interactions, including display-only Filter Badges, per-filter remove (X) button, and Clear Filters button using shadcn/ui primitives
 * Scaffolded the FilterBar component to render active filters conditionally, deferring list-filtering logic to the Job List page
 * Prepared the filtering UI architecture for final wiring without introducing schema changes or hook refactors
+  * Completed end-to-end wiring of interactive job filtering using badge-based AND logic, allowing users to dynamically narrow results by role, level, language, and tools
+* Centralized filter state management within the Job List component to mirror prior Todo app architecture and simplify explanation of derived data patterns
+* Implemented `useMemo`-based derived job list computation to efficiently recalculate visible jobs based on active filter state
+* Verified correct filter behavior for add, remove (single badge), and clear-all interactions without mutating original job data
+* Successfully normalized filter input values to ensure consistent comparison across database-authored fields while maintaining UI responsiveness
+* Integrated the FilterBar UI to conditionally render only when active filters are present
+* Aligned FilterBar layout and width with job listing cards across all breakpoints to ensure visual consistency
+* Implemented floating FilterBar positioning over the hero background using controlled negative margins and z-index layering
+* Finalized responsive FilterBar behavior for mobile and desktop, including badge wrapping and pinned Clear action
+* Completed visual stabilization of filter interactions, including hover states, accessibility labels, and click targets
+* Verified complete demo-ready user flow: badge click → filter activation → dynamic list update → individual filter removal → full reset
+* Project is now functionally complete for capstone demo, with remaining scope focused on testing and validation
 
 ## Future Ideas
 

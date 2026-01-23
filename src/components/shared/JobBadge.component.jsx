@@ -13,14 +13,12 @@ function JobBadge({ label, onToggle }) {
 
 
     return (
-        <div className="job-badges flex flex-wrap items-center gap-3">
-            <Badge
+        <Badge
                 variant="default"
                 onClick={() => onToggle(label)}
                 className={allJobBadges}
                 >{label}
             </Badge>
-        </div>
     );
 }
 

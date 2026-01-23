@@ -1,21 +1,28 @@
 //JobList.jsx
-//This file handles the render for the info on the main page - JobListPage. It pulls info with the custom hook useJobs from Supabase.
+//This file handles the render for the info on the main page - JobListPage. It pulls info with the custom hook useJobs from Supabase. It also pulls in the filter bar and handles the final logic of the filtering of the badges on the page w/ the clear button.
 
 //react imports
-// import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { Skeleton } from "@components/ui/skeleton";
-// import Card from "@components/shared/Card.component";
 
 //child components
 import JobCard from "@components/jobs/JobCard";
-// import FilterBar from "@components/jobs/FilterBar";
+import FilterBar from "@components/jobs/FilterBar";
 
 //custom hook import
 import useJobs from "@hooks/useJobs";
 
+import {
+  normalizeBadge,
+  toggleFilter,
+  removeFilter,
+  clearFilter,
+} from "@/utils/activeFilters";
+
 function JobList() {
-    // const [filter, setFilter] = useState("all");
+    //filterbar needs to be an empty array to start
+    const [filter, setFilter] = useState([]);
     //1. need to destructure the custom hook
     const {
         jobs,
@@ -23,13 +30,38 @@ function JobList() {
         error
     } = useJobs();
 
+    //handles the toggling of the badges for the filter
+    const handleFilterBadge = (badge) => {
+        const cleanBadge = normalizeBadge(badge);
+        setFilter((prevBadges) => toggleFilter(prevBadges, cleanBadge))
+    };
+    //removes 1 filter by clicking the X
+    const handleRemoveFilter = (badge) => {
+        const cleanBadge = normalizeBadge(badge);
+        setFilter((prevBadges) => removeFilter(prevBadges, cleanBadge));
+    };
+    //clears the whole filter bar
+    const handleClearFilter = () => {
+        setFilter(clearFilter());
+    };
 
-    // const allJobs = useMemo(() => jobs.length, [jobs]);
+    const visibleJobs = useMemo(() => jobs.filter((job) => {
+    // if no filters show everything
+    if (filter.length === 0) return true;
 
-    // const jobs = useMemo(() => jobs.filter((job) => {
-    //     // if (filter === "active") return !job.
-    //     // return true;
-    // }) [jobs ]);
+    // reduce filters down to one boolean: does job match ALL badges?
+    return filter.reduce((matchingBadges, badge) => {
+        if (!matchingBadges) return false;
+
+        if (normalizeBadge(job.role) === badge) return true;
+        if (normalizeBadge(job.level) === badge) return true;
+        if (job.languages && normalizeBadge(job.languages).includes(badge)) return true;
+        if (job.tools && normalizeBadge(job.tools).includes(badge)) return true;
+
+        return false;
+    }, true);
+    }), [jobs, filter]);
+
     return (
         <>
             <section>
@@ -46,6 +78,11 @@ function JobList() {
                             </p>
                         )}
                     </div>
+                        <FilterBar
+                            badges={filter}
+                            removeFilter={handleRemoveFilter}
+                            clearFilter={handleClearFilter}
+                        />
 
                         {loading ? (
                             <div className="skeleton divide-y divide-border">
@@ -58,14 +95,14 @@ function JobList() {
                             </div>
                         ) : (
                             <div className="job-list flex flex-col gap-y-4">
-                                {jobs.map((job) => (
+                                {visibleJobs.map((job) => (
                                     <JobCard
                                     key={job.id}
                                     job={job}
-                                    onToggleTag={() => {}}
+                                    onToggleTag={handleFilterBadge}
                                     />
                                 ))}
-                                <JobCard />
+
                             </div>
                         )
                     }

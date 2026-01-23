@@ -1,53 +1,53 @@
 //activeFilter.js
 //This file has helpers for managing the logic of the active job badges/tags for the filter
 //  * if a badge already exists it removes it, otherwise it adds to the filter
-//  * remove removes tag that is toggled on X button
+//  * remove removes badge that is toggled on X button
 //  * clear removes all tags
 // when toggling a badge, we return a new array
 
-function normalizeTag(tag) {
+function normalizeBadge(badge) {
     //"normalizes" the text to trim off anything extra and makes the text lowercase if its written in caps for consistency
-  return String(tag).trim().toLowerCase();
+  return String(badge).trim().toLowerCase();
 }
-//toggles the tags on/off in the active tag array
-function toggleFilter(activeTags, tag) {
-    //variable to save the tag/badge that we've normalized in the filter
-    const normalizedTag = normalizeTag(tag);
+//toggles the tags on/off in the active badge array
+function toggleFilter(activeBadges, badge) {
+    //variable to save the /badge that we've normalized in the filter
+    const normalizedBadge = normalizeBadge(badge);
 
-    //finds the index of the matching tags and compares what's been clicked to the normalized one
-     const existingIndex = activeTags.findIndex(
-    (t) => normalizeTag(t) === normalizedTag
+    //finds the index of the matching badges/tags and compares what's been clicked to the normalized one
+     const existingIndex = activeBadges.findIndex(
+    (b) => normalizeBadge(b) === normalizedBadge
   );
 
-     // slice copies the array to preserve it from the activeTags, nextTags is the new array
-    const nextTags = activeTags.slice();
+     // slice copies the array to preserve it from the activeBadges, nextBadges is the new array
+    const nextBadges = activeBadges.slice();
 
     if (existingIndex !== -1) {
-    // if a Tag exists, it removes it
-    nextTags.splice(existingIndex, 1);//this mutates the copied array, not the original. 
-    return nextTags;
+    // if a Badge exists, it removes it
+    nextBadges.splice(existingIndex, 1);//this mutates the copied array, not the original.
+    return nextBadges;
   }
 
-    // If a Tag doesn't exist, it adds it as originally provided
-    nextTags.push(String(tag).trim());
-    return nextTags;
+    // If a Badge doesn't exist, it adds it as originally provided
+    nextBadges.push(String(badge).trim());
+    return nextBadges;
     }
-//Removes a tag
-function removeFilter(activeTags, tag) {
-  const normalizedTag = normalizeTag(tag);
+//Removes a badge
+function removeFilter(activeBadges, badge) {
+  const normalizedBadge = normalizeBadge(badge);
 
-  return activeTags.filter(
-    (t) => normalizeTag(t) !== normalizedTag
+  return activeBadges.filter(
+    (b) => normalizeBadge(b) !== normalizedBadge
   );
 }
-//clears all tags and returns an empty array
+//clears all badges/tags and returns an empty array
 function clearFilter() {
   return [];
 }
 
 
 export {
-  normalizeTag,
+  normalizeBadge,
   toggleFilter,
   removeFilter,
   clearFilter,
