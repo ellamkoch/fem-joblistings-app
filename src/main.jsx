@@ -4,13 +4,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 //style imports
-// import "@styles/_hero.scss";
+
 import "@styles/index.css";
-// import '@styles/main.scss';
+
 //app import
 import App from '@/App.jsx';
 
-import { ThemeProvider } from '@/providers/themeProvider';
+import { ThemeProvider } from '@/providers/ThemeProviderhemeProvider';
 
 // Get the root element from the HTML
 const rootElement = document.getElementById('root');
