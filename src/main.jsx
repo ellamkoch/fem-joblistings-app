@@ -20,7 +20,7 @@ const rootElement = document.getElementById('root');
 createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
-      <ThemeProvider defaultTheme=''>
+      <ThemeProvider defaultTheme='dark'>
         <App />
       </ThemeProvider>
     </BrowserRouter>

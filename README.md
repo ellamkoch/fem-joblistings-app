@@ -4,7 +4,7 @@ This is the repo for my Capstone for Level 3 with CodeX. This app is still in pr
 
 ## Links
 
-Live Site:
+Live Site: [https://femjoblistings.netlify.app/](https://femjoblistings.netlify.app/)
 Repository: [https://github.com/ellamkoch/fem-joblistings-app](https://github.com/ellamkoch/fem-joblistings-app)
 
 ## Setup & Running the Project
