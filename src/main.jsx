@@ -10,7 +10,7 @@ import "@styles/index.css";
 //app import
 import App from '@/App.jsx';
 
-import { ThemeProvider } from '@/providers/ThemeProviderhemeProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 // Get the root element from the HTML
 const rootElement = document.getElementById('root');
