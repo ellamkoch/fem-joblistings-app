@@ -20,7 +20,7 @@ function useJobs() {
         const { data, error: queryError } = await supabase
         .from("jobs")
         .select("*")
-        .order("posted_at", {ascending: false});
+        .order("created_at", {ascending: true});
 
         if (queryError) {
             setError("Error loading job list: " + queryError.message);

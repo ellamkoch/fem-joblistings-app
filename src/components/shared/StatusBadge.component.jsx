@@ -10,22 +10,22 @@ function StatusBadge ({ isNew, isFeatured }) {
     const featuredBadge ="bg-foreground text-background text-center font-semibold pt-1.5 h-5 w-17 tracking-wide";
 
     return (
-        <div className="job-badges flex items-center gap-2">
+        <div className="status-badges flex items-center gap-2">
             {isNew && (
-            <Badge
-                variant="primary"
-                aria-label="new job"
-                className={newBadge}
-                >NEW!
-            </Badge>
-                )}
-                {isFeatured && (
-            <Badge
-                variant="primary"
-                aria-label="featured job"
-                className={featuredBadge}
-                >FEATURED
-            </Badge>
+                <Badge
+                    variant="default"
+                    aria-label="new job"
+                    className={newBadge}
+                    >NEW!
+                </Badge>
+                    )}
+                    {isFeatured && (
+                <Badge
+                    variant="default"
+                    aria-label="featured job"
+                    className={featuredBadge}
+                    >FEATURED
+                </Badge>
             )}
         </div>
     );

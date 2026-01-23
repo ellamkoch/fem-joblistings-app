@@ -9,10 +9,10 @@
 //  * eoe statement for the company
 // This page will have a back button to go back to the main page.
 
-
+import BackButton from "@/components/shared/BackButton.component";
 import Heading from "@/components/shared/Heading.component";
-import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
 
 import JobCard from "@/components/jobs/JobCard";
 import { useParams } from 'react-router-dom';
@@ -29,15 +29,14 @@ function JobDetailPage() {
     } = useJobs();
 
     //pulling the id of the page w/ useParams hook and putting it into a destructured variable.
-     const { id }  = useParams();
+     const { id } = useParams();
 
      // storing the job id from the user param into a variable. parseInt converts it so it can be read/matched.
-
     const selectedJob = jobs.find((currentJob => currentJob.id === parseInt(id)));
 
     return (
         <>
-            <Card>
+            <div>
                  <div className="error">
                     {error && (
                         <p className="error-text text-destructive text-center">
@@ -63,28 +62,65 @@ function JobDetailPage() {
                     </div>
                 ) : (
                      <div className="job-details-container">
+                        <div className="back-btn flex justify-end">
+                            <BackButton />
+                        </div>
                         {/* Needed selectedJob wrapped around this to get it to pull info and put it w/ the template literals. */}
                         {selectedJob && (
                             <div>
-
-                                 {/* <div>
-                                    <Heading hLevel={1} className="flex text-xl primary px-4 pb-4">
-                                        Job Details for a {selectedJob.position} with {selectedJob.company}
-                                    </Heading>
-                                   </div> */}
-
                                 <JobCard job={selectedJob}/>
-
                             </div>
                             )}
                     </div>
                 )}
-            </Card>
+                <div className="px-4">
+                    {selectedJob && (
+                        <div className="mt-8">
+                            <section className="">
+                                <Heading hLevel={2} className="text-lg">Job Description</Heading>
+                                    <p className="text-base whitespace-pre-line mt-1">
+                                        {selectedJob.jobdesc}
+                                    </p>
+                            <Separator />
+                                <Heading hLevel={3} className="text-lg  mt-4">Responsibilities</Heading>
+                                    <p className="text-base leading-none whitespace-pre-line mt-1">
+                                        {selectedJob.responsibilities}
+                                    </p>
+                            </section>
+                        <Separator />
+                            <section className="mt-4">
+                                <Heading hLevel={2} className="text-lg ">Requirements</Heading>
+                                    <p className="text-base leading-none whitespace-pre-line mt-1">
+                                        {selectedJob.requirements}
+                                    </p>
+                        <Separator />
+                                <div className="mt-4">
+                                    <Heading hLevel={3} className="text-lg ">Nice to Have</Heading>
+                                        <p className="text-base leading-none whitespace-pre-line mt-1">
+                                            {selectedJob.nice2have}
+                                        </p>
+                                </div>
+                            </section>
+                        <Separator />
+                            <section className="mt-4">
+                                <Heading hLevel={2} className="text-lg ">About</Heading>
+                                    <p className="text-base whitespace-pre-line mt-1">
+                                        {selectedJob.about}
+                                    </p>
+                            </section>
+                        <Separator />
+                            <section className="mt-4">
+                                <Heading hLevel={2} className="text-lg ">Equal Opportunity</Heading>
+                                    <p className=" opacity-70 whitespace-pre-line mt-1">
+                                        {selectedJob.eoestatement}
+                                    </p>
+                            </section>
+                        </div>
+                    )}
+                </div>
+            </div>
         </>
     );
 }
 
 export default JobDetailPage;
-
-
-//Idea - add in a prop to make the link "false" on jobCard when reusing that part.

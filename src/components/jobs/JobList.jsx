@@ -23,6 +23,7 @@ function JobList() {
         error
     } = useJobs();
 
+
     // const allJobs = useMemo(() => jobs.length, [jobs]);
 
     // const jobs = useMemo(() => jobs.filter((job) => {
@@ -61,6 +62,7 @@ function JobList() {
                                     <JobCard
                                     key={job.id}
                                     job={job}
+                                    onToggleTag={() => {}}
                                     />
                                 ))}
                                 <JobCard />
