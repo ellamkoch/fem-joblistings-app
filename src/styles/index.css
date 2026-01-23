@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ---break--- */
+@custom-variant dark (&:is(.dark *));
+@custom-variant contrast (&:is(.contrast *));
+
+/* ---break--- */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ---break--- light theme colors */
+:root {
+  --radius: 0.625rem;
+
+  /* Page */
+  --background: hsl(180deg 52% 96%);   /* Green 50 */
+  --foreground: hsl(180deg 14% 20%);   /* Green 900 */
+
+  /* Cards */
+  --card: hsl(0deg 0% 100%);
+  --card-foreground: var(--foreground);
+
+  /* Text */
+  --muted-foreground: hsl(180deg 8% 52%); /* Gray 400 */
+
+  /* Brand / interactive */
+  --primary: hsl(180deg 29% 50%);       /* teal from pills */
+  --primary-foreground: hsl(0deg 0% 100%);
+
+  /* Pills / tags */
+  --accent: hsl(180deg 31% 95%);
+  --accent-foreground: hsl(180deg 29% 50%);
+
+  /* Borders (barely visible) */
+  --border: hsl(180deg 20% 90%);
+  --input: hsl(0deg 0% 100%);
+  --ring: hsl(180deg 29% 50%);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --muted: hsl(180deg 31% 95%);
+  --secondary: hsl(180deg 52% 96%);
+  --secondary-foreground: var(--foreground);
+  --destructive: hsl(0deg 84% 60%);
+  --font-sans: "League Spartan", system-ui, sans-serif;
+}
+
+/* ---break--- */
+.dark {
+  --background: hsl(180deg 10% 10%);
+  --foreground: hsl(180deg 20% 92%);
+  --card: hsl(180deg 10% 14%);
+  --card-foreground: var(--foreground);
+  --muted-foreground: hsl(180deg 7% 70%);
+  --primary: hsl(180deg 45% 45%);
+  --primary-foreground: hsl(180deg 15% 10%);
+  --accent: hsl(180deg 15% 20%);
+  --accent-foreground: hsl(180deg 45% 65%);
+  --border: hsl(180deg 10% 25%);
+  --input: hsl(180deg 10% 14%);
+  --ring: hsl(180deg 45% 45%);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --muted: hsl(180deg 31% 95%);
+  --secondary: hsl(180deg 52% 96%); 
+  --secondary-foreground: var(--foreground);
+  --destructive: hsl(0deg 84% 60%);
+}
+
+.contrast {
+  --background: hsl(0deg 0% 100%);
+  --foreground: hsl(180deg 14% 10%);
+  --card: hsl(0deg 0% 100%);
+  --card-foreground: var(--foreground);
+  --primary: hsl(180deg 100% 20%);
+  --primary-foreground: hsl(0deg 0% 100%);
+  --muted-foreground: hsl(180deg 14% 10%);
+  --border: hsl(180deg 14% 10%);
+  --ring: hsl(180deg 100% 20%);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --muted: hsl(180deg 31% 95%);
+  --secondary: hsl(180deg 31% 95%);
+  --secondary-foreground: var(--foreground);
+  --destructive: hsl(0deg 84% 60%);
+}
+
+/* ---break--- */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+
+    font-family: var(--font-sans);
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,23 @@
+//This file is where we modify default styles for tailwind
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    fontFamily: {
+      sans: ["League Spartan", "ui-sans-serif", "system-ui"],
+    },
+    extend: {
+      colors: {},
+      borderRadius: {},
+      spacing: {},
+      width: {
+        halfValue: "50%",
+        fullValue: "100%",
+      },
+    },
+  },
+  plugins: [],
+};
