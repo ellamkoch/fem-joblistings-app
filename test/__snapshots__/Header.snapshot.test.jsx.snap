@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header (snapshot) > matches snapshot 1`] = `
+<div>
+  <div
+    class="header flex"
+  >
+    <div
+      data-testid="hero-background"
+    />
+  </div>
+</div>
+`;
