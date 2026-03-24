@@ -1,9 +1,9 @@
-//activeFilter.js
-//This file has helpers for managing the logic of the active job badges/tags for the filter
-//  * if a badge already exists it removes it, otherwise it adds to the filter
-//  * remove removes badge that is toggled on X button
-//  * clear removes all tags
-// when toggling a badge, we return a new array
+/**activeFilter.js
+This file has helpers for managing the logic of the active job badges/tags for the filter
+  * if a badge already exists it removes it, otherwise it adds to the filter
+  * remove removes badge that is toggled on X button
+  * clear removes all tags
+ when toggling a badge, we return a new array*/
 
 function normalizeBadge(badge) {
     //"normalizes" the text to trim off anything extra and makes the text lowercase if its written in caps for consistency

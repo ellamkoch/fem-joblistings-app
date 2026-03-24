@@ -3,7 +3,7 @@
 
 //imports
 import { useCallback, useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { listJobs } from "@/lib/api/jobs";
 
 function useJobs() {
     //1st - Need to set states owned by the hook
@@ -17,25 +17,19 @@ function useJobs() {
         setLoading(true);
         setError(null);
 
-        const { data, error: queryError } = await supabase
-        .from("jobs")
-        .select("*")
-        .order("created_at", {ascending: true});
-
-        if (queryError) {
-            setError("Error loading job list: " + queryError.message);
-        } else {
+        try {
+            const data = await listJobs();
             setJobs(data);
-        }
+        } catch (err) {
+            setError("There's a problem loading the job list: " + err.message);
+        } finally {
         setLoading(false);
+        }
     }, []);
 
     // 3. Initial load when hook is first used
     useEffect(() => {
-        const fetchJobs = async () => {
-            await loadJobs();
-        };
-        fetchJobs();
+        loadJobs();
     }, [loadJobs]);
 
     return {

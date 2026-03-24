@@ -79,7 +79,7 @@ function JobDetailPage() {
                             <section className="">
                                 <Heading hLevel={2} className="text-lg">Job Description</Heading>
                                     <p className="text-base whitespace-pre-line mt-1">
-                                        {selectedJob.jobdesc}
+                                        {selectedJob.jobDesc}
                                     </p>
                             <Separator />
                                 <Heading hLevel={3} className="text-lg  mt-4">Responsibilities</Heading>
@@ -112,7 +112,7 @@ function JobDetailPage() {
                             <section className="mt-4">
                                 <Heading hLevel={2} className="text-lg ">Equal Opportunity</Heading>
                                     <p className=" opacity-70 whitespace-pre-line mt-1">
-                                        {selectedJob.eoestatement}
+                                        {selectedJob.eoeStatement}
                                     </p>
                             </section>
                         </div>

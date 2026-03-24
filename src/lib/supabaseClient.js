@@ -1,13 +1,15 @@
-import { createClient } from '@supabase/supabase-js';
+/// <reference types="vite/types/importMeta.d.ts" />
+import { createBrowserClient } from "@supabase/ssr";
 
-//read values from env.local variables
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabasePublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-    console.error(
-        "Missing Supabase config. Check env.local for URL and ANON key against Supabase project settings."
-    );
+if (!supabaseUrl || !supabasePublishableKey) {
+  console.error(
+    "Missing Supabase config. Check env.local for URL and ANON key against Supabase project settings.",
+  );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export function supabaseClient() {
+  return createBrowserClient(supabaseUrl, supabasePublishableKey);
+}
