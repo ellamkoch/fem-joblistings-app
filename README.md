@@ -92,16 +92,20 @@ Additional frontend work is now focused on auth, protected routes, bookmarks, an
 ### Frontend Data Layer
 
 * `apiClient.js`
+
   * Central axios client for backend requests
   * Uses `VITE_API_BASE_URL` from Vite env vars
 * `jobs.js`
+
   * Contains frontend job request helpers
   * Unwraps API responses
   * Normalizes backend job data into the shape expected by the existing UI
 * `useJobs`
+
   * Loads jobs through the API layer
   * Manages loading and error state
   * Acts as the frontend source of truth for job list data
+* Job detail page currently derives its data from the loaded jobs list rather than making a separate API request
 
 ### State
 
@@ -121,15 +125,12 @@ Additional frontend work is now focused on auth, protected routes, bookmarks, an
 
 ## Routes
 
-* **`/` — Job List Page**
-
-  * Fetches jobs through the backend API using `useJobs`
-  * Renders loading, error, empty, and filtered states
-  * Supports interactive badge-based filtering
 * **`/jobs/:id` — Job Detail Page**
 
-  * Existing route is preserved
-  * Detail flow is being updated to align fully with backend-backed job data and UUID-based IDs
+  * * Loads job data from the backend-backed job list
+    * Matches jobs using UUID-based IDs
+    * Displays full job details including description, responsibilities, and requirements
+    * Handles missing or incomplete data gracefully
 * **`*` — Not Found Page**
 
   * Catches invalid routes
@@ -242,6 +243,7 @@ Planned improvements:
 * Global layout implemented with shared header and footer
 * Routing structure established for job list, job detail, and not found pages
 * Existing job listings UI, filtering UI, and job detail UI reused from the earlier version of the project
+* Complete deployment notes, env examples, and final README updates
 
 ### Frontend refactor to backend API — in progress
 
@@ -254,16 +256,18 @@ Planned improvements:
 * Updated `useJobs` to load jobs from the backend API instead of querying Supabase directly
 * Confirmed the job list now loads from the backend API successfully
 * Confirmed existing badge-based filtering still works with backend-loaded job data
-* Confirmed routing to the job detail page still triggers correctly
+* Implemented job detail page using backend-loaded job data
+* Confirmed routing from list → detail works with UUID-based IDs
+* Verified full frontend → backend → database data flow
 
 ### Current next steps
 
-* Finish refactoring the job detail page to fully match backend-backed data and UUID route params
 * Add login and register pages
 * Add JWT handling and protected route behavior
 * Build bookmark save/remove UI
 * Build bookmarks page
-* Complete deployment notes, env examples, and final README updates
+* Improve date formatting and conditional rendering for optional fields
+* Complete deployment notes and final README polish
 
 ## Future Ideas
 

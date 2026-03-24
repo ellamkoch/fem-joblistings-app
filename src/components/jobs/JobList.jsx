@@ -10,25 +10,23 @@ import { Skeleton } from "@components/ui/skeleton";
 import JobCard from "@components/jobs/JobCard";
 import FilterBar from "@components/jobs/FilterBar";
 
-//custom hook import
-import useJobs from "@hooks/useJobs";
-
 import {
   normalizeBadge,
   toggleFilter,
   removeFilter,
   clearFilter,
 } from "@/utils/activeFilters";
+import { useJobsContext } from "@/contexts/JobsContext";
 
 function JobList() {
     //filterbar needs to be an empty array to start
     const [filter, setFilter] = useState([]);
-    //1. need to destructure the custom hook
+    // jobs data is shared app-wide so the fetch only happens once
     const {
         jobs,
         loading,
         error
-    } = useJobs();
+    } = useJobsContext();
 
     //handles the toggling of the badges for the filter
     const handleFilterBadge = (badge) => {

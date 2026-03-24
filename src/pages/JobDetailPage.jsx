@@ -17,22 +17,22 @@ import { Separator } from "@/components/ui/separator";
 import JobCard from "@/components/jobs/JobCard";
 import { useParams } from 'react-router-dom';
 
-import useJobs from "@hooks/useJobs";
+import { useJobsContext } from "@/contexts/JobsContext";
 
 
 function JobDetailPage() {
-    //Destructure the hook for useJobs to use it to pull info in here.
+    // Read shared jobs state from the provider so we do not refetch here.
     const {
         jobs,
         loading,
         error
-    } = useJobs();
+    } = useJobsContext();
 
     //pulling the id of the page w/ useParams hook and putting it into a destructured variable.
      const { id } = useParams();
 
-     // storing the job id from the user param into a variable. parseInt converts it so it can be read/matched.
-    const selectedJob = jobs.find((currentJob => currentJob.id === parseInt(id)));
+     // Match route params against the normalized string ids returned by the API layer.
+    const selectedJob = jobs.find((currentJob) => currentJob.id === String(id));
 
     return (
         <>
