@@ -100,12 +100,14 @@ Additional frontend work is now focused on auth, protected routes, bookmarks, an
   * Contains frontend job request helpers
   * Unwraps API responses
   * Normalizes backend job data into the shape expected by the existing UI
+  * Supports both jobs list requests and single-job detail requests
 * `useJobs`
 
   * Loads jobs through the API layer
   * Manages loading and error state
   * Acts as the frontend source of truth for job list data
-* Job detail page currently derives its data from the loaded jobs list rather than making a separate API request
+* Job detail page fetches a single job by ID through the API layer
+* This supports direct navigation and page refresh without requiring the full jobs list first
 
 ### State
 
