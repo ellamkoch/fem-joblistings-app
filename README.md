@@ -79,7 +79,7 @@ I kept the existing UI structure where possible, then began replacing the old da
 
 Filtering remains React-state driven. Active filters are stored locally in the list view, while the visible job list is derived from the full jobs array using `useMemo` and array helpers. This preserves the original filtering behavior while allowing the data source to change underneath it.
 
-Additional frontend work is now focused on auth, protected routes, bookmarks, and deployment-ready documentation.
+Additional frontend work is now focused on register flow, bookmarks, and deployment-ready documentation.
 
 ## Architecture Overview
 
@@ -109,6 +109,18 @@ Additional frontend work is now focused on auth, protected routes, bookmarks, an
 * Job detail page fetches a single job by ID through the API layer
 * This supports direct navigation and page refresh without requiring the full jobs list first
 
+### Authentication Flow
+
+The frontend implements JWT-based authentication using the backend API.
+
+* Users are redirected to `/login` when attempting to access protected routes
+* The login form submits credentials to the backend auth endpoint
+* On success, the returned JWT is stored in local storage
+* The token is automatically attached to API requests via the centralized axios client
+* Auth state is managed through an `AuthProvider` and accessed via a custom `useAuth` hook
+* Auth state persists across page refresh using stored token restoration
+* Unauthorized responses (401) trigger automatic logout and token clearing
+
 ### State
 
 * Filter state is stored locally in React
@@ -126,6 +138,15 @@ Additional frontend work is now focused on auth, protected routes, bookmarks, an
 * Original job data is never mutated
 
 ## Routes
+
+* **`/login` — Login Page**
+
+* * Allows users to authenticate via the backend API
+  * Redirects authenticated users to protected routes
+* **Protected Routes**
+
+  * `/` (Job List) and `/jobs/:id` require authentication
+  * Unauthenticated users are redirected to `/login`
 
 * **`/jobs/:id` — Job Detail Page**
 
@@ -252,6 +273,7 @@ Planned improvements:
 * Removed direct frontend dependency on Supabase for the jobs list flow
 * Added a centralized frontend API client for backend requests
 * Added a frontend jobs API module to:
+
   * request jobs from the backend
   * unwrap the API response envelope
   * normalize backend job fields into the shape expected by the existing UI
@@ -261,11 +283,21 @@ Planned improvements:
 * Implemented job detail page using backend-loaded job data
 * Confirmed routing from list → detail works with UUID-based IDs
 * Verified full frontend → backend → database data flow
+* Implemented frontend authentication flow with login, token persistence, and protected routes
+* Verified end-to-end auth behavior including redirect, refresh persistence, and route protection
+* Added frontend authentication flow:
+* * Login page built using shadcn/ui components
+  * Connected login form to backend auth API
+  * Extracted and stored JWT in local storage
+  * Implemented auth context/provider for frontend auth state
+  * Configured axios client to attach bearer token automatically
+  * Added global 401 handling and token clearing behavior
+  * Implemented protected routes using a `ProtectedRoute` wrapper
+  * Confirmed auth state persists across page refresh
 
 ### Current next steps
 
-* Add login and register pages
-* Add JWT handling and protected route behavior
+* Add register page
 * Build bookmark save/remove UI
 * Build bookmarks page
 * Improve date formatting and conditional rendering for optional fields

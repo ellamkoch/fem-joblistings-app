@@ -1,5 +1,14 @@
+// jobs.js
+// API helpers for fetching and normalizing job listing data.
+
 import { apiClient } from "./apiClient";
 
+/**
+ * Unwraps common API response envelopes.
+ *
+ * @param {unknown} payload - Raw backend response payload.
+ * @returns {unknown} Unwrapped response data.
+ */
 function unwrapData(payload) {
     if (payload && typeof payload === "object" && "data" in payload) {
         return payload.data;
@@ -7,6 +16,12 @@ function unwrapData(payload) {
     return payload;
 }
 
+/**
+ * Extracts the jobs array from supported response shapes.
+ *
+ * @param {unknown} payload - Raw backend response payload.
+ * @returns {Array<object>} Jobs array or an empty list.
+ */
 function unwrapJobList(payload) {
     const data = unwrapData(payload);
 
@@ -19,6 +34,12 @@ function unwrapJobList(payload) {
     return [];
 }
 
+/**
+ * Normalizes backend job fields into the frontend shape used across the app.
+ *
+ * @param {object} job - Raw job record from the API.
+ * @returns {object} Normalized job object.
+ */
 function normalizeJob(job) {
     return {
       id: String(job?.id ?? ""),
@@ -42,6 +63,12 @@ function normalizeJob(job) {
     };
 }
 
+/**
+ * Fetches all jobs from the backend and normalizes them for the UI.
+ *
+ * @param {object} [options={}] - Optional axios request config.
+ * @returns {Promise<Array<object>>} Normalized jobs list.
+ */
 export async function listJobs(options = {}) {
     const res = await apiClient.get('/jobs', options);
     return unwrapJobList(res.data).map(normalizeJob);
