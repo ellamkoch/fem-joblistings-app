@@ -1,4 +1,4 @@
-# EM Job Listings App with Filtering
+# FEM Job Listings App with Filtering
 
 This is the frontend repository for my CodeX Level 4 capstone project. This app is still in progress.
 
@@ -62,7 +62,7 @@ The current goals are to build a frontend that:
 * Fetches job listing data from my Express API
 * Displays listings with interactive, AND-based tag filtering
 * Supports job detail views
-* Supports user-specific bookmarks
+* Supports user-specific bookmarks with save/remove functionality and a dedicated bookmarks page
 * Demonstrates a real frontend → API → database flow
 * Meets loading, error, validation, and protected-route requirements for the capstone
 * Implements authentication flows for register, login, and logout
@@ -79,7 +79,7 @@ I kept the existing UI structure where possible, then began replacing the old da
 
 Filtering remains React-state driven. Active filters are stored locally in the list view, while the visible job list is derived from the full jobs array using `useMemo` and array helpers. This preserves the original filtering behavior while allowing the data source to change underneath it.
 
-Additional frontend work is now focused on register flow, bookmarks, and deployment-ready documentation.
+Additional frontend work is now focused on completing the bookmarks feature (including save/remove actions and a bookmarks page) and deployment-ready documentation.
 
 ## Architecture Overview
 
@@ -108,6 +108,22 @@ Additional frontend work is now focused on register flow, bookmarks, and deploym
   * Acts as the frontend source of truth for job list data
 * Job detail page fetches a single job by ID through the API layer
 * This supports direct navigation and page refresh without requiring the full jobs list first
+* `bookmarks.js`
+
+  * Contains frontend bookmark request helpers
+  * Reuses shared API response unwrapping logic
+  * Reuses job normalization to convert bookmark results into UI-ready job objects
+  * Supports bookmark list, create, and delete actions
+
+### Bookmark Feature Notes
+
+The bookmarks feature is implemented as a user-specific relationship between users and jobs.
+
+On the frontend:
+
+* Bookmark create/delete actions are treated as simple API mutations
+* Bookmark list responses are transformed into normalized job objects
+* This allows the bookmarks page to reuse the existing JobCard component without introducing a separate bookmark-specific UI model
 
 ### Authentication Flow
 
@@ -238,7 +254,7 @@ Validated behaviors:
 * Authentication (register/login)
 * Protected route access with JWT
 * Jobs resource (list and detail endpoints)
-* Bookmarks resource (create, list, delete)
+* Bookmarks resource (create, list, delete) with user-specific persisitence
 * Data persistence after refresh
 * Error handling for invalid input and unauthorized requests
 
@@ -299,8 +315,8 @@ Planned improvements:
 
 ### Current next steps
 
-* Build bookmark save/remove UI
-* Build bookmarks page
+* Build bookmark save/remove toggle on job listings
+* Build bookmarks page using normalized job data and existing JobCard UI
 * Improve date formatting and conditional rendering for optional fields
 * Complete deployment notes and final README polish
 
@@ -324,3 +340,8 @@ Additional potential enhancements include:
 * [MDN Array Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
 * [MDN Math.random()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
 * [BrowserStack: CSS Breakpoints Guide](https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints)
+* Bookmark data follows the same pattern as jobs:
+
+  * API responses are unwrapped from the backend envelope
+  * Bookmark records are transformed by extracting the nested job data
+  * Job normalization is reused to ensure consistent UI shape across job list and bookmarks views

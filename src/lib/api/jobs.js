@@ -9,7 +9,7 @@ import { apiClient } from "./apiClient";
  * @param {unknown} payload - Raw backend response payload.
  * @returns {unknown} Unwrapped response data.
  */
-function unwrapData(payload) {
+export function unwrapData(payload) {
     if (payload && typeof payload === "object" && "data" in payload) {
         return payload.data;
     }
@@ -40,7 +40,7 @@ function unwrapJobList(payload) {
  * @param {object} job - Raw job record from the API.
  * @returns {object} Normalized job object.
  */
-function normalizeJob(job) {
+export function normalizeJob(job) {
     return {
       id: String(job?.id ?? ""),
       company: String(job?.company ?? ""),
