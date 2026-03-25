@@ -14,6 +14,7 @@ import Heading from "@/components/shared/Heading.component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 
+import ProtectedPageHeader from "@/components/auth/ProtectedPageHeader";
 import JobCard from "@/components/jobs/JobCard";
 import { useParams } from 'react-router-dom';
 
@@ -62,9 +63,14 @@ function JobDetailPage() {
                     </div>
                 ) : (
                      <div className="job-details-container">
-                        <div className="back-btn flex justify-end">
-                            <BackButton />
-                        </div>
+                        <ProtectedPageHeader>
+                            <div className="space-y-1">
+                                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                                    Job Details
+                                </p>
+                                <BackButton />
+                            </div>
+                        </ProtectedPageHeader>
                         {/* Needed selectedJob wrapped around this to get it to pull info and put it w/ the template literals. */}
                         {selectedJob && (
                             <div>

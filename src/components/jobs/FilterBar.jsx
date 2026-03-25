@@ -17,7 +17,7 @@ import FilterBadge from "@components/shared/FilterBadge.component";
     }
 
     return (
-        <div className="filter-bar-container -mt-20 mb-15 relative z-10">
+        <div className="filter-bar-container -mt-20 mb-15 relative z-20">
             <Card className="filter-card rounded-lg shadow-md px-6 mt-3">
                 <div className="flex items-center justify-between gap-4">
                     <div className="flex flex-wrap gap-3 flex-1">

@@ -1,4 +1,4 @@
-# FEM Job Listings App with Filtering
+# EM Job Listings App with Filtering
 
 This is the frontend repository for my CodeX Level 4 capstone project. This app is still in progress.
 
@@ -62,10 +62,10 @@ The current goals are to build a frontend that:
 * Fetches job listing data from my Express API
 * Displays listings with interactive, AND-based tag filtering
 * Supports job detail views
-* Adds authentication flows for register and login
 * Supports user-specific bookmarks
 * Demonstrates a real frontend → API → database flow
 * Meets loading, error, validation, and protected-route requirements for the capstone
+* Implements authentication flows for register, login, and logout
 
 The focus is on **clear architecture, real API integration, maintainability, and explainable data flow**.
 
@@ -114,11 +114,16 @@ Additional frontend work is now focused on register flow, bookmarks, and deploym
 The frontend implements JWT-based authentication using the backend API.
 
 * Users are redirected to `/login` when attempting to access protected routes
+* Users can create an account via the `/register` page
+* The register form submits user data to the backend auth endpoint
+* If the backend returns a token, the user is automatically logged in after registration
+* If no token is returned, the user is redirected to `/login`
 * The login form submits credentials to the backend auth endpoint
 * On success, the returned JWT is stored in local storage
 * The token is automatically attached to API requests via the centralized axios client
 * Auth state is managed through an `AuthProvider` and accessed via a custom `useAuth` hook
 * Auth state persists across page refresh using stored token restoration
+* Users can log out from protected pages, which clears local auth state and redirects to `/login`
 * Unauthorized responses (401) trigger automatic logout and token clearing
 
 ### State
@@ -141,13 +146,12 @@ The frontend implements JWT-based authentication using the backend API.
 
 * **`/login` — Login Page**
 
-* * Allows users to authenticate via the backend API
+  * Allows users to authenticate via the backend API
   * Redirects authenticated users to protected routes
 * **Protected Routes**
 
   * `/` (Job List) and `/jobs/:id` require authentication
   * Unauthenticated users are redirected to `/login`
-
 * **`/jobs/:id` — Job Detail Page**
 
   * * Loads job data from the backend-backed job list
@@ -283,21 +287,18 @@ Planned improvements:
 * Implemented job detail page using backend-loaded job data
 * Confirmed routing from list → detail works with UUID-based IDs
 * Verified full frontend → backend → database data flow
-* Implemented frontend authentication flow with login, token persistence, and protected routes
-* Verified end-to-end auth behavior including redirect, refresh persistence, and route protection
-* Added frontend authentication flow:
-* * Login page built using shadcn/ui components
-  * Connected login form to backend auth API
-  * Extracted and stored JWT in local storage
-  * Implemented auth context/provider for frontend auth state
-  * Configured axios client to attach bearer token automatically
-  * Added global 401 handling and token clearing behavior
-  * Implemented protected routes using a `ProtectedRoute` wrapper
-  * Confirmed auth state persists across page refresh
+* Implemented complete frontend authentication flow:
+
+  * Login and register pages built using shadcn/ui
+  * JWT storage and persistence across refresh
+  * Auth context/provider for frontend auth state
+  * Axios client configured with bearer token
+  * Protected routes using `ProtectedRoute`
+  * Logout functionality with resilient local state clearing
+  *
 
 ### Current next steps
 
-* Add register page
 * Build bookmark save/remove UI
 * Build bookmarks page
 * Improve date formatting and conditional rendering for optional fields

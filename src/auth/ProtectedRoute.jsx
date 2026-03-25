@@ -13,7 +13,7 @@ import { useAuth } from "@/auth/useAuth";
  * @returns {JSX.Element} The protected content or a redirect to login.
  */
 export function ProtectedRoute({ children }) {
-    const location = useLocation();
+    const location = useLocation(); //useLocation gives the page access to the current React Router location object
     const { isAuthenticated } = useAuth();
 
      if (!isAuthenticated) {

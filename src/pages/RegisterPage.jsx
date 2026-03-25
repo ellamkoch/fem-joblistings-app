@@ -1,11 +1,13 @@
-// LoginPage.jsx
-// Renders the sign-in form and connects it to the existing auth/token flow.
+// RegisterPage.jsx
+// Renders the registration form and connects it to the auth API flow.
 
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import AuthPageShell from "@/components/auth/AuthPageShell";
+import { useAuth } from "@/auth/useAuth";
 import { getAuthToken } from "@/auth/getAuthToken";
+import AuthPageShell from "@/components/auth/AuthPageShell";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,8 +15,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -23,22 +23,23 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { login } from "@/lib/api/auth";
-import { useAuth } from "@/auth/useAuth";
+import { Input } from "@/components/ui/input";
+import { register } from "@/lib/api/auth";
 
 /**
- * Displays the login form and stores the returned auth token on success.
+ * Displays the registration form and handles post-submit auth behavior.
  *
- * @returns {JSX.Element} The login page.
+ * @returns {JSX.Element} The register page.
  */
-function LoginPage() {
+function RegisterPage() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); //fallback in case users come here from a protected route. it redirects them back after register
   const { login: saveAuthToken } = useAuth();
 
   const form = useForm({
     defaultValues: {
-      email: location.state?.registeredEmail ?? "",
+      email: "",
+      name: "",
       password: "",
     },
   });
@@ -47,37 +48,44 @@ function LoginPage() {
     form.clearErrors("root");
 
     try {
-      const response = await login(values);
+      const response = await register(values);
       const token = getAuthToken(response);
 
-      if (!token) {
-        throw new Error("Login succeeded, but no auth token was returned.");
+      if (token) {
+        saveAuthToken(token);
+
+        const redirectTo = location.state?.from?.pathname ?? "/";
+        navigate(redirectTo, { replace: true });
+        return;
       }
 
-      saveAuthToken(token);
-
-      // Send the user back to the page that triggered the login redirect.
-      const redirectTo = location.state?.from?.pathname ?? "/";
-      navigate(redirectTo, { replace: true });
+      navigate("/login", {
+        replace: true,
+        state: {
+          registeredEmail: values.email,
+          message: "Account created. Sign in with your new credentials.",
+        },
+      });
     } catch (error) {
       form.setError("root", {
         type: "server",
-        message: error.message || "Unable to log in right now. Please try again.",
+        message:
+          error.message || "Unable to create your account right now. Please try again.",
       });
     }
   }
 
   return (
     <AuthPageShell
-      eyebrow="Welcome back"
-      title="Login"
-      description="Sign in to continue managing job listings and picking up where you left off."
+      eyebrow="Create account"
+      title="Register"
+      description="Set up your account to manage job listings and keep your search organized."
     >
       <Card className="rounded-2xl border-border/70 shadow-xl">
         <CardHeader className="gap-1.5">
-          <CardTitle className="text-2xl">Welcome back</CardTitle>
+          <CardTitle className="text-2xl">Join the dashboard</CardTitle>
           <CardDescription className="text-base">
-            Enter your email and password below.
+            Enter your email, name, and password to get started.
           </CardDescription>
         </CardHeader>
 
@@ -112,6 +120,27 @@ function LoginPage() {
 
               <FormField
                 control={form.control}
+                name="name"
+                rules={{
+                  required: "Name is required.",
+                }}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        autoComplete="name"
+                        placeholder="Jane Doe"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name="password"
                 rules={{
                   required: "Password is required.",
@@ -122,8 +151,8 @@ function LoginPage() {
                     <FormControl>
                       <Input
                         type="password"
-                        autoComplete="current-password"
-                        placeholder="Enter your password"
+                        autoComplete="new-password"
+                        placeholder="Create a password"
                         {...field}
                       />
                     </FormControl>
@@ -131,12 +160,6 @@ function LoginPage() {
                   </FormItem>
                 )}
               />
-
-              {location.state?.message ? (
-                <p className="rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-foreground">
-                  {location.state.message}
-                </p>
-              ) : null}
 
               <FormMessage>{form.formState.errors.root?.message}</FormMessage>
 
@@ -146,17 +169,17 @@ function LoginPage() {
                   disabled={form.formState.isSubmitting}
                   type="submit"
                 >
-                  {form.formState.isSubmitting ? "Logging in..." : "Log in"}
+                  {form.formState.isSubmitting ? "Creating account..." : "Create account"}
                 </Button>
 
                 <p className="text-center text-sm text-muted-foreground">
-                  Need an account?{" "}
+                  Already registered?{" "}
                   <Button
                     asChild
                     className="h-auto px-0 py-0 text-sm font-semibold"
                     variant="link"
                   >
-                    <Link to="/register">Register</Link>
+                    <Link to="/login">Log in</Link>
                   </Button>
                 </p>
               </div>
@@ -168,4 +191,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
