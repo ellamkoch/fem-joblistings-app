@@ -1,9 +1,7 @@
-//FilterBar
-// This file renders the filter bar and the following styled components:
-//  * Filter Badges,
-//  * X Button
-//  * ClearBtn.
-//Filter logic will be pulled into the JobList
+/*
+ * Renders the active filter bar, including filter badges, remove buttons,
+ * and the clear-all action. Filtering behavior itself lives in JobList.
+ */
 import { Card } from "@components/ui/card";
 
 import ClearBtn from "@components/shared/ClearBtn.component";
@@ -11,7 +9,7 @@ import XBtn from "@components/shared/XBtn.component";
 import FilterBadge from "@components/shared/FilterBadge.component";
 
   function FilterBar( {badges, removeFilter, clearFilter }) {
-    //Guard so it doesn't render if there are no active filters running
+    // Do not render when there are no active filters.
     if (!badges || badges.length === 0) {
         return null;
     }

@@ -1,17 +1,8 @@
-//JobCard.jsx
-//This file displays a single card with the info as a list and is imported into the JobList.
-//Clicking company name takes you to the job details page for that job.
-//Clicking the badges (Role/Level/Language/tools) on a job will make the jobs filter. Filter logic owned by JobListPage.
-//It displays:
-//  * Logo_url (logo files are saved in supabase, url is in table)
-//  * Company
-//  * Status Badges (New/Featured)
-//  * Position
-//  * Posted_at date
-//  * Contract (FT/PT/Contract)
-//  * Location
-//  * Job Badges for filtering (role, level, languages, tools) (no filter log here)
-//  * Bookmark save/remove action when bookmark handlers are passed in
+/*
+ * Displays a single job card for the list, detail, and bookmark views.
+ * Company and position link to the job details page, while badges can
+ * trigger filtering when a toggle handler is provided.
+ */
 import { Link } from "react-router";
 
 
@@ -20,8 +11,6 @@ import StatusBadge from "@components/shared/StatusBadge.component";
 import { Card, CardTitle, CardDescription, CardContent } from "@components/ui/card";
 import { Separator } from "@components/ui/separator";
 import BookmarkButton from "@/components/jobs/BookmarkButton";
-// import Heading from "@components/shared/Heading.component";
-
 /**
  * Renders a single job card for the list, detail, and bookmarks views.
  *
@@ -42,18 +31,19 @@ export default function JobCard ({
     addBookmark,
     removeBookmark,
 }) {
-
-    //guard error
+    // Guard against missing job data.
     if (!job) {
         return null;
     }
- //created variable to hold the template literal for the logo url saved in the table. logos are saved in a supabase folder and then public links to them are in the table in text.
+
+    // Logo URLs are already normalized from the backend.
     const logoSrc = job.logo_url;
 
-    //StatusBadge variables to convert the booleans from Supabase for the conditional UI render
+    // Normalize badge booleans for the conditional UI.
     const newJob = job.is_new;
     const featuredJob = job.is_featured;
-    //Split the text in these fields from Supabase into an array so they can be mapped to each job on the list for the Card here.
+
+    // Split multi-line text fields into arrays for badge rendering.
     const selectedLanguages =
       job.languages ? job.languages.split("\n").filter(Boolean) : [];
 

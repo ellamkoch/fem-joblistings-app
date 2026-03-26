@@ -1,13 +1,13 @@
-//This file decides what page content goes inside the layout
+/* Decides what page content goes inside the shared layout. */
 import AppRouter from "@router/AppRouter";
-import MainLayout from "@components/layout/MainLayout.jsx";//imports header/footer, hero, centering
+import MainLayout from "@components/layout/MainLayout.jsx";
 import { JobsProvider } from "@/providers/JobsProvider";
 import { BookmarksProvider } from "@/providers/BookmarksProvider";
-// import JobList from "@components/jobs/JobList.jsx";//imports Jobs UI
 
 /**
  * Root App component.
-   * @returns {JSX.Element} The App component.
+ *
+ * @returns {JSX.Element} The App component.
  */
 export default function App() {
   return (

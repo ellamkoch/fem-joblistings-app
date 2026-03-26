@@ -1,6 +1,4 @@
-// Title.component.jsx
-//     * Style Component: Title
-//     * A reusable title component for consistent styling of headings.
+/* Reusable heading component for consistent title styling. */
 
 const Heading =( { children, hLevel = 1, className = "" }) => {
     const Tag =`h${hLevel}`;

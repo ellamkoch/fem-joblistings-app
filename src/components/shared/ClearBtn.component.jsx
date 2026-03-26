@@ -1,6 +1,4 @@
-//ClearButton.component
-//This file clears out the FilterBar of all the Active Badges/Tags used for filtering the joblist with one click.
-//shadcn imports
+/* Clears all active filter badges from the filter bar in one click. */
 import { Button } from "@components/ui/button";
 
 function ClearBtn({ clearFilter }) {

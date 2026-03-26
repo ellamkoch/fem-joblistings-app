@@ -1,10 +1,7 @@
-//JobBadge.component.jsx
-//This file is for the job badges and encompasses the following fields from Supabase
-//  * role
-//  * level
-//  * languages
-//  * tools
-// Badges will be clickable so you can filter jobs based upon what is clicked.
+/*
+ * Shared badge component for job metadata such as role, level,
+ * languages, and tools. Badges can also act as filter triggers.
+ */
 
 import { Badge } from "@/components/ui/badge";
 

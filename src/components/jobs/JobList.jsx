@@ -1,15 +1,12 @@
-//JobList.jsx
-//This file handles the render for the info on the main page - JobListPage. It pulls info with the custom hook useJobs from Supabase. It also pulls in the filter bar and handles the final logic of the filtering of the badges on the page w/ the clear button.
+/*
+ * Renders the main jobs feed, pulls shared jobs state, and keeps
+ * badge-filtering interactions local to the page.
+ */
 
-//react imports
 import { useMemo, useState } from "react";
-
 import { Skeleton } from "@components/ui/skeleton";
-
-//child components
 import JobCard from "@components/jobs/JobCard";
 import FilterBar from "@components/jobs/FilterBar";
-
 import {
   normalizeBadge,
   toggleFilter,
@@ -25,7 +22,7 @@ import { useJobsContext } from "@/contexts/JobsContext";
  * @returns {JSX.Element} Filterable job list.
  */
 function JobList() {
-    //filterbar needs to be an empty array to start
+    // Start with no active filters.
     const [filter, setFilter] = useState([]);
     // jobs data is shared app-wide so the fetch only happens once
     const {
@@ -40,17 +37,17 @@ function JobList() {
       [bookmarksState.bookmarks],
     );
 
-    //handles the toggling of the badges for the filter
+    // Toggle one badge in the active filter set.
     const handleFilterBadge = (badge) => {
         const cleanBadge = normalizeBadge(badge);
         setFilter((prevBadges) => toggleFilter(prevBadges, cleanBadge))
     };
-    //removes 1 filter by clicking the X
+    // Remove a single badge from the active filter set.
     const handleRemoveFilter = (badge) => {
         const cleanBadge = normalizeBadge(badge);
         setFilter((prevBadges) => removeFilter(prevBadges, cleanBadge));
     };
-    //clears the whole filter bar
+    // Clear the entire filter bar.
     const handleClearFilter = () => {
         setFilter(clearFilter());
     };

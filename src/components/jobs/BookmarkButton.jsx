@@ -1,5 +1,4 @@
-//BookmarkButton.jsx
-//This file renders the bookmark action control used on job cards and job details.
+/* Renders the bookmark action control used on job cards and job details. */
 
 import { Bookmark, BookmarkX } from "lucide-react";
 

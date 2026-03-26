@@ -1,6 +1,7 @@
-//FilterBadge.component
-//This file is for the styling for the Filtered Badges.
-//Reusing the JobBadges for styling simplicity, put passing through props so its display only here and badges/tags are removed by the X or Clear Btns.
+/*
+ * Display-only filter badge used in the active filter bar.
+ * Reuses the shared JobBadge styling without making the badge itself interactive.
+ */
 import JobBadge from "@/components/shared/JobBadge.component";
 
 function FilterBadge({ label }) {

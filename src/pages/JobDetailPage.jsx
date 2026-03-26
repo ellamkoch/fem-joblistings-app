@@ -1,13 +1,13 @@
-//JobDetailPage.jsx
+/**JobDetailPage.jsx
 //This file will dynamically show the details of the job that is selected from the main page, the JobListPage. Its linked to ids in the supabase table to pull the info needed for the page, which is:
-//  * A card with the job info from the listing
-//  * A job desc
-//  * job responsibilities
-//  * job requirements
-//  * nice2have skills for the job
-//  * about the company
-//  * eoe statement for the company
-// This page will have a back button to go back to the main page.
+ * A card with the job info from the listing
+ * A job desc
+ * job responsibilities
+ * job requirements
+ * nice2have skills for the job
+ * about the company
+ * eoe statement for the company
+ This page will have a back button to go back to the main page.*/
 
 import BackButton from "@/components/shared/BackButton.component";
 import Heading from "@/components/shared/Heading.component";

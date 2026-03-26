@@ -1,5 +1,4 @@
-//BookmarksList.jsx
-//This file renders the saved jobs page body, including loading, empty, and populated bookmark states.
+/* Renders the saved jobs page body for loading, empty, and populated states. */
 
 import JobCard from "@components/jobs/JobCard";
 import { Card, CardContent } from "@components/ui/card";

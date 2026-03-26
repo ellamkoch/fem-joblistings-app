@@ -1,7 +1,7 @@
-//NotFoundPage.jsx
-//shows a random not found title and msg from the notFoundMsg.js array file.
-//Set up so it doesn't re-render with the theme change
-//Logic for the notfoundmsg is in the getRandomNotFoundMsg.js file.
+/*
+ * Shows a random not-found title and message.
+ * The message is captured once in state so theme changes do not reroll it.
+ */
 
 import { useState } from "react";
 
@@ -10,7 +10,7 @@ import { Card } from "@components/ui/card";
 import Title from "@/components/shared/Heading.component";
 
 function NotFoundPage() {
-    //holds the current 404 msg in state in case of theme changes so it doesn't change
+    // Hold the current 404 message steady across theme changes.
     const [message] = useState(() => getRandomNotFoundMsg());
 
     return (

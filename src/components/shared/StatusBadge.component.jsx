@@ -1,7 +1,7 @@
-//StatusBadge.component.jsx
-//This file holds the styles for the new and featured job badges, which will conditionally show up if that is marked true within Supabase on the is_new and is_featured parts of the table.
-//Only styling is here.
-//Conditional logic is in the JobCard.
+/*
+ * Visual badges for the "new" and "featured" job states.
+ * The decision to render them lives in JobCard.
+ */
 
 import { Badge } from "@/components/ui/badge";
 
