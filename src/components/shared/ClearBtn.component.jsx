@@ -11,9 +11,10 @@ function ClearBtn({ clearFilter }) {
       type="button"
       variant="ghost"
       onClick={clearFilter}
+      aria-label="Clear filters"
       className="text-primary hover:underline hover:underline-offset-4 cursor-pointer"
     >
-      Clear
+      Clear filters
     </Button>
   );
 }

@@ -11,6 +11,7 @@
 //  * Contract (FT/PT/Contract)
 //  * Location
 //  * Job Badges for filtering (role, level, languages, tools) (no filter log here)
+//  * Bookmark save/remove action when bookmark handlers are passed in
 import { Link } from "react-router";
 
 
@@ -18,9 +19,29 @@ import JobBadge from "@components/shared/JobBadge.component";
 import StatusBadge from "@components/shared/StatusBadge.component";
 import { Card, CardTitle, CardDescription, CardContent } from "@components/ui/card";
 import { Separator } from "@components/ui/separator";
+import BookmarkButton from "@/components/jobs/BookmarkButton";
 // import Heading from "@components/shared/Heading.component";
 
-export default function JobCard ({ job, onToggleTag }) {
+/**
+ * Renders a single job card for the list, detail, and bookmarks views.
+ *
+ * @param {object} props - Component props.
+ * @param {object} props.job - Normalized job object to display.
+ * @param {(badge: string) => void} [props.onToggleTag] - Optional filter toggle callback for job badges.
+ * @param {boolean} [props.isBookmarked=false] - Whether the current job is already saved.
+ * @param {"toggle" | "remove"} [props.bookmarkMode="toggle"] - Whether the action toggles or only removes.
+ * @param {(job: object) => Promise<void>} [props.addBookmark] - Optional save handler.
+ * @param {(jobId: string) => Promise<void>} [props.removeBookmark] - Optional remove handler.
+ * @returns {JSX.Element | null} Rendered job card or null when no job is provided.
+ */
+export default function JobCard ({
+    job,
+    onToggleTag,
+    isBookmarked = false,
+    bookmarkMode = "toggle",
+    addBookmark,
+    removeBookmark,
+}) {
 
     //guard error
     if (!job) {
@@ -32,26 +53,37 @@ export default function JobCard ({ job, onToggleTag }) {
     //StatusBadge variables to convert the booleans from Supabase for the conditional UI render
     const newJob = job.is_new;
     const featuredJob = job.is_featured;
-//Split the text in these fields from Supabase into an array so they can be mapped to each job on the list for the Card here.
-const selectedLanguages =
-  job.languages ? job.languages.split("\n").filter(Boolean) : [];
+    //Split the text in these fields from Supabase into an array so they can be mapped to each job on the list for the Card here.
+    const selectedLanguages =
+      job.languages ? job.languages.split("\n").filter(Boolean) : [];
 
-const selectedTools =
-  job.tools ? job.tools.split("\n").filter(Boolean) : [];
+    const selectedTools =
+      job.tools ? job.tools.split("\n").filter(Boolean) : [];
 
     return (
-        <Card className="job-card-container flex flex-col relative px-4 py-15 pb-8 sm:pb-15 md:mb-5  md:flex-row md:items-center md:gap-6 sm:py-5  xs:pb- mb-10 sm:static text-lg">
+        <Card className="job-card-container relative mb-10 flex flex-col gap-5 px-4 py-15 pb-8 text-lg sm:static sm:py-5 sm:pb-15 md:mb-5 md:flex-row md:items-center md:gap-6">
             <div className="flex-1">
-            <div className="flex flex-col sm:flex-row sm:gap-6 ">
+            <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 ">
                 <div className="logo w-auto h-auto absolute -top-12 px-0 sm:static shrink-0 ">
                     {logoSrc && <img src={logoSrc} alt={`${job.company} logo`}/>}
                 </div>
                 <div className="top-line px-4 flex flex-col min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-primary font-bold pr-4">{job.company}</span>
+                    <div className="flex items-start justify-between gap-3">
+                        <div className="flex min-w-0 items-center gap-2">
+                        <span className="min-w-0 truncate text-primary font-bold">{job.company}</span>
                             {(newJob || featuredJob) && (
                                 <StatusBadge isNew={newJob} isFeatured={featuredJob} />
                             )}
+                        </div>
+                        {removeBookmark ? (
+                            <BookmarkButton
+                                job={job}
+                                isBookmarked={isBookmarked}
+                                mode={bookmarkMode}
+                                addBookmark={addBookmark}
+                                removeBookmark={removeBookmark}
+                            />
+                        ) : null}
                     </div>
                      <CardTitle className="position mt-3 hover:text-primary cursor-pointer text-lg">
                         <Link to={`/job/${job.id}`}>

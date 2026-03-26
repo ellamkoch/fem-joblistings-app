@@ -1,6 +1,6 @@
 # FEM Job Listings App with Filtering
 
-This is the frontend repository for my CodeX Level 4 capstone project. This app is still in progress.
+This is the frontend repository for my CodeX Level 4 capstone project. This app is actively being developed as part of my CodeX Level 4 capstone.
 
 ## Links
 
@@ -62,7 +62,7 @@ The current goals are to build a frontend that:
 * Fetches job listing data from my Express API
 * Displays listings with interactive, AND-based tag filtering
 * Supports job detail views
-* Supports user-specific bookmarks with save/remove functionality and a dedicated bookmarks page
+* Supports user-specific bookmarks with save/remove toggle behavior, shared state across pages, and a dedicated saved jobs dashboard
 * Demonstrates a real frontend → API → database flow
 * Meets loading, error, validation, and protected-route requirements for the capstone
 * Implements authentication flows for register, login, and logout
@@ -79,7 +79,7 @@ I kept the existing UI structure where possible, then began replacing the old da
 
 Filtering remains React-state driven. Active filters are stored locally in the list view, while the visible job list is derived from the full jobs array using `useMemo` and array helpers. This preserves the original filtering behavior while allowing the data source to change underneath it.
 
-Additional frontend work is now focused on completing the bookmarks feature (including save/remove actions and a bookmarks page) and deployment-ready documentation.
+Additional frontend work is now focused on refining the bookmarks feature, and deployment-ready documentation.
 
 ## Architecture Overview
 
@@ -114,16 +114,56 @@ Additional frontend work is now focused on completing the bookmarks feature (inc
   * Reuses shared API response unwrapping logic
   * Reuses job normalization to convert bookmark results into UI-ready job objects
   * Supports bookmark list, create, and delete actions
+* `useBookmarks`
+
+  * Loads bookmarks through the API layer
+  * Manages shared bookmark state via context/provider
+  * Handles loading and error state
+  * Exposes add/remove bookmark actions
+  * Provides `isBookmarked` helper for UI components
+* `useBookmarkToggle`
+
+  * Handles per-job bookmark toggle behavior
+  * Prevents duplicate requests with a pending state
+  * Supports both toggle and remove-only interaction modes
 
 ### Bookmark Feature Notes
 
-The bookmarks feature is implemented as a user-specific relationship between users and jobs.
+The bookmarks feature is implemented as a user-specific relationship between users and jobs, with shared frontend state to keep UI interactions consistent across pages.
 
 On the frontend:
 
-* Bookmark create/delete actions are treated as simple API mutations
+* Bookmark data is managed through a shared `BookmarksProvider` and `useBookmarks` hook
+* This ensures bookmarks are loaded once and reused across the app (avoiding duplicate API calls)
 * Bookmark list responses are transformed into normalized job objects
-* This allows the bookmarks page to reuse the existing JobCard component without introducing a separate bookmark-specific UI model
+* This allows the bookmarks page to reuse the existing `JobCard` component without introducing a separate bookmark-specific UI model
+
+Bookmark interactions are split into two responsibilities:
+
+* **Collection state (useBookmarks)**
+
+  * Loads and stores the full list of saved jobs
+  * Handles initial loading and error state
+  * Provides helper functions for add/remove actions
+  * Provides `isBookmarked(jobId)` for UI state checks
+* **Per-job toggle behavior (useBookmarkToggle)**
+
+  * Handles save/remove logic for individual jobs
+  * Prevents duplicate requests using a `pending` state
+  * Supports both toggle mode (job list, detail page) and remove-only mode (bookmarks page)
+
+UX behavior:
+
+* Saving/removing a bookmark updates local state immediately (no full refetch required)
+* The bookmarks page reuses normalized job data and existing UI components
+* Loading state is limited to the initial bookmark fetch to prevent UI flicker during individual actions
+* Bookmark state remains consistent across pages through shared context
+
+Edge case handling:
+
+* Bookmark list loads only after authentication is available
+* Duplicate bookmark attempts trigger a resync to correct local state
+* Bookmark state is cleared on logout
 
 ### Authentication Flow
 
@@ -168,6 +208,12 @@ The frontend implements JWT-based authentication using the backend API.
 
   * `/` (Job List) and `/jobs/:id` require authentication
   * Unauthenticated users are redirected to `/login`
+* **`/bookmarks` — Saved Jobs Page**
+
+  * Displays all bookmarked jobs for the authenticated user
+  * Reuses the `JobCard` component for consistent UI
+  * Allows users to remove saved jobs from their collection
+  * Shares state with the jobs list via the bookmarks context
 * **`/jobs/:id` — Job Detail Page**
 
   * * Loads job data from the backend-backed job list
@@ -254,7 +300,7 @@ Validated behaviors:
 * Authentication (register/login)
 * Protected route access with JWT
 * Jobs resource (list and detail endpoints)
-* Bookmarks resource (create, list, delete) with user-specific persisitence
+* Bookmarks resource (create, list, delete) with user-specific persistence
 * Data persistence after refresh
 * Error handling for invalid input and unauthorized requests
 
@@ -311,12 +357,10 @@ Planned improvements:
   * Axios client configured with bearer token
   * Protected routes using `ProtectedRoute`
   * Logout functionality with resilient local state clearing
-  *
 
 ### Current next steps
 
-* Build bookmark save/remove toggle on job listings
-* Build bookmarks page using normalized job data and existing JobCard UI
+* Refine backend bookmark response fields for improved frontend consistency
 * Improve date formatting and conditional rendering for optional fields
 * Complete deployment notes and final README polish
 

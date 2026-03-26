@@ -16,12 +16,15 @@ import { Separator } from "@/components/ui/separator";
 
 import ProtectedPageHeader from "@/components/auth/ProtectedPageHeader";
 import JobCard from "@/components/jobs/JobCard";
+import ProtectedPageNav from "@/components/auth/ProtectedPageNav";
 import { useParams } from 'react-router-dom';
 
+import { useBookmarksContext } from "@/contexts/BookmarksContext";
 import { useJobsContext } from "@/contexts/JobsContext";
 
 
 function JobDetailPage() {
+    const bookmarksState = useBookmarksContext();
     // Read shared jobs state from the provider so we do not refetch here.
     const {
         jobs,
@@ -64,17 +67,25 @@ function JobDetailPage() {
                 ) : (
                      <div className="job-details-container">
                         <ProtectedPageHeader>
-                            <div className="space-y-1">
-                                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-                                    Job Details
-                                </p>
-                                <BackButton />
+                            <div className="space-y-3">
+                                <div className="space-y-1">
+                                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                                        Job Details
+                                    </p>
+                                    <BackButton />
+                                </div>
+                                <ProtectedPageNav />
                             </div>
                         </ProtectedPageHeader>
                         {/* Needed selectedJob wrapped around this to get it to pull info and put it w/ the template literals. */}
                         {selectedJob && (
                             <div>
-                                <JobCard job={selectedJob}/>
+                                <JobCard
+                                    job={selectedJob}
+                                    isBookmarked={bookmarksState.isBookmarked(selectedJob.id)}
+                                    addBookmark={bookmarksState.addBookmark}
+                                    removeBookmark={bookmarksState.removeBookmark}
+                                />
                             </div>
                             )}
                     </div>

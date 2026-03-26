@@ -2,6 +2,7 @@
 import AppRouter from "@router/AppRouter";
 import MainLayout from "@components/layout/MainLayout.jsx";//imports header/footer, hero, centering
 import { JobsProvider } from "@/providers/JobsProvider";
+import { BookmarksProvider } from "@/providers/BookmarksProvider";
 // import JobList from "@components/jobs/JobList.jsx";//imports Jobs UI
 
 /**
@@ -11,9 +12,11 @@ import { JobsProvider } from "@/providers/JobsProvider";
 export default function App() {
   return (
     <JobsProvider>
-      <MainLayout>
-        <AppRouter />
-      </MainLayout>
+      <BookmarksProvider>
+        <MainLayout>
+          <AppRouter />
+        </MainLayout>
+      </BookmarksProvider>
     </JobsProvider>
     );
 }

@@ -4,6 +4,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import NotFoundPage from "@pages/NotFoundPage";
+import BookmarksPage from "@pages/BookmarksPage";
 import JobDetailPage from "@pages/JobDetailPage";
 import JobListPage from "@pages/JobListPage";
 import LoginPage from "@pages/LoginPage";
@@ -33,6 +34,14 @@ function AppRouter() {
                 element={
                     <ProtectedRoute>
                         <JobDetailPage />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/bookmarks"
+                element={
+                    <ProtectedRoute>
+                        <BookmarksPage />
                     </ProtectedRoute>
                 }
             />

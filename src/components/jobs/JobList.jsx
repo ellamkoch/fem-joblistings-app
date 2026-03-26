@@ -16,8 +16,14 @@ import {
   removeFilter,
   clearFilter,
 } from "@/utils/activeFilters";
+import { useBookmarksContext } from "@/contexts/BookmarksContext";
 import { useJobsContext } from "@/contexts/JobsContext";
 
+/**
+ * Renders the main jobs feed and keeps badge filtering local to the page.
+ *
+ * @returns {JSX.Element} Filterable job list.
+ */
 function JobList() {
     //filterbar needs to be an empty array to start
     const [filter, setFilter] = useState([]);
@@ -27,6 +33,12 @@ function JobList() {
         loading,
         error
     } = useJobsContext();
+    const bookmarksState = useBookmarksContext();
+    // normalized ids make it cheap for each card to know whether it is already saved
+    const bookmarkedJobIds = useMemo(
+      () => new Set(bookmarksState.bookmarks.map((bookmark) => bookmark.id)),
+      [bookmarksState.bookmarks],
+    );
 
     //handles the toggling of the badges for the filter
     const handleFilterBadge = (badge) => {
@@ -98,6 +110,9 @@ function JobList() {
                                     key={job.id}
                                     job={job}
                                     onToggleTag={handleFilterBadge}
+                                    isBookmarked={bookmarkedJobIds.has(job.id)}
+                                    addBookmark={bookmarksState.addBookmark}
+                                    removeBookmark={bookmarksState.removeBookmark}
                                     />
                                 ))}
 
