@@ -39,8 +39,16 @@ export function AuthProvider({ children }) {
     () => ({
       token,
       isAuthenticated: Boolean(token),
-      login: (newToken) => setToken(newToken),
-      logout: () => setToken(null),
+      login: (newToken) => {
+        setAuthToken(newToken);
+        writeStoredToken(newToken);
+        setToken(newToken);
+      },
+      logout: () => {
+        setAuthToken(null);
+        clearStoredToken();
+        setToken(null);
+      },
     }),
     [token],
   );
