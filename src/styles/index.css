@@ -51,6 +51,8 @@
 :root {
   --radius: 0.625rem;
 
+  color-scheme: light;
+
   /* Page */
   --background: hsl(180deg 52% 96%);   /* Green 50 */
   --foreground: hsl(180deg 14% 20%);   /* Green 900 */
@@ -85,6 +87,8 @@
 
 /* ---break--- */
 .dark {
+  color-scheme: dark;
+
   --background: hsl(180deg 10% 10%);
   --foreground: hsl(180deg 20% 92%);
   --card: hsl(180deg 10% 14%);
@@ -106,6 +110,8 @@
 }
 
 .contrast {
+  color-scheme: light;
+
   --background: hsl(0deg 0% 100%);
   --foreground: hsl(180deg 14% 10%);
   --card: hsl(0deg 0% 100%);

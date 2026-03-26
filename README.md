@@ -66,6 +66,7 @@ The current goals are to build a frontend that:
 * Demonstrates a real frontend → API → database flow
 * Meets loading, error, validation, and protected-route requirements for the capstone
 * Implements authentication flows for register, login, and logout
+* Includes responsive layout, theme switching (light, dark, contrast, system), and UI states for filtering and interactions
 
 The focus is on **clear architecture, real API integration, maintainability, and explainable data flow**.
 
@@ -79,7 +80,7 @@ I kept the existing UI structure where possible, then began replacing the old da
 
 Filtering remains React-state driven. Active filters are stored locally in the list view, while the visible job list is derived from the full jobs array using `useMemo` and array helpers. This preserves the original filtering behavior while allowing the data source to change underneath it.
 
-Additional frontend work is now focused on refining the bookmarks feature, and deployment-ready documentation.
+Additional frontend work is now focused on refining the bookmarks feature, and completing deployment-ready documentation.
 
 ## Architecture Overview
 
@@ -126,6 +127,18 @@ Additional frontend work is now focused on refining the bookmarks feature, and d
   * Handles per-job bookmark toggle behavior
   * Prevents duplicate requests with a pending state
   * Supports both toggle and remove-only interaction modes
+* `ThemeProvider`
+
+  * Manages global theme state across the application
+  * Applies theme classes to the root document element (`<html>`)
+  * Supports `light`, `dark`, `contrast`, and `system` themes
+  * Persists user preference in localStorage
+  * Resolves system theme using `prefers-color-scheme`
+* `useTheme`
+
+  * Provides access to current theme and resolved theme
+  * Exposes `setTheme` for updating user preference
+  * Allows UI components to react to theme changes without direct DOM manipulation
 
 ### Bookmark Feature Notes
 
@@ -164,6 +177,36 @@ Edge case handling:
 * Bookmark list loads only after authentication is available
 * Duplicate bookmark attempts trigger a resync to correct local state
 * Bookmark state is cleared on logout
+
+### Theme System
+
+The application includes a global theme system designed for consistency, accessibility, and user preference persistence.
+
+Theme state is managed through a dedicated `ThemeProvider`, which centralizes all theme-related logic and ensures consistent styling across the application.
+
+Key implementation details:
+
+* Theme is applied by toggling class names on the root `<html>` element
+* Styling is driven by CSS custom properties (variables), allowing components to remain theme-agnostic
+* Supports multiple theme modes:
+  * `light`
+  * `dark`
+  * `contrast` (high-contrast accessibility mode)
+  * `system` (automatically matches the user's OS preference)
+* User-selected theme is persisted in localStorage and restored on page load
+* System theme changes are detected using the `prefers-color-scheme` media query
+
+UX considerations:
+
+* Theme changes apply instantly without requiring a page reload
+* The selected theme is consistent across all pages and components
+* High-contrast mode improves accessibility for users who need stronger visual distinction
+
+Architecture notes:
+
+* Theme logic is centralized in the provider rather than scattered across components
+* Components rely on CSS variables instead of conditional inline styles
+* This approach keeps UI components simple and scalable as additional themes or tokens are introduced
 
 ### Authentication Flow
 
@@ -384,8 +427,3 @@ Additional potential enhancements include:
 * [MDN Array Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
 * [MDN Math.random()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
 * [BrowserStack: CSS Breakpoints Guide](https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints)
-* Bookmark data follows the same pattern as jobs:
-
-  * API responses are unwrapped from the backend envelope
-  * Bookmark records are transformed by extracting the nested job data
-  * Job normalization is reused to ensure consistent UI shape across job list and bookmarks views

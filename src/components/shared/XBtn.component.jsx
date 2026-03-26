@@ -1,5 +1,4 @@
-//XButton component
-//This file is the styling for the X for the filter bar where we'll use it to remove a single filter.
+/* Button used to remove a single active filter from the filter bar. */
 
 import { Button } from "@/components/ui/button";
 
@@ -22,7 +21,7 @@ function XBtn({ removeFilter, label }) {
         h-8 w-8 p-0
         rounded-l-none rounded-r-xs
         bg-primary text-secondary font-semibold
-        hover:bg-black"
+        hover:bg-foreground hover:text-background"
     >
       X
     </Button>

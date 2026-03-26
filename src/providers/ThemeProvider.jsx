@@ -1,42 +1,109 @@
-// Provides global theme state (light/dark/system) and syncs it to Tailwind `dark` + localStorage.
-import { useEffect, useMemo, useState } from "react";
-import { STORAGE_KEY, ThemeContext } from "@/constants/themeConstants";
+// Provides global theme state and syncs it to root theme classes + localStorage.
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  DEFAULT_THEME,
+  isTheme,
+  STORAGE_KEY,
+  ThemeContext,
+  THEME_CLASS_NAMES,
+} from "@/constants/themeConstants";
 
-// If no theme is saved yet, fall back to the default ("system" by default).
 const initialTheme = (defaultTheme) => {
+  if (typeof window === "undefined") {
+    return defaultTheme;
+  }
+
   const stored = localStorage.getItem(STORAGE_KEY);
-  return stored || defaultTheme; // use saved theme if it exists, otherwise use default
+  return isTheme(stored) ? stored : defaultTheme;
 };
 
-function ThemeProvider({ children, defaultTheme = "system" }) {
-  // Only read localStorage once (on mount) to set the initial theme.
-  const [theme, setTheme] = useState(() => initialTheme(defaultTheme));
+function resolveTheme(theme, matchesDarkPreference) {
+  if (theme === "system") {
+    return matchesDarkPreference ? "dark" : "light";
+  }
 
-  // Runs whenever theme changes: updates <html> class + localStorage, and handles system mode.
+  return theme;
+}
+
+function applyThemeClass(theme) {
+  const root = document.documentElement;
+
+  root.classList.remove(...THEME_CLASS_NAMES);
+
+  if (theme !== "light") {
+    root.classList.add(theme);
+  }
+}
+
+function ThemeProvider({ children, defaultTheme = DEFAULT_THEME }) {
+  const [theme, setThemeState] = useState(() => initialTheme(defaultTheme));
+
+  const setTheme = useCallback(
+    (nextTheme) => {
+      setThemeState((currentTheme) => {
+        if (!isTheme(nextTheme)) {
+          return currentTheme;
+        }
+
+        return nextTheme;
+      });
+    },
+    [],
+  );
+
   useEffect(() => {
-    const root = document.documentElement; // the <html> element (Tailwind dark mode uses this)
-    const mql = window.matchMedia("(prefers-color-scheme: dark)"); // watches OS dark-mode preference
-    //mql = media query
-
-    // `resolved` is the actual theme we apply ("light" or "dark"), even if theme is "system".
-    const resolved =
-      theme === "system" ? (mql.matches ? "dark" : "light") : theme;
-
-    root.classList.toggle("dark", resolved === "dark"); // adds/removes the "dark" class on <html>
-    localStorage.setItem(STORAGE_KEY, theme); // saves the user's choice for next refresh
-
-    // If following the system, listen for OS theme changes and update immediately.
-    if (theme === "system") {
-      const onChange = (e) => root.classList.toggle("dark", e.matches);
-      mql.addEventListener("change", onChange);
-      return () => mql.removeEventListener("change", onChange); // cleanup prevents duplicate listeners
+    if (typeof window === "undefined") {
+      return undefined;
     }
-  }, [theme]); // dependency array: re-runs effect when theme changes
 
-  // Keep the context value object stable unless `theme` changes (avoids extra re-renders).
-  const value = useMemo(() => ({ theme, setTheme }), [theme]);
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const applyResolvedTheme = () => {
+      const resolvedTheme = resolveTheme(theme, mediaQuery.matches);
 
-  // Makes `theme` and `setTheme` available to any child component via useTheme().
+      if (typeof document !== "undefined") {
+        applyThemeClass(resolvedTheme);
+      }
+    };
+
+    applyResolvedTheme();
+
+    const handleChange = () => {
+      if (theme === "system") {
+        applyResolvedTheme();
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem(STORAGE_KEY, theme);
+    }
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, [theme]);
+
+  const resolvedTheme = useMemo(() => {
+    if (typeof document !== "undefined") {
+      return resolveTheme(
+        theme,
+        window.matchMedia("(prefers-color-scheme: dark)").matches,
+      );
+    }
+
+    if (theme === "system") {
+      return "light";
+    }
+
+    return theme;
+  }, [theme]);
+
+  const value = useMemo(
+    () => ({ theme, resolvedTheme, setTheme }),
+    [resolvedTheme, setTheme, theme],
+  );
+
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );

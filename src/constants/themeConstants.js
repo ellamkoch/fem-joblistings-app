@@ -1,9 +1,32 @@
-// This file defines the Shared theme context + storage key (used by ThemeProvider/useTheme) to save the theme in localStorage.
-//theme itself lives in ThemeProvider
+// Shared theme contract used by the provider, hook, and selector UI.
 
-import { createContext } from "react";// using Context as its a way to share state w/ react
+import { createContext } from "react";
 
-const ThemeContext = createContext(null);//creates a shared container that may hold theme data
-const STORAGE_KEY = 'theme'; // string constant that avoids hardcoding theme
+const ThemeContext = createContext(null);
+const STORAGE_KEY = "theme";
+const DEFAULT_THEME = "system";
 
-export { ThemeContext, STORAGE_KEY };
+const THEMES = ["light", "dark", "contrast", "system"];
+
+const THEME_OPTIONS = [
+  { value: "system", label: "System" },
+  { value: "light", label: "Light" },
+  { value: "dark", label: "Dark" },
+  { value: "contrast", label: "Contrast" },
+];
+
+const THEME_CLASS_NAMES = ["dark", "contrast"];
+
+function isTheme(value) {
+  return THEMES.includes(value);
+}
+
+export {
+  DEFAULT_THEME,
+  isTheme,
+  ThemeContext,
+  STORAGE_KEY,
+  THEMES,
+  THEME_CLASS_NAMES,
+  THEME_OPTIONS,
+};

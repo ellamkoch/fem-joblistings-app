@@ -7,7 +7,7 @@ function useTheme() {
   const ctx = useContext(ThemeContext); //gets whatever value is inside ThemeContext.Provider
   if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
   //error above is if this hook is used outside of ThemeProvider, provide this error.
-  return ctx; //returns {theme, setTheme}
+  return ctx; //returns {theme, resolvedTheme, setTheme}
 }
 
 export { useTheme };
