@@ -238,8 +238,29 @@ The frontend implements JWT-based authentication using the backend API.
 ### Filtering Logic
 
 * AND-based badge filtering is preserved from the original frontend implementation
-* Tag values are normalized for consistent comparison
-* Original job data is never mutated
+* Active filters are stored as user-facing display values (e.g., "Git", "JavaScript")
+* For comparison, both filter values and job data are normalized to a consistent lowercase format
+
+Normalization approach:
+
+* A shared `normalizeBadge` helper trims and lowercases values for reliable comparison
+* This allows display formatting (capitalization) to remain separate from filtering logic
+* Ensures filters continue to work even when UI labels are formatted differently from raw data
+
+Matching behavior:
+
+* Each job must match **all active filters** (AND-based filtering)
+* A job matches a filter if the normalized filter value is found within:
+  * `role`
+  * `level`
+  * `languages`
+  * `tools`
+
+Implementation notes:
+
+* Filtering logic uses `reduce` to evaluate whether a job satisfies all active badges
+* Comparisons use normalized values on both sides to prevent mismatches caused by capitalization
+* String-based matching (`includes`) is used for flexible matching across tag fields
 
 ## Routes
 

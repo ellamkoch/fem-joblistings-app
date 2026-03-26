@@ -1,54 +1,64 @@
-/**activeFilter.js
-This file has helpers for managing the logic of the active job badges/tags for the filter
-  * if a badge already exists it removes it, otherwise it adds to the filter
-  * remove removes badge that is toggled on X button
-  * clear removes all tags
- when toggling a badge, we return a new array*/
+import { capitalizeWords } from "@/lib/api/jobs";
 
+/**
+ * Utils for active badge filters in the jobs list.
+ *
+ * - `normalizeBadge` — normalizes arbitrary badge text for comparison.
+ * - `toggleFilter` — toggles inclusion of a badge in active filter set.
+ * - `removeFilter` — removes a badge from active filters.
+ * - `clearFilter` — clears all active filters.
+ */
+
+/**
+ * Normalize a badge value to a consistent key.
+ * @param {string} badge - Text to normalize.
+ * @returns {string} Normalized value (lowercase, trimmed).
+ */
 function normalizeBadge(badge) {
-    //"normalizes" the text to trim off anything extra and makes the text lowercase if its written in caps for consistency
+  //"normalizes" the text to trim off anything extra and makes the text lowercase if its written in caps for consistency
   return String(badge).trim().toLowerCase();
 }
-//toggles the tags on/off in the active badge array
+/**
+ * Toggle a badge on/off in the active badges array.
+ * @param {string[]} activeBadges - Current selected badges.
+ * @param {string} badge - Badge to toggle.
+ * @returns {string[]} Updated selected badges.
+ */
 function toggleFilter(activeBadges, badge) {
-    //variable to save the /badge that we've normalized in the filter
-    const normalizedBadge = normalizeBadge(badge);
+  const normalizedBadge = normalizeBadge(badge);
 
-    //finds the index of the matching badges/tags and compares what's been clicked to the normalized one
-     const existingIndex = activeBadges.findIndex(
-    (b) => normalizeBadge(b) === normalizedBadge
+  const existingIndex = activeBadges.findIndex(
+    (b) => normalizeBadge(b) === normalizedBadge,
   );
 
-     // slice copies the array to preserve it from the activeBadges, nextBadges is the new array
-    const nextBadges = activeBadges.slice();
+  const nextBadges = activeBadges.slice();
 
-    if (existingIndex !== -1) {
-    // if a Badge exists, it removes it
-    nextBadges.splice(existingIndex, 1);//this mutates the copied array, not the original.
+  if (existingIndex !== -1) {
+    nextBadges.splice(existingIndex, 1);
     return nextBadges;
   }
 
-    // If a Badge doesn't exist, it adds it as originally provided
-    nextBadges.push(String(badge).trim());
-    return nextBadges;
-    }
-//Removes a badge
+  nextBadges.push(capitalizeWords(String(badge).trim()));
+  return nextBadges;
+}
+
+/**
+ * Remove a badge from the active badges array.
+ * @param {string[]} activeBadges - Current selected badges.
+ * @param {string} badge - Badge to remove.
+ * @returns {string[]} Updated selected badges.
+ */
 function removeFilter(activeBadges, badge) {
   const normalizedBadge = normalizeBadge(badge);
-
-  return activeBadges.filter(
-    (b) => normalizeBadge(b) !== normalizedBadge
-  );
+  return activeBadges.filter((b) => normalizeBadge(b) !== normalizedBadge);
 }
-//clears all badges/tags and returns an empty array
+
+/**
+ * Clear all badges from the filter state.
+ * @returns {string[]} Empty filter array.
+ */
 function clearFilter() {
   return [];
 }
 
-
-export {
-  normalizeBadge,
-  toggleFilter,
-  removeFilter,
-  clearFilter,
-};
+export { normalizeBadge, toggleFilter, removeFilter, clearFilter };
