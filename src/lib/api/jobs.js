@@ -99,7 +99,7 @@ export function normalizeJob(job) {
     requirements: String(job?.requirements ?? ""),
     is_new: Boolean(job?.isNew),
     is_featured: Boolean(job?.isFeatured),
-    posted_at: String(job?.postedAt ?? ""), //change to date later
+    posted_at: String(job?.postedAt ?? ""), 
   };
 }
 

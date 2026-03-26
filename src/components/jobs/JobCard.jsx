@@ -16,6 +16,7 @@ import {
 } from "@components/ui/card";
 import { Separator } from "@components/ui/separator";
 import BookmarkButton from "@/components/jobs/BookmarkButton";
+import { formatDate } from "@/utils/formatDate";
 /**
  * Renders a single job card for the list, detail, and bookmarks views.
  *
@@ -47,6 +48,8 @@ export default function JobCard({
   // Normalize badge booleans for the conditional UI.
   const newJob = job.is_new;
   const featuredJob = job.is_featured;
+
+  const relativePostDate = formatDate(job.posted_at);
 
   const selectedLanguages = Array.isArray(job.languages) ? job.languages : [];
 
@@ -83,7 +86,7 @@ export default function JobCard({
               <Link to={`/job/${job.id}`}>{job.position}</Link>
             </CardTitle>
             <CardDescription className="metadata-list mt-3 text-lg tracking-wide ">
-              {job.posted_at} &middot; {job.contract} &middot; {job.location}
+              {relativePostDate} &middot; {job.contract} &middot; {job.location}
             </CardDescription>
           </div>
         </div>

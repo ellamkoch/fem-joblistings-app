@@ -139,6 +139,12 @@ Additional frontend work is now focused on refining the bookmarks feature, and c
   * Provides access to current theme and resolved theme
   * Exposes `setTheme` for updating user preference
   * Allows UI components to react to theme changes without direct DOM manipulation
+* `formatDate`
+
+  * Utility helper for converting backend `postedAt` timestamps into human-readable relative time (e.g., "3 days ago", "2 weeks ago")
+  * Uses `Intl.RelativeTimeFormat` for built-in pluralization and natural language formatting
+  * Supports day, week, and month ranges for simplified UI display
+  * Safely handles missing or invalid date values
 
 ### Bookmark Feature Notes
 
@@ -261,6 +267,26 @@ Implementation notes:
 * Filtering logic uses `reduce` to evaluate whether a job satisfies all active badges
 * Comparisons use normalized values on both sides to prevent mismatches caused by capitalization
 * String-based matching (`includes`) is used for flexible matching across tag fields
+
+### Date Formatting
+
+Job posting dates are converted from backend timestamps into human-readable relative time strings for improved UI clarity.
+
+Implementation details:
+
+* A reusable `formatDate` utility handles all date formatting logic
+* Uses JavaScript's built-in `Intl.RelativeTimeFormat` for natural language output and correct pluralization
+* Converts timestamps into:
+  * days ("3 days ago")
+  * weeks ("2 weeks ago")
+  * months ("1 month ago")
+* Keeps formatting logic separate from UI components to maintain clean and declarative JSX
+
+Design considerations:
+
+* Avoids over-granularity (minutes/hours) to keep the UI simple and scannable
+* Ensures consistent formatting across all views that display job metadata
+* Allows future extension without modifying component-level logic
 
 ## Routes
 
@@ -421,12 +447,14 @@ Planned improvements:
   * Axios client configured with bearer token
   * Protected routes using `ProtectedRoute`
   * Logout functionality with resilient local state clearing
+* Implemented relative date formatting for job postings using a reusable utility helper
 
 ### Current next steps
 
 * Refine backend bookmark response fields for improved frontend consistency
-* Improve date formatting and conditional rendering for optional fields
 * Complete deployment notes and final README polish
+* Expand seed data to better test UI states and edge cases (date ranges, filters, badges)
+* Refine conditional rendering for optional fields
 
 ## Future Ideas
 
