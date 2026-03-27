@@ -25,11 +25,11 @@ function ProtectedPageHeader({ children, className, compact = false }) {
           className={cn(
             "flex flex-col sm:flex-row sm:items-center sm:justify-between",
             compact
-              ? "flex-row items-start justify-between gap-3 px-4 py-3 sm:px-5"
+              ? "flex-row items-start justify-between gap-3 px-4 py-0.5 sm:px-5"
               : "gap-4 px-6 py-5",
           )}
         >
-          <div className={cn("min-w-0", compact && "pr-2")}>{children}</div>
+          <div className={cn("min-w-0", compact && "pr-1")}>{children}</div>
           <LogoutButton
             className={cn(
               "sm:w-auto",

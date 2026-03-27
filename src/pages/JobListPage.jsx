@@ -11,8 +11,8 @@ function JobListPage() {
         <div>
             <h1 className="hidden">Job Listings</h1>
             <ProtectedPageHeader compact>
-                <div className="space-y-3">
-                    <div className="space-y-0.5">
+                <div className="space-y-1">
+                    <div className="space-y-1">
                         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
                             Dashboard
                         </p>

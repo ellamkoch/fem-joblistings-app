@@ -1,4 +1,4 @@
-/*
+/**FilterBar.jsx
  * Renders the active filter bar, including filter badges, remove buttons,
  * and the clear-all action. Filtering behavior itself lives in JobList.
  */
@@ -9,13 +9,13 @@ import XBtn from "@components/shared/XBtn.component";
 import FilterBadge from "@components/shared/FilterBadge.component";
 
   function FilterBar( {badges, removeFilter, clearFilter }) {
-    // Do not render when there are no active filters.
+    // Doesn't render when there are no active filters.
     if (!badges || badges.length === 0) {
         return null;
     }
 
     return (
-        <div className="filter-bar-container -mt-20 mb-15 relative z-20" aria-label="Active filters">
+        <div className="filter-bar-container mb-15 relative z-20" aria-label="Active filters">
             <Card className="filter-card rounded-lg shadow-md px-6 mt-3">
                 <div className="flex items-center justify-between gap-4">
                     <div className="flex flex-wrap gap-3 flex-1">
