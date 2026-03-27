@@ -4,7 +4,6 @@
 import { useMemo } from "react";
 
 import ProtectedPageHeader from "@/features/auth/components/ProtectedPageHeader";
-import ProtectedPageNav from "@/features/auth/components/ProtectedPageNav";
 import BookmarksList from "@/features/bookmarks/components/BookmarksList";
 import { useBookmarksContext } from "@/features/bookmarks/context/BookmarksContext";
 
@@ -29,11 +28,11 @@ function BookmarksPage() {
     <div>
       <h1 className="hidden">Saved Jobs</h1>
       <ProtectedPageHeader compact>
-        <div className="space-y-3">
+        <div className="space-y-1">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            Dashboard
+          </p>
           <div className="space-y-0.5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              Dashboard
-            </p>
             <div>
               <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
                 Saved Jobs
@@ -43,7 +42,6 @@ function BookmarksPage() {
               </p>
             </div>
           </div>
-          <ProtectedPageNav />
         </div>
       </ProtectedPageHeader>
 

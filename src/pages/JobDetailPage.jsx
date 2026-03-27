@@ -16,7 +16,6 @@ import { Separator } from "@/components/ui/separator";
 
 import ProtectedPageHeader from "@/features/auth/components/ProtectedPageHeader";
 import JobCard from "@/features/jobs/components/JobCard";
-import ProtectedPageNav from "@/features/auth/components/ProtectedPageNav";
 import { useParams } from 'react-router-dom';
 
 import { useBookmarksContext } from "@/features/bookmarks/context/BookmarksContext";
@@ -67,14 +66,13 @@ function JobDetailPage() {
                 ) : (
                      <div className="job-details-container">
                         <ProtectedPageHeader>
-                            <div className="space-y-3">
+                            <div className="space-y-1">
                                 <div className="space-y-1">
                                     <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
                                         Job Details
                                     </p>
                                     <BackButton />
                                 </div>
-                                <ProtectedPageNav />
                             </div>
                         </ProtectedPageHeader>
                         {/* Needed selectedJob wrapped around this to get it to pull info and put it w/ the template literals. */}

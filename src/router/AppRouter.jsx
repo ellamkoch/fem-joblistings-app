@@ -3,6 +3,7 @@
 
 import { Routes, Route } from "react-router-dom";
 
+import AboutPage from "@pages/AboutPage";
 import NotFoundPage from "@pages/NotFoundPage";
 import BookmarksPage from "@pages/BookmarksPage";
 import JobDetailPage from "@pages/JobDetailPage";
@@ -19,6 +20,7 @@ import { ProtectedRoute } from "@/features/auth/components/ProtectedRoute";
 function AppRouter() {
     return (
        <Routes>
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route

@@ -57,6 +57,8 @@ This project implements the **Frontend Mentor – Job Listings with Filtering** 
 
 The application is being expanded from a static/frontend-focused project into a multi-page React app with real backend integration.
 
+The application also includes a public About page to document the project’s architecture, features, and deployment approach.
+
 The current goals are to build a frontend that:
 
 * Fetches job listing data from my Express API
@@ -315,6 +317,29 @@ Design considerations:
   * Catches invalid routes
   * Displays one of three predefined messages
   * Message is selected once on mount and remains stable across re-renders
+* **`/about` — About Page**
+
+  * Public, non-authenticated route
+  * Provides an overview of the project, tech stack, features, and deployment details
+  * Helps demonstrate architecture and design decisions for the capstone
+
+### Navigation
+
+The application includes a lightweight global navigation that adapts based on authentication state:
+
+* **Authenticated users:**
+
+  * Jobs
+  * Saved Jobs
+  * About
+  * Logout
+* **Unauthenticated users:**
+
+  * About
+  * Login
+  * Register
+
+Logout is handled as a global action within the navigation rather than a page-level control.
 
 ## Database Schema
 
