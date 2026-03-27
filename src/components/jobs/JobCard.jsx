@@ -60,7 +60,15 @@ export default function JobCard({
       <div className="flex-1">
         <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 ">
           <div className="logo w-auto h-auto absolute -top-12 px-0 sm:static shrink-0 ">
-            {logoSrc && <img src={logoSrc} alt={`${job.company} logo`} />}
+            {logoSrc && (
+                <img className="job-card-__logo"
+                src={logoSrc}
+                alt={`${job.company} logo`}
+                onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                }}
+                />
+              )}
           </div>
           <div className="top-line px-4 flex flex-col min-w-0">
             <div className="flex items-start justify-between gap-3">

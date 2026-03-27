@@ -104,7 +104,7 @@
   --popover: var(--card);
   --popover-foreground: var(--foreground);
   --muted: hsl(180deg 31% 95%);
-  --secondary: hsl(180deg 52% 96%); 
+  --secondary: hsl(180deg 52% 96%);
   --secondary-foreground: var(--foreground);
   --destructive: hsl(0deg 84% 60%);
 }
@@ -141,4 +141,10 @@
     font-family: var(--font-sans);
     font-size: 15px;
   }
+}
+/* Job Card */
+.job-card__logo-wrap {
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
 }
