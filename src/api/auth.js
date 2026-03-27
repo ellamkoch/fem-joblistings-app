@@ -32,6 +32,6 @@ export async function login(payload) {
  * @returns {Promise<unknown>} Raw backend response payload.
  */
 export async function logout(options = {}) {
-  const res = await apiClient.post("/auth/logout", null, options);
+  const res = await apiClient.post("/auth/logout", undefined, options);
   return res.data;
 }
