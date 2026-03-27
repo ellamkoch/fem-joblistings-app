@@ -56,7 +56,7 @@ export default function JobCard({
   const selectedTools = Array.isArray(job.tools) ? job.tools : [];
 
   return (
-    <Card className="job-card-container relative mb-10 flex flex-col gap-5 px-4 py-15 pb-8 text-lg sm:static sm:py-5 sm:pb-15 md:mb-5 md:flex-row md:items-center md:gap-6">
+    <Card className="job-card-container relative mb-10 flex flex-col gap-5 px-4 py-15 pb-8 text-lg sm:static sm:py-5 sm:pb-10 md:mb-5 md:flex-row md:items-center md:gap-6">
       <div className="flex-1">
         <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 ">
           <div className="logo w-auto h-auto absolute -top-12 px-0 sm:static shrink-0 ">
