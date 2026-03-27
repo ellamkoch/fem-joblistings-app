@@ -83,9 +83,9 @@ function RegisterPage() {
     >
       <Card className="rounded-2xl border-border/70 shadow-xl">
         <CardHeader className="gap-1.5">
-          <CardTitle className="text-2xl">Join the dashboard</CardTitle>
+          <CardTitle className="text-2xl">Set up your account</CardTitle>
           <CardDescription className="text-base">
-            Enter your email, name, and password to get started.
+            Enter your details below to get started.
           </CardDescription>
         </CardHeader>
 

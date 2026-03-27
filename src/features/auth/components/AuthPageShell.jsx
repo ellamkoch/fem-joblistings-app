@@ -15,7 +15,7 @@ function AuthPageShell({ eyebrow, title, description, children, className }) {
   return (
     <section
       className={cn(
-        "relative z-10 mx-auto -mt-36 flex w-full max-w-md flex-col gap-4 lg:-mt-28",
+        "relative z-10 mx-auto -mt-55 flex w-full max-w-md flex-col gap-4 lg:-mt-40",
         className,
       )}
     >

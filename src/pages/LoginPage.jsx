@@ -75,7 +75,7 @@ function LoginPage() {
     >
       <Card className="rounded-2xl border-border/70 shadow-xl">
         <CardHeader className="gap-1.5">
-          <CardTitle className="text-2xl">Welcome back</CardTitle>
+          <CardTitle className="text-2xl">Sign in</CardTitle>
           <CardDescription className="text-base">
             Enter your email and password below.
           </CardDescription>
