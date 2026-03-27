@@ -3,6 +3,7 @@
 import JobCard from "@/components/jobs/JobCard";
 import { Card, CardContent } from "@components/ui/card";
 import { Skeleton } from "@components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 /**
  * Displays the user's bookmarked jobs using the shared job card layout.
@@ -50,7 +51,7 @@ function BookmarksList({ bookmarks, loading, error, removeBookmark }) {
       ) : null}
 
       {!loading && bookmarks.length > 0 ? (
-        <div className="job-list flex flex-col gap-y-4">
+        <div className={cn("job-list flex flex-col gap-y-4", "mt-16 sm:mt-0")}>
           {bookmarks.map((job) => (
             // bookmarks reuse the same job card so position links and metadata stay consistent
             <JobCard
