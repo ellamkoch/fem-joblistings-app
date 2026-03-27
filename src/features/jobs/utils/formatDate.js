@@ -1,30 +1,40 @@
-const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'always' });//if using auto, will put in yesterday, last week. always does 1 day ago, 2 days ago, etc. and handles formatting automatically.
-
+/**
+ * Formats a date string into a human-readable relative time format.
+ *
+ * Uses Intl.RelativeTimeFormat to display dates in a user-friendly way:
+ * - Dates within a week show as "X day(s) ago"
+ * - Dates within a month show as "X week(s) ago"
+ * - Older dates show as "X month(s) ago"
+ *
+ * @param {string} dateString - ISO date string or any valid date format.
+ * @returns {string} Formatted relative date (e.g., "2 days ago") or "Date unavailable" if invalid.
+ */
 export function formatDate(dateString) {
-    if(!dateString) return 'Date unavailable';
+  if (!dateString) return 'Date unavailable';
 
-    const postedDate = new Date(dateString);
+  const postedDate = new Date(dateString);
 
-    if (Number.isNaN(postedDate.getTime())) {
-        return 'Date unavailable';
-    }
+  if (Number.isNaN(postedDate.getTime())) {
+    return 'Date unavailable';
+  }
 
-    const now = new Date();
-    const diffMs = postedDate.getTime() - now.getTime();
+  const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'always' });
+  const now = new Date();
+  const diffMs = postedDate.getTime() - now.getTime();
 
-    const day = 1000 * 60 * 60 * 24;
-    const week = day * 7;
-    const month = day * 30;
+  const day = 1000 * 60 * 60 * 24;
+  const week = day * 7;
+  const month = day * 30;
 
-    const absDiff = Math.abs(diffMs);
+  const absDiff = Math.abs(diffMs);
 
-    if (absDiff < week) {
-        return rtf.format(Math.round(diffMs / day), 'day')
-    }
+  if (absDiff < week) {
+    return rtf.format(Math.round(diffMs / day), 'day');
+  }
 
-    if (absDiff < month) {
-        return rtf.format(Math.round(diffMs / week), 'week')
-    }
+  if (absDiff < month) {
+    return rtf.format(Math.round(diffMs / week), 'week');
+  }
 
-    return rtf.format(Math.round(diffMs / month), 'month');
+  return rtf.format(Math.round(diffMs / month), 'month');
 }

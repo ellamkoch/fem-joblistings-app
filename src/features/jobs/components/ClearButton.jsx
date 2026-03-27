@@ -1,9 +1,18 @@
-/* Clears all active filter badges from the filter bar in one click. */
-import { Button } from "@components/ui/button";
+/**
+ * ClearButton.jsx
+ *
+ * Clears all active filter badges from the filter bar in one click.
+ */
+import { Button } from '@components/ui/button';
 
+/**
+ * Button that clears all active job filters at once.
+ *
+ * @param {object} props - Component props.
+ * @param {() => void} props.clearFilter - Callback to remove all filters.
+ * @returns {JSX.Element} Clear filters button.
+ */
 function ClearBtn({ clearFilter }) {
-
-
   return (
     <Button
       type="button"

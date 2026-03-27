@@ -1,35 +1,38 @@
-import { capitalizeWords } from "@/features/jobs/api/jobs";
+import { capitalizeWords } from '@/features/jobs/api/jobs';
 
 /**
- * Utils for active badge filters in the jobs list.
+ * Utility functions for managing active badge filters in the jobs list.
  *
- * - `normalizeBadge` — normalizes arbitrary badge text for comparison.
- * - `toggleFilter` — toggles inclusion of a badge in active filter set.
- * - `removeFilter` — removes a badge from active filters.
- * - `clearFilter` — clears all active filters.
+ * - `normalizeBadge` — Normalizes arbitrary badge text to lowercase for consistent comparison.
+ * - `toggleFilter` — Toggles inclusion of a badge in the active filter set.
+ * - `removeFilter` — Removes a specific badge from active filters.
+ * - `clearFilter` — Clears all active filters at once.
  */
 
 /**
- * Normalize a badge value to a consistent key.
- * @param {string} badge - Text to normalize.
- * @returns {string} Normalized value (lowercase, trimmed).
+ * Normalizes a badge value to a consistent key for comparison.
+ * Converts to lowercase and trims whitespace for case-insensitive, consistent matching.
+ *
+ * @param {string} badge - Badge text to normalize.
+ * @returns {string} Normalized value (lowercase and trimmed).
  */
 function normalizeBadge(badge) {
-  //"normalizes" the text to trim off anything extra and makes the text lowercase if its written in caps for consistency
   return String(badge).trim().toLowerCase();
 }
+
 /**
- * Toggle a badge on/off in the active badges array.
- * @param {string[]} activeBadges - Current selected badges.
- * @param {string} badge - Badge to toggle.
- * @returns {string[]} Updated selected badges.
+ * Toggles a badge on/off in the active filters array.
+ * If the badge is already in the array (case-insensitive), it removes it.
+ * Otherwise, it adds the badge to the array with proper capitalization.
+ *
+ * @param {string[]} activeBadges - Current array of selected filter badges.
+ * @param {string} badge - Badge text to toggle.
+ * @returns {string[]} Updated filter badges array.
  */
 function toggleFilter(activeBadges, badge) {
   const normalizedBadge = normalizeBadge(badge);
 
-  const existingIndex = activeBadges.findIndex(
-    (b) => normalizeBadge(b) === normalizedBadge,
-  );
+  const existingIndex = activeBadges.findIndex((b) => normalizeBadge(b) === normalizedBadge);
 
   const nextBadges = activeBadges.slice();
 
@@ -43,10 +46,12 @@ function toggleFilter(activeBadges, badge) {
 }
 
 /**
- * Remove a badge from the active badges array.
- * @param {string[]} activeBadges - Current selected badges.
- * @param {string} badge - Badge to remove.
- * @returns {string[]} Updated selected badges.
+ * Removes a specific badge from the active filters array.
+ * Performs case-insensitive matching using normalizeBadge.
+ *
+ * @param {string[]} activeBadges - Current array of selected filter badges.
+ * @param {string} badge - Badge text to remove.
+ * @returns {string[]} Updated filter badges array without the removed badge.
  */
 function removeFilter(activeBadges, badge) {
   const normalizedBadge = normalizeBadge(badge);
@@ -54,7 +59,8 @@ function removeFilter(activeBadges, badge) {
 }
 
 /**
- * Clear all badges from the filter state.
+ * Clears all badges from the active filters.
+ *
  * @returns {string[]} Empty filter array.
  */
 function clearFilter() {

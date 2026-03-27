@@ -1,18 +1,34 @@
+/**
+ * NotFoundPage.jsx
+ *
+ * 404 page displayed when users navigate to non-existent routes.
+ *
+ * Features:
+ * - Shows a stable not-found message (tied to pathname so it doesn't change on refresh)
+ * - Provides context-aware navigation links based on auth state
+ * - Maintains consistent styling with the rest of the application
+ */
+
 /*
  * Shows a stable not-found title and message.
  * The message stays tied to the missing pathname so refreshes/theme changes
  * do not reroll it, while a different bad route gets a new message.
  */
 
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-import Title from "@/components/shared/Heading.component";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@components/ui/card";
-import { useAuth } from "@/features/auth/hooks/useAuth";
-import { getStableNotFoundMsg } from "@/utils/getRandomNotFoundMsg";
+import Title from '@/components/shared/Heading.component';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@components/ui/card';
+import { useAuth } from '@/features/auth/hooks/useAuth';
+import { getStableNotFoundMsg } from '@/utils/getRandomNotFoundMsg';
 
+/**
+ * Displays a 404 not found page with navigation options.
+ *
+ * @returns {JSX.Element} 404 error page with recovery options.
+ */
 function NotFoundPage() {
   const { pathname } = useLocation();
   const { isAuthenticated } = useAuth();
@@ -23,12 +39,12 @@ function NotFoundPage() {
   }, [pathname]);
 
   const primaryLink = isAuthenticated
-    ? { to: "/", label: "Browse jobs" }
-    : { to: "/login", label: "Go to login" };
+    ? { to: '/', label: 'Browse jobs' }
+    : { to: '/login', label: 'Go to login' };
 
   const secondaryLink = isAuthenticated
-    ? { to: "/bookmarks", label: "Saved jobs" }
-    : { to: "/register", label: "Create account" };
+    ? { to: '/bookmarks', label: 'Saved jobs' }
+    : { to: '/register', label: 'Create account' };
 
   return (
     <section
@@ -47,9 +63,7 @@ function NotFoundPage() {
           </div>
 
           <div className="space-y-3" aria-live="polite">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              Routing
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Routing</p>
             <Title
               hLevel={1}
               className="text-2xl leading-tight tracking-tight text-foreground sm:text-3xl lg:text-4xl"
@@ -78,11 +92,7 @@ function NotFoundPage() {
             <Button asChild className="w-full rounded-full px-5 sm:w-auto">
               <Link to={primaryLink.to}>{primaryLink.label}</Link>
             </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="w-full rounded-full px-5 sm:w-auto"
-            >
+            <Button asChild variant="outline" className="w-full rounded-full px-5 sm:w-auto">
               <Link to={secondaryLink.to}>{secondaryLink.label}</Link>
             </Button>
           </nav>

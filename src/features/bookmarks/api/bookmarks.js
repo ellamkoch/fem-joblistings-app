@@ -1,34 +1,65 @@
-import { apiClient } from "@/lib/api/apiClient";
-import { unwrapData, normalizeJob } from "@/features/jobs/api/jobs";
+import { apiClient } from '@/lib/api/apiClient';
+import { unwrapData, normalizeJob } from '@/features/jobs/api/jobs';
 
-//reusing unwrapData from the jobs.js since we need the same pattern in here otherwise as part of this functionality.
-//takes the api response and returns an array of bookmarks
+/**
+ * Unwraps the common API response envelope and extracts the bookmark data.
+ * Reuses the jobs utility since bookmark responses follow the same pattern.
+ *
+ * @param {unknown} payload - Raw backend response payload.
+ * @returns {Array<object>} Array of bookmark records or an empty array if parsing fails.
+ */
 function unwrapBookmarkList(payload) {
-    const data = unwrapData(payload);
+  const data = unwrapData(payload);
 
-    if (Array.isArray(data)) {
-        return data;
-    }
+  if (Array.isArray(data)) {
+    return data;
+  }
 
-    return [];//returns an empty array instead of crashing the app if the data is not an array
+  return []; //returns an empty array instead of crashing the app if the data is not an array
 }
 
-//reusing the normalizeJob function here since bookmarks listed will essentially be a job card of the saved job
+/**
+ * Normalizes a bookmark record into the frontend job card shape.
+ * Reuses the normalizeJob function since bookmarks are saved job objects.
+ *
+ * @param {object} bookmark - Raw bookmark record from the API.
+ * @returns {object} Normalized job object for display.
+ */
 function normalizeBookmark(bookmark) {
-    return normalizeJob(bookmark?.job ?? {});
+  return normalizeJob(bookmark?.job ?? {});
 }
 
+/**
+ * Fetches all bookmarked jobs for the authenticated user.
+ *
+ * @param {object} [options={}] - Optional axios request config.
+ * @returns {Promise<Array<object>>} Normalized bookmarked jobs list.
+ */
 export async function listBookmarks(options = {}) {
-    const res = await apiClient.get('/me/bookmarks', options);
-    return unwrapBookmarkList(res.data).map(normalizeBookmark);
-}
-//don't need to normalize bookmark within this since we're simply saving a job and marking it as true. don't need payload since we're using jobId in the url
-export async function createBookmark(jobId, options = {}) {
-    const res = await apiClient.post(`/jobs/${jobId}/bookmark`, {}, options);
-    return unwrapData(res.data);
+  const res = await apiClient.get('/me/bookmarks', options);
+  return unwrapBookmarkList(res.data).map(normalizeBookmark);
 }
 
+/**
+ * Saves a job as a bookmark for the authenticated user.
+ *
+ * @param {string} jobId - The ID of the job to bookmark.
+ * @param {object} [options={}] - Optional axios request config.
+ * @returns {Promise<unknown>} Raw backend response payload.
+ */
+export async function createBookmark(jobId, options = {}) {
+  const res = await apiClient.post(`/jobs/${jobId}/bookmark`, {}, options);
+  return unwrapData(res.data);
+}
+
+/**
+ * Removes a bookmarked job for the authenticated user.
+ *
+ * @param {string} jobId - The ID of the job to unbookmark.
+ * @param {object} [options={}] - Optional axios request config.
+ * @returns {Promise<unknown>} Raw backend response payload.
+ */
 export async function deleteBookmark(jobId, options = {}) {
-    const res = await apiClient.delete(`/jobs/${jobId}/bookmark`, options);
-    return unwrapData(res.data);
+  const res = await apiClient.delete(`/jobs/${jobId}/bookmark`, options);
+  return unwrapData(res.data);
 }

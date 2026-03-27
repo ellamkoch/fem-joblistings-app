@@ -1,24 +1,32 @@
 //BookmarksPage.jsx
-//This page shows the user's saved jobs, lets them manage the list, and keeps the protected dashboard header layout.
+//Dashboard page for viewing, managing, and interacting with saved job bookmarks.
+//Displays the user's bookmark collection and provides job removal functionality.
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import ProtectedPageHeader from "@/features/auth/components/ProtectedPageHeader";
-import BookmarksList from "@/features/bookmarks/components/BookmarksList";
-import { useBookmarksContext } from "@/features/bookmarks/context/BookmarksContext";
+import ProtectedPageHeader from '@/features/auth/components/ProtectedPageHeader';
+import BookmarksList from '@/features/bookmarks/components/BookmarksList';
+import { useBookmarksContext } from '@/features/bookmarks/context/BookmarksContext';
 
 /**
- * Saved jobs page for authenticated users.
+ * Saved jobs dashboard for authenticated users.
  *
- * @returns {JSX.Element} The bookmarks dashboard view.
+ * Displays:
+ * - Count of saved jobs (singular/plural formatting)
+ * - List of bookmarked jobs with full card layout
+ * - Loading states and error messages
+ * - Empty state messaging when no jobs are saved
+ * - Individual job removal controls
+ *
+ * @returns {JSX.Element} Bookmarks dashboard view.
  */
 function BookmarksPage() {
   const { bookmarks, loading, error, removeBookmark } = useBookmarksContext();
 
-  // keeps the header copy readable for singular vs plural bookmark counts
+  // Keeps the header copy readable for singular vs plural bookmark counts
   const bookmarkCountLabel = useMemo(() => {
     if (bookmarks.length === 1) {
-      return "1 saved job";
+      return '1 saved job';
     }
 
     return `${bookmarks.length} saved jobs`;
@@ -29,16 +37,14 @@ function BookmarksPage() {
       <h1 className="hidden">Saved Jobs</h1>
       <ProtectedPageHeader compact>
         <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-            Dashboard
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Dashboard</p>
           <div className="space-y-0.5">
             <div>
               <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
                 Saved Jobs
               </h2>
               <p className="text-sm text-muted-foreground">
-                {loading ? "Loading saved jobs..." : `Review and manage ${bookmarkCountLabel}.`}
+                {loading ? 'Loading saved jobs...' : `Review and manage ${bookmarkCountLabel}.`}
               </p>
             </div>
           </div>
