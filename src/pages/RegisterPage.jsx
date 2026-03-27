@@ -4,9 +4,9 @@
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { useAuth } from "@/features/auth/hooks/useAuth";
-import { getAuthToken } from "@/features/auth/utils/getAuthToken";
-import AuthPageShell from "@/features/auth/components/AuthPageShell";
+import { useAuth } from "@/hooks/useAuth";
+import { getAuthToken } from "@/utils/getAuthToken";
+import AuthPageShell from "@/components/auth/AuthPageShell";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,7 +24,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { register } from "@/features/auth/api/auth";
+import { register } from "@/api/auth";
 
 /**
  * Displays the registration form and handles post-submit auth behavior.

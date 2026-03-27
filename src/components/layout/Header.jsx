@@ -2,13 +2,13 @@
 //Application header with navigation links and theme selector.
 //Displays different navigation options based on authentication state.
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 
-import HeroBackground from '@components/layout/HeroBackground.jsx';
-import { Button } from '@/components/ui/button';
-import LogoutButton from '@/features/auth/components/LogoutButton';
-import { useAuth } from '@/features/auth/hooks/useAuth';
-import ThemeSelect from '@/features/theme/components/ThemeSelect';
+import HeroBackground from "@components/layout/HeroBackground.jsx";
+import { Button } from "@/components/ui/button";
+import LogoutButton from "@/components/auth/LogoutButton";
+import { useAuth } from "@/hooks/useAuth";
+import ThemeSelect from "@/components/layout/ThemeSelect";
 
 /**
  * Renders the application header with hero background, navigation, and theme selector.
@@ -24,14 +24,14 @@ function Header() {
   const { isAuthenticated } = useAuth();
   const navLinks = isAuthenticated
     ? [
-        { to: '/', label: 'Jobs' },
-        { to: '/bookmarks', label: 'Saved Jobs' },
-        { to: '/about', label: 'About' },
+        { to: "/", label: "Jobs" },
+        { to: "/bookmarks", label: "Saved Jobs" },
+        { to: "/about", label: "About" },
       ]
     : [
-        { to: '/about', label: 'About' },
-        { to: '/login', label: 'Login' },
-        { to: '/register', label: 'Register' },
+        { to: "/about", label: "About" },
+        { to: "/login", label: "Login" },
+        { to: "/register", label: "Register" },
       ];
 
   return (
@@ -46,7 +46,7 @@ function Header() {
             {navLinks.map((link) => {
               const isActive =
                 location.pathname === link.to ||
-                (link.to !== '/' && location.pathname.startsWith(link.to));
+                (link.to !== "/" && location.pathname.startsWith(link.to));
 
               return (
                 <Button

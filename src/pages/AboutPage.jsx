@@ -4,7 +4,7 @@
  * Informational page showcasing project details, tech stack, features, and deployment information.
  * Available to both authenticated and unauthenticated users.
  */
-import { Badge } from '@/components/ui/badge';
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -12,8 +12,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 const builtWithItems = [
   'Frontend: React, Vite, Tailwind CSS, shadcn/ui',

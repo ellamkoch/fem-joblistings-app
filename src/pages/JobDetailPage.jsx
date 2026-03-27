@@ -14,17 +14,17 @@
  * - Back navigation to job list
  */
 
-import BackButton from '@/components/layout/BackButton';
-import Heading from '@/components/shared/Heading.component';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Separator } from '@/components/ui/separator';
+import BackButton from "@/components/layout/BackButton";
+import Heading from "@/components/shared/Heading.component";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
 
-import ProtectedPageHeader from '@/features/auth/components/ProtectedPageHeader';
-import JobCard from '@/features/jobs/components/JobCard';
-import { useParams } from 'react-router-dom';
+import ProtectedPageHeader from "@/components/auth/ProtectedPageHeader";
+import JobCard from "@/components/jobs/JobCard";
+import { useParams } from "react-router-dom";
 
-import { useBookmarksContext } from '@/features/bookmarks/context/BookmarksContext';
-import { useJobsContext } from '@/features/jobs/context/JobsContext';
+import { useBookmarksContext } from "@/contexts/BookmarksContext";
+import { useJobsContext } from "@/contexts/JobsContext";
 
 /**
  * Displays detailed information for a single job listing.

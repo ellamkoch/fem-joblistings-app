@@ -7,7 +7,7 @@
 
 //Selects a random msg to show on the Not Found Page from the notFoundMsgs.js
 
-import { messages } from '@utils/notFoundMsgs';
+import { messages } from "@utils/notFoundMsgs";
 
 const STORAGE_KEY = 'job-listings:not-found-messages';
 

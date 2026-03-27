@@ -10,7 +10,7 @@ import JobDetailPage from "@pages/JobDetailPage";
 import JobListPage from "@pages/JobListPage";
 import LoginPage from "@pages/LoginPage";
 import RegisterPage from "@pages/RegisterPage";
-import { ProtectedRoute } from "@/features/auth/components/ProtectedRoute";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
 /**
  * Renders the app route tree.
