@@ -1,7 +1,6 @@
 /* Renders the bookmark action control used on job cards and job details. */
 
 import { Bookmark, BookmarkX } from "lucide-react";
-
 import useBookmarkToggle from "@/hooks/useBookmarkToggle";
 import { Button } from "@/components/ui/button";
 import { Toggle } from "@/components/ui/toggle";
@@ -48,7 +47,10 @@ function BookmarkButton({
     : isBookmarked
       ? "Remove saved job"
       : "Save job";
-  const buttonLabel = isRemoveMode ? "Remove" : "Save job";
+  const buttonLabel = isRemoveMode ? "Remove"
+    : isBookmarked
+    ? "Saved"
+    :"Save Job";
 
   if (isRemoveMode) {
     return (
