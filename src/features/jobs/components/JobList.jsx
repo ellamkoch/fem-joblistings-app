@@ -12,6 +12,7 @@ import { useMemo, useState } from "react";
 import { Skeleton } from "@components/ui/skeleton";
 import JobCard from "@/features/jobs/components/JobCard";
 import FilterBar from "@/features/jobs/components/FilterBar";
+import { cn } from "@/lib/utils";
 import {
   normalizeBadge,
   toggleFilter,
@@ -134,7 +135,12 @@ function JobList() {
             ))}
           </div>
         ) : (
-          <div className="job-list flex flex-col gap-y-4">
+          <div
+            className={cn(
+              "job-list flex flex-col gap-y-4",
+              filter.length === 0 && "mt-16 sm:mt-0 gap-y-4",
+            )}
+          >
             {visibleJobs.map((job) => (
               <JobCard
                 key={job.id}

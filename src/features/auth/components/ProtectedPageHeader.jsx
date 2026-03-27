@@ -15,7 +15,9 @@ function ProtectedPageHeader({ children, className, compact = false }) {
     <div
       className={cn(
         "relative",
-        compact ? "z-10 -mt-36 mb-3 lg:-mt-[7.5rem]" : "z-10 -mt-20 mb-6 lg:-mt-[4.5rem]",
+        compact
+          ? "z-10 -mt-45 mb-3 sm:-mt-35 lg:-mt-[7.5rem]"
+          : "z-10 -mt-20 mb-6 lg:-mt-[4.5rem]",
         className,
       )}
     >
