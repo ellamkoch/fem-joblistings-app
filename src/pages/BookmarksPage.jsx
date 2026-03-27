@@ -3,10 +3,10 @@
 
 import { useMemo } from "react";
 
-import ProtectedPageHeader from "@/components/auth/ProtectedPageHeader";
-import ProtectedPageNav from "@/components/auth/ProtectedPageNav";
-import BookmarksList from "@/components/jobs/BookmarksList";
-import { useBookmarksContext } from "@/contexts/BookmarksContext";
+import ProtectedPageHeader from "@/features/auth/components/ProtectedPageHeader";
+import ProtectedPageNav from "@/features/auth/components/ProtectedPageNav";
+import BookmarksList from "@/features/bookmarks/components/BookmarksList";
+import { useBookmarksContext } from "@/features/bookmarks/context/BookmarksContext";
 
 /**
  * Saved jobs page for authenticated users.

@@ -4,8 +4,8 @@
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import AuthPageShell from "@/components/auth/AuthPageShell";
-import { getAuthToken } from "@/auth/getAuthToken";
+import AuthPageShell from "@/features/auth/components/AuthPageShell";
+import { getAuthToken } from "@/features/auth/utils/getAuthToken";
 import {
   Card,
   CardContent,
@@ -23,8 +23,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { login } from "@/lib/api/auth";
-import { useAuth } from "@/auth/useAuth";
+import { login } from "@/features/auth/api/auth";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 
 /**
  * Displays the login form and stores the returned auth token on success.

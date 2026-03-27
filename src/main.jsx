@@ -7,9 +7,9 @@ import "@styles/index.css";
 
 import App from '@/App.jsx';
 
-import { DEFAULT_THEME } from '@/constants/themeConstants';
-import { ThemeProvider } from '@/providers/ThemeProvider';
-import { AuthProvider } from '@/auth/AuthProvider';
+import { DEFAULT_THEME } from '@/features/theme/context/themeConstants';
+import { ThemeProvider } from '@/features/theme/providers/ThemeProvider';
+import { AuthProvider } from '@/features/auth/providers/AuthProvider';
 
 const rootElement = document.getElementById('root');
 

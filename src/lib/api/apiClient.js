@@ -2,7 +2,7 @@
 // Central axios client plus auth-aware request/response helpers.
 
 import axios from "axios";
-import { clearStoredToken, readStoredToken } from "@/auth/authStorage";
+import { clearStoredToken, readStoredToken } from "@/features/auth/utils/authStorage";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 const apiClientTimeout = import.meta.env.VITE_API_CLIENT_TIMEOUT;

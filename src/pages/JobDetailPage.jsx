@@ -9,18 +9,18 @@
  * eoe statement for the company
  This page will have a back button to go back to the main page.*/
 
-import BackButton from "@/components/shared/BackButton.component";
+import BackButton from "@/components/layout/BackButton";
 import Heading from "@/components/shared/Heading.component";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 
-import ProtectedPageHeader from "@/components/auth/ProtectedPageHeader";
-import JobCard from "@/components/jobs/JobCard";
-import ProtectedPageNav from "@/components/auth/ProtectedPageNav";
+import ProtectedPageHeader from "@/features/auth/components/ProtectedPageHeader";
+import JobCard from "@/features/jobs/components/JobCard";
+import ProtectedPageNav from "@/features/auth/components/ProtectedPageNav";
 import { useParams } from 'react-router-dom';
 
-import { useBookmarksContext } from "@/contexts/BookmarksContext";
-import { useJobsContext } from "@/contexts/JobsContext";
+import { useBookmarksContext } from "@/features/bookmarks/context/BookmarksContext";
+import { useJobsContext } from "@/features/jobs/context/JobsContext";
 
 
 function JobDetailPage() {
