@@ -16,10 +16,9 @@
 
 import BackButton from "@/components/layout/BackButton";
 import Heading from "@/components/shared/Heading.component";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Separator } from "@/components/ui/separator";
 
-import ProtectedPageHeader from "@/components/auth/ProtectedPageHeader";
 import JobCard from "@/components/jobs/JobCard";
 import { useParams } from "react-router-dom";
 
@@ -41,22 +40,64 @@ function JobDetailPage() {
 
   // Match route params against the normalized string ids returned by the API layer.
   const selectedJob = jobs.find((currentJob) => currentJob.id === String(id));
+  const listSectionTitles = new Set(["Responsibilities", "Requirements", "Nice to Have"]);
+  const roleSections = selectedJob
+    ? [
+        {
+          title: "Job Description",
+          content: selectedJob.jobDesc,
+          className: "lg:col-span-2",
+        },
+        {
+          title: "Responsibilities",
+          content: selectedJob.responsibilities,
+        },
+        {
+          title: "Requirements",
+          content: selectedJob.requirements,
+        },
+        {
+          title: "Nice to Have",
+          content: selectedJob.nice2have,
+        },
+        {
+          title: "About",
+          content: selectedJob.about,
+        },
+        {
+          title: "Equal Opportunity",
+          content: selectedJob.eoeStatement,
+          muted: true,
+          className: "lg:col-span-2",
+        },
+      ].filter((section) => section.content)
+    : [];
 
   return (
     <>
       <div>
+        <h1 className="sr-only">{selectedJob ? `${selectedJob.position} job details` : "Job details"}</h1>
         <div className="error">
-          {error && <p className="error-text text-destructive text-center">{error}</p>}
+          {error && (
+            <p className="error-text text-center text-destructive" role="alert">
+              {error}
+            </p>
+          )}
 
           {!loading && !error && !selectedJob && (
-            <p className="no-jobs text-center text-lg text-destructive">
+            <p className="no-jobs text-center text-lg text-destructive" role="alert">
               Oops! Seems the details of this job are lost, like our keys. Check back later.
             </p>
           )}
         </div>
 
         {loading ? (
-          <div className="skeleton divide-y divide-border">
+          <div
+            className="skeleton divide-y divide-border"
+            role="status"
+            aria-live="polite"
+            aria-label="Loading job details"
+          >
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="flex items-center gap-3 px-4 py-4">
                 <Skeleton className="h-5 w-5 rounded-full" />
@@ -66,78 +107,75 @@ function JobDetailPage() {
           </div>
         ) : (
           <div className="job-details-container">
-            <ProtectedPageHeader>
-              <div className="space-y-1">
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-                    Job Details
-                  </p>
+            {selectedJob && (
+              <section className="space-y-4" aria-labelledby="job-summary-title">
+                <div>
                   <BackButton />
                 </div>
-              </div>
-            </ProtectedPageHeader>
-            {/* Needed selectedJob wrapped around this to get it to pull info and put it w/ the template literals. */}
-            {selectedJob && (
-              <div>
+                <Heading hLevel={2} id="job-summary-title" className="sr-only">
+                  Job summary
+                </Heading>
                 <JobCard
                   job={selectedJob}
                   isBookmarked={bookmarksState.isBookmarked(selectedJob.id)}
                   addBookmark={bookmarksState.addBookmark}
                   removeBookmark={bookmarksState.removeBookmark}
                 />
-              </div>
+              </section>
             )}
           </div>
         )}
-        <div className="px-4">
+        <div className="mt-6 sm:mt-8">
           {selectedJob && (
-            <div className="mt-8">
-              <section className="">
-                <Heading hLevel={2} className="text-lg">
-                  Job Description
-                </Heading>
-                <p className="text-base whitespace-pre-line mt-1">{selectedJob.jobDesc}</p>
-                <Separator />
-                <Heading hLevel={3} className="text-lg  mt-4">
-                  Responsibilities
-                </Heading>
-                <p className="text-base leading-none whitespace-pre-line mt-1">
-                  {selectedJob.responsibilities}
-                </p>
-              </section>
-              <Separator />
-              <section className="mt-4">
-                <Heading hLevel={2} className="text-lg ">
-                  Requirements
-                </Heading>
-                <p className="text-base leading-none whitespace-pre-line mt-1">
-                  {selectedJob.requirements}
-                </p>
-                <Separator />
-                <div className="mt-4">
-                  <Heading hLevel={3} className="text-lg ">
-                    Nice to Have
-                  </Heading>
-                  <p className="text-base leading-none whitespace-pre-line mt-1">
-                    {selectedJob.nice2have}
+            <section
+              className="mx-auto max-w-6xl space-y-4 sm:space-y-5 lg:space-y-6"
+              aria-labelledby="role-overview-title"
+            >
+              <Card className="rounded-2xl border-border/70 shadow-sm">
+                <CardHeader className="gap-2">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                    Role overview
                   </p>
-                </div>
-              </section>
-              <Separator />
-              <section className="mt-4">
-                <Heading hLevel={2} className="text-lg ">
-                  About
-                </Heading>
-                <p className="text-base whitespace-pre-line mt-1">{selectedJob.about}</p>
-              </section>
-              <Separator />
-              <section className="mt-4">
-                <Heading hLevel={2} className="text-lg ">
-                  Equal Opportunity
-                </Heading>
-                <p className=" opacity-70 whitespace-pre-line mt-1">{selectedJob.eoeStatement}</p>
-              </section>
-            </div>
+                 
+                </CardHeader>
+
+                <CardContent className="grid gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-6">
+                  {roleSections.map((section) => (
+                    <article
+                      key={section.title}
+                      className={`rounded-xl border border-border/70 bg-accent/30 p-5 sm:p-6 ${section.className ?? ""}`}
+                    >
+                      <Heading hLevel={3} className="text-lg tracking-tight text-foreground">
+                        {section.title}
+                      </Heading>
+                      {listSectionTitles.has(section.title) ? (
+                        <ul
+                          className={`mt-3 list-disc space-y-2 pl-5 text-sm leading-7 sm:text-base ${
+                            section.muted ? "text-muted-foreground" : "text-foreground/90"
+                          }`}
+                        >
+                          {section.content
+                            .split("\n")
+                            .map((line) => line.trim())
+                            .filter(Boolean)
+                            .map((line) => (
+                              <li key={`${section.title}-${line}`}>{line}</li>
+                            ))}
+                        </ul>
+                      ) : (
+                        <p
+                          className={`mt-3 whitespace-pre-line text-sm leading-7 sm:text-base ${
+                            section.muted ? "text-muted-foreground" : "text-foreground/90"
+                          }`}
+                        >
+                          {section.content}
+                        </p>
+                      )}
+                    </article>
+                  ))}
+                </CardContent>
+              </Card>
+            </section>
           )}
         </div>
       </div>
