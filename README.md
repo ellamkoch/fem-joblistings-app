@@ -1,22 +1,61 @@
 # FEM Job Listings App with Filtering
 
-This is the frontend repository for my CodeX Level 4 capstone project. This app is actively being developed as part of my CodeX Level 4 capstone.
+This is the frontend repository for my CodeX Level 4 capstone project.
+
+This application is a deployed React + Vite single-page application that connects to a live backend API and database. It demonstrates a complete frontend → API → database flow with authentication, protected routes, and persistent data.
 
 ## Links
 
-Live Site:
-Repository: [https://github.com/ellamkoch/fem-joblistings-app](https://github.com/ellamkoch/fem-joblistings-app)
+**Live Frontend (CloudFront):**
+
+[https://d37elyh0k3z152.cloudfront.net/](https://d37elyh0k3z152.cloudfront.net/)
+
+**Live Backend API (Render):**
+[https://be-joblistings-app.onrender.com](https://be-joblistings-app.onrender.com)
+
+**Repository:**
+[https://github.com/ellamkoch/fem-joblistings-app](https://github.com/ellamkoch/fem-joblistings-app)
 
 ## Setup & Running the Project
+
+### Local Development
 
 1. Clone the repository
 2. Install dependencies:
    npm install
-3. Create a `.env` file with the following variable:
-   `VITE_API_BASE_URL=http://localhost:3005`
-4. Make sure the backend API is running locally
-5. Start the development server:
-   `npm run dev`
+3. Create a `.env` file in the root of the project with the variables listed in the env.example.
+4. Start the development server:
+   npm run dev
+5. Open the app in your browser (typically http://localhost:5173)
+
+---
+
+### Backend Connection
+
+The frontend is designed to work with either:
+
+* A **local backend** (for development)
+* The **deployed backend API** (for production testing)
+
+To switch between them, update:
+
+VITE_API_BASE_URL
+
+Example (production):
+
+VITE_API_BASE_URL=https://your-render-backend-url
+
+---
+
+### Production
+
+The application is deployed to AWS S3 + CloudFront.
+
+In production:
+
+* Environment variables are configured during the build process
+* The frontend automatically connects to the deployed backend API
+* No local setup is required to use the live application
 
 ## Environment Variables
 
@@ -28,6 +67,8 @@ This value should point to the backend API base URL during local development.
 
 Example:
 VITE_API_BASE_URL=http://localhost:3005
+
+In production, this value is configured during the build process to point to the deployed backend API.
 
 These values are required to run the app locally and should not be committed to the repository.
 
@@ -55,11 +96,11 @@ The frontend is being updated from numeric-ID assumptions to backend UUID-based 
 
 This project implements the **Frontend Mentor – Job Listings with Filtering** challenge as my **CodeX Level 4 capstone frontend**.
 
-The application is being expanded from a static/frontend-focused project into a multi-page React app with real backend integration.
+The application was expanded from a static frontend project into a multi-page React app with real backend integration.
 
 The application also includes a public About page to document the project’s architecture, features, and deployment approach.
 
-The current goals are to build a frontend that:
+The application supports:
 
 * Fetches job listing data from my Express API
 * Displays listings with interactive, AND-based tag filtering
@@ -76,7 +117,7 @@ The focus is on **clear architecture, real API integration, maintainability, and
 
 I originally built this project as a frontend-focused job listings application using a direct Supabase data flow.
 
-For the Level 4 capstone, I am now refactoring that architecture so the frontend no longer reads directly from the database. Instead, the React app calls my Express backend API, which uses Prisma to communicate with the database.
+The architecture was refactored so the frontend no longer reads directly from the database.
 
 I kept the existing UI structure where possible, then began replacing the old data-fetching layer with a backend-backed API client and resource-based request helpers. The first completed frontend refactor was the jobs list flow, which now loads from the backend API and still supports the existing badge-based filtering behavior.
 
@@ -91,6 +132,14 @@ Additional frontend work is now focused on refining the bookmarks feature, and c
 * **ORM:** Prisma
 * **Database:** Postgres (Supabase-hosted)
 * **Frontend Data Flow:** React → API client → backend routes → Prisma → database
+
+### Deployment Architecture
+
+* Frontend is deployed to AWS S3 and served via CloudFront
+* CloudFront is configured for SPA routing (403/404 → index.html)
+* Backend API is deployed on Render
+* Backend connects to a Supabase-hosted Postgres database via Prisma
+* Frontend communicates with the backend via a centralized API client
 
 ### Frontend Data Layer
 
@@ -343,7 +392,7 @@ Logout is handled as a global action within the navigation rather than a page-le
 
 ## Database Schema
 
-The backend uses Prisma with a Postgres database. The current core models are:
+The backend (separate repository) uses Prisma with a Supabase-hosted Postgres database. The frontend interacts with this data exclusively through the backend API. The current core models are:
 
 ### User
 
@@ -437,7 +486,40 @@ Planned improvements:
 * Test filtering logic and derived state
 * Test UI states such as loading, error, and empty states
 
-## Project Status
+## Deployment Notes
+
+### Frontend Deployment
+
+The frontend is deployed using AWS S3 and CloudFront.
+
+* The S3 bucket hosts the production build
+* CloudFront distributes the application globally
+* SPA routing is configured by redirecting 403/404 responses to `index.html`
+* Default root object is set to `index.html`
+* Cache invalidation is performed after updates
+
+### Backend Deployment
+
+The backend API is deployed on Render.
+
+Although the rubric specifies AWS Lambda, Render was used due to Prisma's database connection requirements, which are not well-suited for serverless environments without additional configuration.
+
+This approach still satisfies the requirement of a deployed API and ensures stable database connectivity.
+
+### Environment Configuration
+
+* Frontend uses Vite environment variables
+* Backend uses environment-based configuration for:
+  * JWT secret
+  * Database connection
+  * Allowed CORS origins
+
+CORS allows:
+
+* Local development (`http://localhost:5173`)
+* Production frontend (CloudFront domain)
+
+## Final Implementation Summary
 
 ### Frontend foundation already in place
 
@@ -449,9 +531,10 @@ Planned improvements:
 * Existing job listings UI, filtering UI, and job detail UI reused from the earlier version of the project
 * Complete deployment notes, env examples, and final README updates
 
-### Frontend refactor to backend API — in progress
-
 * Removed direct frontend dependency on Supabase for the jobs list flow
+
+### Frontend refactor to backend API — completed
+
 * Added a centralized frontend API client for backend requests
 * Added a frontend jobs API module to:
 
@@ -474,12 +557,11 @@ Planned improvements:
   * Logout functionality with resilient local state clearing
 * Implemented relative date formatting for job postings using a reusable utility helper
 
-### Current next steps
+### Remaining Improvements
 
-* Refine backend bookmark response fields for improved frontend consistency
-* Complete deployment notes and final README polish
 * Expand seed data to better test UI states and edge cases (date ranges, filters, badges)
 * Refine conditional rendering for optional fields
+* Complete color refinement for light and high-contrast themes (dark theme is fully implemented; additional themes are being fine-tuned for consistency and accessibility)
 
 ## Future Ideas
 
