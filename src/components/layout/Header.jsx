@@ -30,7 +30,7 @@ function Header() {
       ]
     : [
         { to: "/about", label: "About" },
-        { to: "/login", label: "Login" },
+        { to: "/login", label: "Log in" },
         { to: "/register", label: "Register" },
       ];
 
@@ -52,10 +52,20 @@ function Header() {
                 <Button
                   key={link.to}
                   asChild
-                  variant={isActive ? 'default' : 'outline'}
+                  variant="outline"
                   size="sm"
-                  className="h-8 rounded-full px-3 text-[11px] uppercase tracking-[0.12em] sm:h-9 sm:px-4 sm:text-xs"
-                >
+                  className={`
+                     h-8 rounded-full px-3 text-[11px] uppercase tracking-[0.12em]
+  sm:h-9 sm:px-4 sm:text-xs
+  transition-colors
+  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
+                    ${
+                      isActive
+                        ? "bg-foreground text-background"
+      : "text-muted-foreground hover:text-accent-foreground hover:bg-accent"
+                    }
+                  `}
+>
                   <Link to={link.to}>{link.label}</Link>
                 </Button>
               );

@@ -77,18 +77,11 @@ function RegisterPage() {
 
   return (
     <AuthPageShell
-      eyebrow="Create account"
-      title="Register"
-      description="Set up your account to manage job listings and keep your search organized."
+      title="Create your account"
+      description="Start searching for your next opportunity."
     >
-      <Card className="rounded-2xl border-border/70 shadow-xl">
-        <CardHeader className="gap-1.5">
-          <CardTitle className="text-2xl">Set up your account</CardTitle>
-          <CardDescription className="text-base">
-            Enter your details below to get started.
-          </CardDescription>
-        </CardHeader>
-
+      <Card className="rounded-2xl border-border/70 shadow-xl pt-5">
+     
         <CardContent>
           <Form {...form}>
             <form
@@ -165,7 +158,7 @@ function RegisterPage() {
 
               <div className="space-y-3">
                 <Button
-                  className="h-11 w-full text-sm font-semibold"
+                  className="h-11 w-full text-sm font-semibold text-primary-foreground"
                   disabled={form.formState.isSubmitting}
                   type="submit"
                 >

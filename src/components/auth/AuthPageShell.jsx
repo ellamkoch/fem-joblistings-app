@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
  * @param {string} [props.className] - Optional section class names.
  * @returns {JSX.Element} Auth page shell.
  */
-function AuthPageShell({ eyebrow, title, description, children, className }) {
+function AuthPageShell({ title, description, children, className }) {
   return (
     <section
       className={cn(
@@ -19,15 +19,12 @@ function AuthPageShell({ eyebrow, title, description, children, className }) {
         className,
       )}
     >
-      <div className="space-y-3 px-1 text-primary-foreground">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground/80">
-          {eyebrow}
-        </p>
+      <div className="space-y-3 px-1 text-background dark:text-foreground">
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-primary-foreground">
+          <h1 className="text-3xl font-semibold tracking-tight ">
             {title}
           </h1>
-          <p className="max-w-sm text-base text-primary-foreground/85">
+          <p className="max-w-sm text-base opacity-80">
             {description}
           </p>
         </div>

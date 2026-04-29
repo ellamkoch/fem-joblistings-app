@@ -69,22 +69,15 @@ function LoginPage() {
 
   return (
     <AuthPageShell
-      eyebrow="Welcome back"
-      title="Login"
-      description="Sign in to continue managing job listings and picking up where you left off."
+      title="Log in"
+      description="Continue the search for your next opportunity."
     >
-      <Card className="rounded-2xl border-border/70 shadow-xl">
-        <CardHeader className="gap-1.5">
-          <CardTitle className="text-2xl">Sign in</CardTitle>
-          <CardDescription className="text-base">
-            Enter your email and password below.
-          </CardDescription>
-        </CardHeader>
-
+      <Card className="rounded-2xl border-border/70 shadow-xl pt-5">
+      
         <CardContent>
           <Form {...form}>
             <form
-              className="space-y-5"
+              className="space-y-5 gap-1.5"
               onSubmit={form.handleSubmit(onSubmit)}
               noValidate
             >
@@ -142,11 +135,11 @@ function LoginPage() {
 
               <div className="space-y-3">
                 <Button
-                  className="h-11 w-full text-sm font-semibold"
+                  className="h-11 w-full text-sm font-semibold text-primary-foreground"
                   disabled={form.formState.isSubmitting}
                   type="submit"
                 >
-                  {form.formState.isSubmitting ? "Logging in..." : "Log in"}
+                  {form.formState.isSubmitting ? "Logging in..." : "Login"}
                 </Button>
 
                 <p className="text-center text-sm text-muted-foreground">
