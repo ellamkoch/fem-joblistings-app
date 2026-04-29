@@ -1,586 +1,192 @@
-# FEM Job Listings App with Filtering
+# Job Listings App (Full Stack)
 
-This is the frontend repository for my CodeX Level 4 capstone project.
+This project is a full stack job listings application built as my CodeX Level 4 capstone. It began as a Frontend Mentor challenge and was expanded into a multi-page React application with a backend API, authentication, and persistent data.
 
-This application is a deployed React + Vite single-page application that connects to a live backend API and database. It demonstrates a complete frontend → API → database flow with authentication, protected routes, and persistent data.
-
-## Links
-
-**Live Frontend (CloudFront):**
-
-[https://d37elyh0k3z152.cloudfront.net/](https://d37elyh0k3z152.cloudfront.net/)
-
-**Live Backend API (Render):**
-[https://be-joblistings-app.onrender.com](https://be-joblistings-app.onrender.com)
-
-**Repository:**
-[https://github.com/ellamkoch/fem-joblistings-app](https://github.com/ellamkoch/fem-joblistings-app)
-
-## Setup & Running the Project
-
-### Local Development
-
-1. Clone the repository
-2. Install dependencies:
-   npm install
-3. Create a `.env` file in the root of the project with the variables listed in the env.example.
-4. Start the development server:
-   npm run dev
-5. Open the app in your browser (typically http://localhost:5173)
+The goal of this project is to demonstrate a complete frontend → API → database flow, along with clear architecture, maintainable code, and real-world patterns.
 
 ---
 
-### Backend Connection
+## Project Overview
 
-The frontend is designed to work with either:
+The application allows users to:
 
-* A **local backend** (for development)
-* The **deployed backend API** (for production testing)
+* Browse and filter job listings using AND-based tag filtering
+* View detailed job information
+* Create an account and authenticate
+* Save and manage bookmarked jobs
+* Navigate protected routes based on authentication state
+* Switch between light, dark, contrast, and system themes
 
-To switch between them, update:
-
-VITE_API_BASE_URL
-
-Example (production):
-
-VITE_API_BASE_URL=https://your-render-backend-url
+This project focuses on clarity, structure, and explainable data flow rather than pixel-perfect styling.
 
 ---
 
-### Production
+## Tech Stack
 
-The application is deployed to AWS S3 + CloudFront.
+**Frontend**
 
-In production:
+* React (Vite)
+* Tailwind CSS
+* shadcn/ui
+* React Router
 
-* Environment variables are configured during the build process
-* The frontend automatically connects to the deployed backend API
-* No local setup is required to use the live application
+**Backend**
 
-## Environment Variables
+* Express API
+* Prisma ORM
 
-This project uses Vite environment variables for the frontend API connection:
+**Database**
 
-`VITE_API_BASE_URL`
+* PostgreSQL (currently hosted via Supabase)
 
-This value should point to the backend API base URL during local development.
+**Deployment**
 
-Example:
-VITE_API_BASE_URL=http://localhost:3005
+* Backend: Render
+* Frontend: previously deployed to AWS S3 + CloudFront
 
-In production, this value is configured during the build process to point to the deployed backend API.
-
-These values are required to run the app locally and should not be committed to the repository.
-
-The focus is on **correct architecture, clarity, testability, and maintainability**, not pixel-perfect styling.
-
-## Troubleshooting
-
-### Jobs request is hitting localhost:5173 instead of the backend
-
-Make sure `VITE_API_BASE_URL` is set correctly in the frontend `.env` file and restart the Vite dev server after changing env vars.
-
-### API calls return 404 from the frontend
-
-Confirm the backend server is running on the expected port and that `VITE_API_BASE_URL` points to that backend base URL, not the frontend dev server.
-
-### CORS errors in development
-
-Confirm the backend CORS configuration allows `http://localhost:5173`.
-
-### Job detail page does not load correctly by route param
-
-The frontend is being updated from numeric-ID assumptions to backend UUID-based job IDs. Route-param lookup logic should compare string IDs rather than using numeric parsing.
-
-## Project Overview & Capstone Goals
-
-This project implements the **Frontend Mentor – Job Listings with Filtering** challenge as my **CodeX Level 4 capstone frontend**.
-
-The application was expanded from a static frontend project into a multi-page React app with real backend integration.
-
-The application also includes a public About page to document the project’s architecture, features, and deployment approach.
-
-The application supports:
-
-* Fetches job listing data from my Express API
-* Displays listings with interactive, AND-based tag filtering
-* Supports job detail views
-* Supports user-specific bookmarks with save/remove toggle behavior, shared state across pages, and a dedicated saved jobs dashboard
-* Demonstrates a real frontend → API → database flow
-* Meets loading, error, validation, and protected-route requirements for the capstone
-* Implements authentication flows for register, login, and logout
-* Includes responsive layout, theme switching (light, dark, contrast, system), and UI states for filtering and interactions
-
-The focus is on **clear architecture, real API integration, maintainability, and explainable data flow**.
-
-## My Process
-
-I originally built this project as a frontend-focused job listings application using a direct Supabase data flow.
-
-The architecture was refactored so the frontend no longer reads directly from the database.
-
-I kept the existing UI structure where possible, then began replacing the old data-fetching layer with a backend-backed API client and resource-based request helpers. The first completed frontend refactor was the jobs list flow, which now loads from the backend API and still supports the existing badge-based filtering behavior.
-
-Filtering remains React-state driven. Active filters are stored locally in the list view, while the visible job list is derived from the full jobs array using `useMemo` and array helpers. This preserves the original filtering behavior while allowing the data source to change underneath it.
-
-Additional frontend work is now focused on refining the bookmarks feature, and completing deployment-ready documentation.
-
-## Architecture Overview
-
-* **Frontend:** React + Vite
-* **Backend API:** Express
-* **ORM:** Prisma
-* **Database:** Postgres (Supabase-hosted)
-* **Frontend Data Flow:** React → API client → backend routes → Prisma → database
-
-### Deployment Architecture
-
-* Frontend is deployed to AWS S3 and served via CloudFront
-* CloudFront is configured for SPA routing (403/404 → index.html)
-* Backend API is deployed on Render
-* Backend connects to a Supabase-hosted Postgres database via Prisma
-* Frontend communicates with the backend via a centralized API client
-
-### Frontend Data Layer
-
-* `apiClient.js`
-
-  * Central axios client for backend requests
-  * Uses `VITE_API_BASE_URL` from Vite env vars
-* `jobs.js`
-
-  * Contains frontend job request helpers
-  * Unwraps API responses
-  * Normalizes backend job data into the shape expected by the existing UI
-  * Supports both jobs list requests and single-job detail requests
-* `useJobs`
-
-  * Loads jobs through the API layer
-  * Manages loading and error state
-  * Acts as the frontend source of truth for job list data
-* Job detail page fetches a single job by ID through the API layer
-* This supports direct navigation and page refresh without requiring the full jobs list first
-* `bookmarks.js`
-
-  * Contains frontend bookmark request helpers
-  * Reuses shared API response unwrapping logic
-  * Reuses job normalization to convert bookmark results into UI-ready job objects
-  * Supports bookmark list, create, and delete actions
-* `useBookmarks`
-
-  * Loads bookmarks through the API layer
-  * Manages shared bookmark state via context/provider
-  * Handles loading and error state
-  * Exposes add/remove bookmark actions
-  * Provides `isBookmarked` helper for UI components
-* `useBookmarkToggle`
-
-  * Handles per-job bookmark toggle behavior
-  * Prevents duplicate requests with a pending state
-  * Supports both toggle and remove-only interaction modes
-* `ThemeProvider`
-
-  * Manages global theme state across the application
-  * Applies theme classes to the root document element (`<html>`)
-  * Supports `light`, `dark`, `contrast`, and `system` themes
-  * Persists user preference in localStorage
-  * Resolves system theme using `prefers-color-scheme`
-* `useTheme`
-
-  * Provides access to current theme and resolved theme
-  * Exposes `setTheme` for updating user preference
-  * Allows UI components to react to theme changes without direct DOM manipulation
-* `formatDate`
-
-  * Utility helper for converting backend `postedAt` timestamps into human-readable relative time (e.g., "3 days ago", "2 weeks ago")
-  * Uses `Intl.RelativeTimeFormat` for built-in pluralization and natural language formatting
-  * Supports day, week, and month ranges for simplified UI display
-  * Safely handles missing or invalid date values
-
-### Bookmark Feature Notes
-
-The bookmarks feature is implemented as a user-specific relationship between users and jobs, with shared frontend state to keep UI interactions consistent across pages.
-
-On the frontend:
-
-* Bookmark data is managed through a shared `BookmarksProvider` and `useBookmarks` hook
-* This ensures bookmarks are loaded once and reused across the app (avoiding duplicate API calls)
-* Bookmark list responses are transformed into normalized job objects
-* This allows the bookmarks page to reuse the existing `JobCard` component without introducing a separate bookmark-specific UI model
-
-Bookmark interactions are split into two responsibilities:
-
-* **Collection state (useBookmarks)**
-
-  * Loads and stores the full list of saved jobs
-  * Handles initial loading and error state
-  * Provides helper functions for add/remove actions
-  * Provides `isBookmarked(jobId)` for UI state checks
-* **Per-job toggle behavior (useBookmarkToggle)**
-
-  * Handles save/remove logic for individual jobs
-  * Prevents duplicate requests using a `pending` state
-  * Supports both toggle mode (job list, detail page) and remove-only mode (bookmarks page)
-
-UX behavior:
-
-* Saving/removing a bookmark updates local state immediately (no full refetch required)
-* The bookmarks page reuses normalized job data and existing UI components
-* Loading state is limited to the initial bookmark fetch to prevent UI flicker during individual actions
-* Bookmark state remains consistent across pages through shared context
-
-Edge case handling:
-
-* Bookmark list loads only after authentication is available
-* Duplicate bookmark attempts trigger a resync to correct local state
-* Bookmark state is cleared on logout
-
-### Theme System
-
-The application includes a global theme system designed for consistency, accessibility, and user preference persistence.
-
-Theme state is managed through a dedicated `ThemeProvider`, which centralizes all theme-related logic and ensures consistent styling across the application.
-
-Key implementation details:
-
-* Theme is applied by toggling class names on the root `<html>` element
-* Styling is driven by CSS custom properties (variables), allowing components to remain theme-agnostic
-* Supports multiple theme modes:
-  * `light`
-  * `dark`
-  * `contrast` (high-contrast accessibility mode)
-  * `system` (automatically matches the user's OS preference)
-* User-selected theme is persisted in localStorage and restored on page load
-* System theme changes are detected using the `prefers-color-scheme` media query
-
-UX considerations:
-
-* Theme changes apply instantly without requiring a page reload
-* The selected theme is consistent across all pages and components
-* High-contrast mode improves accessibility for users who need stronger visual distinction
-
-Architecture notes:
-
-* Theme logic is centralized in the provider rather than scattered across components
-* Components rely on CSS variables instead of conditional inline styles
-* This approach keeps UI components simple and scalable as additional themes or tokens are introduced
-
-### Authentication Flow
-
-The frontend implements JWT-based authentication using the backend API.
-
-* Users are redirected to `/login` when attempting to access protected routes
-* Users can create an account via the `/register` page
-* The register form submits user data to the backend auth endpoint
-* If the backend returns a token, the user is automatically logged in after registration
-* If no token is returned, the user is redirected to `/login`
-* The login form submits credentials to the backend auth endpoint
-* On success, the returned JWT is stored in local storage
-* The token is automatically attached to API requests via the centralized axios client
-* Auth state is managed through an `AuthProvider` and accessed via a custom `useAuth` hook
-* Auth state persists across page refresh using stored token restoration
-* Users can log out from protected pages, which clears local auth state and redirects to `/login`
-* Unauthorized responses (401) trigger automatic logout and token clearing
-
-### State
-
-* Filter state is stored locally in React
-* No URL query syncing is currently used
-* Active filters are derived against normalized job data
-
-### Derived Data
-
-* `visibleJobs` is computed from the jobs array and active filters using `useMemo`
-
-### Filtering Logic
-
-* AND-based badge filtering is preserved from the original frontend implementation
-* Active filters are stored as user-facing display values (e.g., "Git", "JavaScript")
-* For comparison, both filter values and job data are normalized to a consistent lowercase format
-
-Normalization approach:
-
-* A shared `normalizeBadge` helper trims and lowercases values for reliable comparison
-* This allows display formatting (capitalization) to remain separate from filtering logic
-* Ensures filters continue to work even when UI labels are formatted differently from raw data
-
-Matching behavior:
-
-* Each job must match **all active filters** (AND-based filtering)
-* A job matches a filter if the normalized filter value is found within:
-  * `role`
-  * `level`
-  * `languages`
-  * `tools`
-
-Implementation notes:
-
-* Filtering logic uses `reduce` to evaluate whether a job satisfies all active badges
-* Comparisons use normalized values on both sides to prevent mismatches caused by capitalization
-* String-based matching (`includes`) is used for flexible matching across tag fields
-
-### Date Formatting
-
-Job posting dates are converted from backend timestamps into human-readable relative time strings for improved UI clarity.
-
-Implementation details:
-
-* A reusable `formatDate` utility handles all date formatting logic
-* Uses JavaScript's built-in `Intl.RelativeTimeFormat` for natural language output and correct pluralization
-* Converts timestamps into:
-  * days ("3 days ago")
-  * weeks ("2 weeks ago")
-  * months ("1 month ago")
-* Keeps formatting logic separate from UI components to maintain clean and declarative JSX
-
-Design considerations:
-
-* Avoids over-granularity (minutes/hours) to keep the UI simple and scannable
-* Ensures consistent formatting across all views that display job metadata
-* Allows future extension without modifying component-level logic
-
-## Routes
-
-* **`/login` — Login Page**
-
-  * Allows users to authenticate via the backend API
-  * Redirects authenticated users to protected routes
-* **Protected Routes**
-
-  * `/` (Job List) and `/jobs/:id` require authentication
-  * Unauthenticated users are redirected to `/login`
-* **`/bookmarks` — Saved Jobs Page**
-
-  * Displays all bookmarked jobs for the authenticated user
-  * Reuses the `JobCard` component for consistent UI
-  * Allows users to remove saved jobs from their collection
-  * Shares state with the jobs list via the bookmarks context
-* **`/jobs/:id` — Job Detail Page**
-
-  * * Loads job data from the backend-backed job list
-    * Matches jobs using UUID-based IDs
-    * Displays full job details including description, responsibilities, and requirements
-    * Handles missing or incomplete data gracefully
-* **`*` — Not Found Page**
-
-  * Catches invalid routes
-  * Displays one of three predefined messages
-  * Message is selected once on mount and remains stable across re-renders
-* **`/about` — About Page**
-
-  * Public, non-authenticated route
-  * Provides an overview of the project, tech stack, features, and deployment details
-  * Helps demonstrate architecture and design decisions for the capstone
-
-### Navigation
-
-The application includes a lightweight global navigation that adapts based on authentication state:
-
-* **Authenticated users:**
-
-  * Jobs
-  * Saved Jobs
-  * About
-  * Logout
-* **Unauthenticated users:**
-
-  * About
-  * Login
-  * Register
-
-Logout is handled as a global action within the navigation rather than a page-level control.
-
-## Database Schema
-
-The backend (separate repository) uses Prisma with a Supabase-hosted Postgres database. The frontend interacts with this data exclusively through the backend API. The current core models are:
-
-### User
-
-* `id`
-* `email`
-* `name`
-* `passwordHash`
-* `createdAt`
-
-### Job
-
-* `id`
-* `company`
-* `position`
-* `role`
-* `level`
-* `contract`
-* `languages`
-* `tools`
-* `logoUrl`
-* `location`
-* `jobDesc`
-* `responsibilities`
-* `nice2have`
-* `about`
-* `eoeStatement`
-* `requirements`
-* `authorId`
-* `isNew`
-* `isFeatured`
-* `postedAt`
-* `createdAt`
-* `updatedAt`
-
-### Bookmark
-
-* `id`
-* `jobId`
-* `userId`
-* `createdAt`
-
-### RevokedToken
-
-* `id`
-* `tokenHash`
-* `userId`
-* `expiresAt`
-* `revokedAt`
-
-## Accessibility Notes
-
-Accessibility considerations are included throughout the UI:
-
-* Semantic HTML structure is used where possible
-* Interactive elements include appropriate `aria-labels`
-* Clickable badges and buttons are keyboard accessible
-* Focus states and hover states are preserved for usability
-* Empty and error states provide clear user feedback
-* Project codebase is now lint-clean and ready for deployment and test branch creation
-
-## Testing
-
-### Backend Integration Testing
-
-Although this is the frontend repository, the application depends on a working backend API. Backend functionality was verified using **Postman** to ensure the required flows work correctly.
-
-Validated behaviors:
-
-* Authentication (register/login)
-* Protected route access with JWT
-* Jobs resource (list and detail endpoints)
-* Bookmarks resource (create, list, delete) with user-specific persistence
-* Data persistence after refresh
-* Error handling for invalid input and unauthorized requests
-
-A Postman collection is available (or will be included) to demonstrate these flows.
-
-### Frontend Testing
-
-Vitest-based tests were created during the initial frontend build on a separate branch.
-
-These tests focus on UI behavior and filtering logic.
-
-As part of the Level 4 refactor, the data layer has changed from direct Supabase access to a backend API. Existing tests will be reviewed and updated to mock the API layer where needed.
-
-### Future Testing
-
-Planned improvements:
-
-* Add or restore Vitest-based frontend tests
-* Test filtering logic and derived state
-* Test UI states such as loading, error, and empty states
+---
 
 ## Deployment Notes
 
-### Frontend Deployment
+This project was originally deployed using AWS S3 and CloudFront for the frontend, with SPA routing configured to serve `index.html` for unknown routes.
 
-The frontend is deployed using AWS S3 and CloudFront.
+The backend API is currently deployed on Render and remains active.
 
-* The S3 bucket hosts the production build
-* CloudFront distributes the application globally
-* SPA routing is configured by redirecting 403/404 responses to `index.html`
-* Default root object is set to `index.html`
-* Cache invalidation is performed after updates
+The database is currently hosted on Supabase (PostgreSQL). Because this is a free-tier service, it may spin down after periods of inactivity, which can cause temporary delays when reconnecting.
 
-### Backend Deployment
+### Planned Improvement
 
-The backend API is deployed on Render.
+The database will be migrated to a standalone PostgreSQL setup in the future. This will remove the dependency on Supabase while keeping the same relational data structure.
 
-Although the rubric specifies AWS Lambda, Render was used due to Prisma's database connection requirements, which are not well-suited for serverless environments without additional configuration.
+---
 
-This approach still satisfies the requirement of a deployed API and ensures stable database connectivity.
+## Running the Project Locally
 
-### Environment Configuration
 
-* Frontend uses Vite environment variables
-* Backend uses environment-based configuration for:
-  * JWT secret
-  * Database connection
-  * Allowed CORS origins
+### 1. Clone the repository
 
-CORS allows:
+<pre class="overflow-visible! px-0!" data-start="2364" data-end="2461"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span class="ͼs">git</span><span> clone https://github.com/ellamkoch/fem-joblistings-app.git</span><br/><span class="ͼs">cd</span><span> fem-joblistings-app</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
 
-* Local development (`http://localhost:5173`)
-* Production frontend (CloudFront domain)
+---
 
-## Final Implementation Summary
+### 2. Install dependencies
 
-### Frontend foundation already in place
+<pre class="overflow-visible! px-0!" data-start="2497" data-end="2520"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span class="ͼs">npm</span><span> install</span></code></pre></div></div></div></div></div></div></div></div></div></div></div></div></pre>
 
-* Project scaffolded with Vite + React
-* Tailwind CSS installed and configured
-* shadcn/ui components installed and available for UI primitives
-* Global layout implemented with shared header and footer
-* Routing structure established for job list, job detail, and not found pages
-* Existing job listings UI, filtering UI, and job detail UI reused from the earlier version of the project
-* Complete deployment notes, env examples, and final README updates
 
-* Removed direct frontend dependency on Supabase for the jobs list flow
+### 3. Configure environment variables
 
-### Frontend refactor to backend API — completed
+Create a `.env` file in the root of the project:
 
-* Added a centralized frontend API client for backend requests
-* Added a frontend jobs API module to:
+<pre class="overflow-visible! px-0!" data-start="2617" data-end="2667"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span>VITE_API_BASE_URL=http://localhost:3005</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
 
-  * request jobs from the backend
-  * unwrap the API response envelope
-  * normalize backend job fields into the shape expected by the existing UI
-* Updated `useJobs` to load jobs from the backend API instead of querying Supabase directly
-* Confirmed the job list now loads from the backend API successfully
-* Confirmed existing badge-based filtering still works with backend-loaded job data
-* Implemented job detail page using backend-loaded job data
-* Confirmed routing from list → detail works with UUID-based IDs
-* Verified full frontend → backend → database data flow
-* Implemented complete frontend authentication flow:
+If using the deployed backend:
 
-  * Login and register pages built using shadcn/ui
-  * JWT storage and persistence across refresh
-  * Auth context/provider for frontend auth state
-  * Axios client configured with bearer token
-  * Protected routes using `ProtectedRoute`
-  * Logout functionality with resilient local state clearing
-* Implemented relative date formatting for job postings using a reusable utility helper
+<pre class="overflow-visible! px-0!" data-start="2701" data-end="2761"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span>VITE_API_BASE_URL=https://your-render-backend-url</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
 
-### Remaining Improvements
+---
 
-* Expand seed data to better test UI states and edge cases (date ranges, filters, badges)
-* Refine conditional rendering for optional fields
-* Complete color refinement for light and high-contrast themes (dark theme is fully implemented; additional themes are being fine-tuned for consistency and accessibility)
+### 4. Start the development server
 
-## Future Ideas
+<pre class="overflow-visible! px-0!" data-start="2805" data-end="2828"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span class="ͼs">npm</span><span> run dev</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
 
-As the backend integration matures, the job detail page could be refactored to fetch an individual job directly rather than depending on the full job list already being present in memory. A dedicated `useJob(id)` hook or job-detail API helper would reduce unnecessary list-level dependency and better support direct navigation and refresh behavior.
+The app will run at:
 
-Additional potential enhancements include:
+<pre class="overflow-visible! px-0!" data-start="2852" data-end="2881"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="relative"><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span>http://localhost:5173</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
 
-* Introducing a prop-based option on the `JobCard` component to disable navigation links when reused within the Job Detail page
-* Refactoring long-form job text sections into smaller, presentational-only components to improve readability and maintainability
-* Enhancing semantic structure on the Job Detail page (e.g., converting multiline text fields into structured lists where appropriate)
-* Adding typography refinements to improve content hierarchy once core functionality is complete
-* Implementing memoized selectors or derived helpers for job lookup logic as data volume increases
-* Expanding accessibility considerations for long-form content (e.g., landmark regions and improved heading structure)
+---
 
-## Resources
+## Backend Connection
 
-* [React Router Docs](https://reactrouter.com/home)
-* [Tailwind CSS Docs](https://tailwindcss.com/docs)
-* [MDN Array Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-* [MDN Math.random()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
-* [BrowserStack: CSS Breakpoints Guide](https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints)
-* [ MDN Intl.RelativeTimeFormat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat)
+The frontend connects to the backend through a centralized API client.
+
+You can run the app using:
+
+* a local backend instance, or
+* the deployed Render backend
+
+All API requests use the `VITE_API_BASE_URL` environment variable.
+
+---
+
+## Architecture Overview
+
+Frontend data flow:
+
+<pre class="overflow-visible! px-0!" data-start="3196" data-end="3261"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="relative"><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span>React → API client → Express routes → Prisma → PostgreSQL</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+
+Key patterns implemented:
+
+* Centralized API client for all requests
+* Data normalization before rendering
+* Custom hooks for jobs and bookmarks
+* Context-based state for shared data
+* Protected routes for authenticated access
+
+---
+
+## Features
+
+* Job listing retrieval from backend API
+* AND-based filtering using tags
+* Job detail pages with direct routing support
+* Bookmark system with shared state across pages
+* Authentication flow (register, login, logout)
+* Persistent auth state using JWT
+* Theme system (light, dark, contrast, system)
+* Responsive layout and UI states
+
+---
+
+## Authentication Flow
+
+* Users register or log in through the frontend
+* JWT is returned from the backend and stored locally
+* Token is attached to API requests via the API client
+* Protected routes require authentication
+* Unauthorized responses trigger automatic logout
+
+---
+
+## Theme System
+
+The application includes a global theme system with:
+
+* Light mode
+* Dark mode
+* High contrast mode
+* System preference detection
+
+Themes are implemented using CSS variables and applied at the root level, allowing components to remain theme-agnostic.
+
+---
+
+## Testing
+
+Backend functionality was verified using Postman, including:
+
+* Authentication
+* Protected routes
+* Job retrieval
+* Bookmark creation and deletion
+* Data persistence
+
+Frontend tests were created earlier in development and are planned to be updated to reflect the current API-based data layer.
+
+---
+
+## Known Limitations
+
+* Supabase free-tier database may spin down after inactivity
+* Some frontend tests need to be updated after API refactor
+* Seed data is limited and may not cover all UI edge cases
+
+---
+
+## Future Improvements
+
+* Migrate database from Supabase to standalone PostgreSQL
+* Expand test coverage (frontend and backend)
+* Improve accessibility and contrast validation
+* Refactor job detail data fetching into a dedicated hook
+* Expand seed data for better UI state coverage
