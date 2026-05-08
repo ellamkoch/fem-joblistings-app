@@ -12,7 +12,7 @@ function ThemeSelect() {
   const selectId = useId();
 
   return (
-    <div className="flex items-center gap-3 rounded-full bg-card/95 px-3 py-2 text-sm shadow-md backdrop-blur-sm">
+    <div className="flex items-center gap-3 rounded-full bg-card px-3 py-2 text-sm shadow-md backdrop-blur-sm">
       <label
         htmlFor={selectId}
         className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground"

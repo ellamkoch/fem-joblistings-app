@@ -67,7 +67,7 @@
 
   /* Brand / interactive */
   --primary: hsl(180deg 29% 50%);       /* teal from pills */
-  --primary-foreground: hsl(0deg 0% 100%);
+  --primary-foreground: var(--background);
 
   /* Pills / tags */
   --accent: hsl(180deg 31% 95%);
@@ -84,6 +84,30 @@
   --secondary-foreground: var(--foreground);
   --destructive: hsl(0deg 84% 60%);
   --font-sans: "League Spartan", system-ui, sans-serif;
+
+
+}
+
+.contrast {
+  color-scheme: light;
+
+  --background: hsl(0deg 0% 100%);
+  --foreground: hsl(180deg 14% 10%);
+
+  --card: hsl(0deg 0% 100%);
+  --card-foreground: var(--foreground);
+  --primary: hsl(180deg 29% 50%);
+  --primary-foreground: hsl(0deg 0% 100%);
+  --muted-foreground: hsl(180deg 14% 10%);
+  --border: hsl(180deg 14% 10%);
+  --ring: hsl(180deg 100% 20%);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --muted: hsl(180deg 31% 95%);
+  --secondary: hsl(180deg 31% 95%);
+  --secondary-foreground: var(--foreground);
+  --destructive: hsl(0deg 84% 60%);
+  --input: var(--card);
 
 
 }
@@ -112,29 +136,7 @@
   --destructive: hsl(0deg 84% 60%);
 }
 
-.contrast {
-  color-scheme: light;
 
-  --background: hsl(0deg 0% 100%);
-  --foreground: hsl(180deg 14% 10%);
-
-  --card: hsl(0deg 0% 100%);
-  --card-foreground: var(--foreground);
-  --primary: hsl(180deg 100% 20%);
-  --primary-foreground: hsl(0deg 0% 100%);
-  --muted-foreground: hsl(180deg 14% 10%);
-  --border: hsl(180deg 14% 10%);
-  --ring: hsl(180deg 100% 20%);
-  --popover: var(--card);
-  --popover-foreground: var(--foreground);
-  --muted: hsl(180deg 31% 95%);
-  --secondary: hsl(180deg 31% 95%);
-  --secondary-foreground: var(--foreground);
-  --destructive: hsl(0deg 84% 60%);
-  --input: var(--card);
-
-
-}
 
 /* ---break--- */
 @layer base {

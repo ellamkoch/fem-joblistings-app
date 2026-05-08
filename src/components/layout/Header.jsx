@@ -50,19 +50,20 @@ function Header() {
 
               return (
                 <Button
-                  key={link.to}
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className={`
-                     h-8 rounded-full px-3 text-[11px] uppercase tracking-[0.12em]
-  sm:h-9 sm:px-4 sm:text-xs
-  transition-colors
-  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
-                    ${
-                      isActive
-                        ? "bg-foreground text-background"
-      : "text-muted-foreground hover:text-accent-foreground hover:bg-accent"
+  key={link.to}
+  asChild
+  variant="outline"
+  size="pill"
+  className={`
+    h-8 rounded-full px-3
+    text-[11px] font-semibold uppercase tracking-[0.12em] leading-none
+    sm:h-9 sm:px-4 sm:text-xs
+    transition-colors
+    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/70 focus-visible:ring-offset-2
+    ${
+     isActive
+  ? "bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
+  : "text-muted-foreground/95 hover:bg-accent hover:text-accent-foreground"
                     }
                   `}
 >
