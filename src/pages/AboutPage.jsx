@@ -4,16 +4,15 @@
  * Informational page showcasing project details, tech stack, features, and deployment information.
  * Available to both authenticated and unauthenticated users.
  */
-import { Badge } from "@/components/ui/badge";
+
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+
 
 const builtWithItems = [
   'Frontend: React, Vite, Tailwind CSS, shadcn/ui',
@@ -108,8 +107,7 @@ function AboutPage() {
             </section>
           </div>
 
-          <Separator />
-
+          
           <div className="grid gap-6 lg:grid-cols-2">
             <section className="space-y-6">
               <div className="rounded-xl border border-border/70 p-5">
