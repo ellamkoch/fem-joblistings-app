@@ -76,7 +76,7 @@ function AboutPage() {
       </div>
 
       <Card className="rounded-2xl border-border/70 shadow-xl">
-        <CardHeader className="gap-3">
+        <CardHeader className="gap-1">
           <div className="space-y-2">
             <CardDescription className="max-w-3xl text-base leading-7">
               This is a full-stack job listings application built as part of my CodeX Academy Level
