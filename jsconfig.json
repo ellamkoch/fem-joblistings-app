@@ -2,7 +2,6 @@
 // It defines the path or alias names and where they're located.
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
