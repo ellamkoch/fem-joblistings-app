@@ -1,5 +1,5 @@
-import { apiClient } from "@/lib/api/apiClient";
-import { unwrapData, normalizeJob } from "@/api/jobs";
+import { apiClient } from '@/lib/api/apiClient';
+import { unwrapData, normalizeJob } from '@/api/jobs';
 
 /**
  * Unwraps the common API response envelope and extracts the bookmark data.

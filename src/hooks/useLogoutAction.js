@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { useAuth } from "@/hooks/useAuth";
-import { logout as requestLogout } from "@/api/auth";
+import { useAuth } from '@/hooks/useAuth';
+import { logout as requestLogout } from '@/api/auth';
 
 /**
  * Provides a resilient logout action that clears local auth even if the
@@ -28,10 +28,10 @@ export function useLogoutAction() {
       // Always clear local auth so the user is not stranded in a broken session.
     } finally {
       clearAuth();
-      navigate("/login", {
+      navigate('/login', {
         replace: true,
         state: {
-          message: "You have been logged out.",
+          message: 'You have been logged out.',
         },
       });
       setIsLoggingOut(false);

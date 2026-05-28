@@ -1,8 +1,8 @@
 // JobsProvider.jsx
 // Owns the single jobs fetch and shares that state with any page that needs it.
 
-import useJobs from "@/hooks/useJobs";
-import { JobsContext } from "@/contexts/JobsContext";
+import useJobs from '@/hooks/useJobs';
+import { JobsContext } from '@/contexts/JobsContext';
 
 /**
  * Provides shared jobs state so the app only calls useJobs once.
@@ -14,9 +14,5 @@ import { JobsContext } from "@/contexts/JobsContext";
 export function JobsProvider({ children }) {
   const jobsState = useJobs();
 
-  return (
-    <JobsContext.Provider value={jobsState}>
-      {children}
-    </JobsContext.Provider>
-  );
+  return <JobsContext.Provider value={jobsState}>{children}</JobsContext.Provider>;
 }

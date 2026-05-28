@@ -1,7 +1,7 @@
 // auth.js
 // API helpers for authentication-related requests.
 
-import { apiClient } from "@/lib/api/apiClient";
+import { apiClient } from '@/lib/api/apiClient';
 
 /**
  * Sends a registration request to the backend.
@@ -10,8 +10,8 @@ import { apiClient } from "@/lib/api/apiClient";
  * @returns {Promise<unknown>} Raw backend response payload.
  */
 export async function register(payload) {
-    const res = await apiClient.post("/auth/register", payload);
-    return res.data;
+  const res = await apiClient.post('/auth/register', payload);
+  return res.data;
 }
 
 /**
@@ -21,8 +21,8 @@ export async function register(payload) {
  * @returns {Promise<unknown>} Raw backend response payload.
  */
 export async function login(payload) {
-    const res = await apiClient.post("/auth/login", payload);
-    return res.data;
+  const res = await apiClient.post('/auth/login', payload);
+  return res.data;
 }
 
 /**
@@ -32,6 +32,6 @@ export async function login(payload) {
  * @returns {Promise<unknown>} Raw backend response payload.
  */
 export async function logout(options = {}) {
-  const res = await apiClient.post("/auth/logout", undefined, options);
+  const res = await apiClient.post('/auth/logout', undefined, options);
   return res.data;
 }

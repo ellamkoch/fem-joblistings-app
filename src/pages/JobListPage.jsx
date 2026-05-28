@@ -10,8 +10,8 @@
  * - Each job links to a detail page for more information
  * - Integrated with bookmarks functionality for saving jobs
  */
-import JobList from "@/components/jobs/JobList";
-import ProtectedPageHeader from "@/components/auth/ProtectedPageHeader";
+import JobList from '@/components/jobs/JobList';
+import ProtectedPageHeader from '@/components/auth/ProtectedPageHeader';
 
 /**
  * Main jobs listing and filtering page for authenticated users.

@@ -1,7 +1,7 @@
 // jobs.js
 // API helpers for fetching and normalizing job listing data.
 
-import { apiClient } from "@/lib/api/apiClient";
+import { apiClient } from '@/lib/api/apiClient';
 
 /**
  * Unwraps common API response envelopes.
@@ -10,7 +10,7 @@ import { apiClient } from "@/lib/api/apiClient";
  * @returns {unknown} Unwrapped response data.
  */
 export function unwrapData(payload) {
-  if (payload && typeof payload === "object" && "data" in payload) {
+  if (payload && typeof payload === 'object' && 'data' in payload) {
     return payload.data;
   }
   return payload;
@@ -24,12 +24,12 @@ export function unwrapData(payload) {
  */
 export function capitalizeWords(value) {
   return value
-    .split(" ")
+    .split(' ')
     .map((word) => {
-      if (!word) return "";
+      if (!word) return '';
       return word[0].toUpperCase() + word.slice(1).toLowerCase();
     })
-    .join(" ");
+    .join(' ');
 }
 
 /**
@@ -44,7 +44,7 @@ function unwrapJobList(payload) {
   if (Array.isArray(data)) {
     return data;
   }
-  if (data && typeof data === "object" && Array.isArray(data.jobs)) {
+  if (data && typeof data === 'object' && Array.isArray(data.jobs)) {
     return data.jobs;
   }
   return [];
@@ -58,12 +58,10 @@ function unwrapJobList(payload) {
  */
 function normalizeList(value) {
   if (Array.isArray(value)) {
-    return value
-      .map((item) => capitalizeWords(String(item).trim()))
-      .filter(Boolean);
+    return value.map((item) => capitalizeWords(String(item).trim())).filter(Boolean);
   }
 
-  if (typeof value === "string") {
+  if (typeof value === 'string') {
     return value
       .split(/[\n,]/)
       .map((item) => capitalizeWords(String(item).trim()))
@@ -81,25 +79,25 @@ function normalizeList(value) {
  */
 export function normalizeJob(job) {
   return {
-    id: String(job?.id ?? ""),
-    company: String(job?.company ?? ""),
-    position: String(job?.position ?? ""),
-    role: String(job?.role ?? ""),
-    level: String(job?.level ?? ""),
-    contract: String(job?.contract ?? ""),
-    languages: normalizeList(job?.languages ?? ""),
-    tools: normalizeList(job?.tools ?? ""),
-    logo_url: String(job?.logoUrl ?? ""),
-    location: String(job?.location ?? ""),
-    jobDesc: String(job?.jobDesc ?? ""),
-    responsibilities: String(job?.responsibilities ?? ""),
-    nice2have: String(job?.nice2have ?? ""),
-    about: String(job?.about ?? ""),
-    eoeStatement: String(job?.eoeStatement ?? ""),
-    requirements: String(job?.requirements ?? ""),
+    id: String(job?.id ?? ''),
+    company: String(job?.company ?? ''),
+    position: String(job?.position ?? ''),
+    role: String(job?.role ?? ''),
+    level: String(job?.level ?? ''),
+    contract: String(job?.contract ?? ''),
+    languages: normalizeList(job?.languages ?? ''),
+    tools: normalizeList(job?.tools ?? ''),
+    logo_url: String(job?.logoUrl ?? ''),
+    location: String(job?.location ?? ''),
+    jobDesc: String(job?.jobDesc ?? ''),
+    responsibilities: String(job?.responsibilities ?? ''),
+    nice2have: String(job?.nice2have ?? ''),
+    about: String(job?.about ?? ''),
+    eoeStatement: String(job?.eoeStatement ?? ''),
+    requirements: String(job?.requirements ?? ''),
     is_new: Boolean(job?.isNew),
     is_featured: Boolean(job?.isFeatured),
-    posted_at: String(job?.postedAt ?? ""), 
+    posted_at: String(job?.postedAt ?? ''),
   };
 }
 
@@ -110,6 +108,6 @@ export function normalizeJob(job) {
  * @returns {Promise<Array<object>>} Normalized jobs list.
  */
 export async function listJobs(options = {}) {
-  const res = await apiClient.get("/jobs", options);
+  const res = await apiClient.get('/jobs', options);
   return unwrapJobList(res.data).map(normalizeJob);
 }

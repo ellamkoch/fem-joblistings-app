@@ -14,16 +14,16 @@
  * - Back navigation to job list
  */
 
-import BackButton from "@/components/layout/BackButton";
-import Heading from "@/components/shared/Heading.component";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import BackButton from '@/components/layout/BackButton';
+import Heading from '@/components/shared/Heading.component';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 
-import JobCard from "@/components/jobs/JobCard";
-import { useParams } from "react-router-dom";
+import JobCard from '@/components/jobs/JobCard';
+import { useParams } from 'react-router-dom';
 
-import { useBookmarksContext } from "@/contexts/BookmarksContext";
-import { useJobsContext } from "@/contexts/JobsContext";
+import { useBookmarksContext } from '@/contexts/BookmarksContext';
+import { useJobsContext } from '@/contexts/JobsContext';
 
 /**
  * Displays detailed information for a single job listing.
@@ -40,35 +40,35 @@ function JobDetailPage() {
 
   // Match route params against the normalized string ids returned by the API layer.
   const selectedJob = jobs.find((currentJob) => currentJob.id === String(id));
-  const listSectionTitles = new Set(["Responsibilities", "Requirements", "Nice to Have"]);
+  const listSectionTitles = new Set(['Responsibilities', 'Requirements', 'Nice to Have']);
   const roleSections = selectedJob
     ? [
         {
-          title: "Job Description",
+          title: 'Job Description',
           content: selectedJob.jobDesc,
-          className: "lg:col-span-2",
+          className: 'lg:col-span-2',
         },
         {
-          title: "Responsibilities",
+          title: 'Responsibilities',
           content: selectedJob.responsibilities,
         },
         {
-          title: "Requirements",
+          title: 'Requirements',
           content: selectedJob.requirements,
         },
         {
-          title: "Nice to Have",
+          title: 'Nice to Have',
           content: selectedJob.nice2have,
         },
         {
-          title: "About",
+          title: 'About',
           content: selectedJob.about,
         },
         {
-          title: "Equal Opportunity",
+          title: 'Equal Opportunity',
           content: selectedJob.eoeStatement,
           muted: true,
-          className: "lg:col-span-2",
+          className: 'lg:col-span-2',
         },
       ].filter((section) => section.content)
     : [];
@@ -76,7 +76,9 @@ function JobDetailPage() {
   return (
     <>
       <div>
-        <h1 className="sr-only">{selectedJob ? `${selectedJob.position} job details` : "Job details"}</h1>
+        <h1 className="sr-only">
+          {selectedJob ? `${selectedJob.position} job details` : 'Job details'}
+        </h1>
         <div className="error">
           {error && (
             <p className="error-text text-center text-destructive" role="alert">
@@ -136,14 +138,13 @@ function JobDetailPage() {
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                     Role overview
                   </p>
-                 
                 </CardHeader>
 
                 <CardContent className="grid gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-6">
                   {roleSections.map((section) => (
                     <article
                       key={section.title}
-                      className={`rounded-xl border border-border/70 bg-accent/30 p-5 sm:p-6 ${section.className ?? ""}`}
+                      className={`rounded-xl border border-border/70 bg-accent/30 p-5 sm:p-6 ${section.className ?? ''}`}
                     >
                       <Heading hLevel={3} className="text-lg tracking-tight text-foreground">
                         {section.title}
@@ -151,11 +152,11 @@ function JobDetailPage() {
                       {listSectionTitles.has(section.title) ? (
                         <ul
                           className={`mt-3 list-disc space-y-2 pl-5 text-sm leading-7 sm:text-base ${
-                            section.muted ? "text-muted-foreground" : "text-foreground/90"
+                            section.muted ? 'text-muted-foreground' : 'text-foreground/90'
                           }`}
                         >
                           {section.content
-                            .split("\n")
+                            .split('\n')
                             .map((line) => line.trim())
                             .filter(Boolean)
                             .map((line) => (
@@ -165,7 +166,7 @@ function JobDetailPage() {
                       ) : (
                         <p
                           className={`mt-3 whitespace-pre-line text-sm leading-7 sm:text-base ${
-                            section.muted ? "text-muted-foreground" : "text-foreground/90"
+                            section.muted ? 'text-muted-foreground' : 'text-foreground/90'
                           }`}
                         >
                           {section.content}

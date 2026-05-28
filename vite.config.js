@@ -8,11 +8,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss()
-  ],
-resolve: {
+  plugins: [react(), tailwindcss()],
+  resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
@@ -23,9 +20,9 @@ resolve: {
       '@tests': path.resolve(__dirname, './src/tests'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@providers': path.resolve(__dirname, './src/providers'),
-      "@pages": path.resolve(__dirname, './src/pages'),
-      "@ui": path.resolve(__dirname, './src/ui'),
-      "@router": path.resolve(__dirname, './src/router')
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@ui': path.resolve(__dirname, './src/ui'),
+      '@router': path.resolve(__dirname, './src/router'),
     },
   },
 });

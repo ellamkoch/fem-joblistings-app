@@ -1,21 +1,21 @@
 // Shared theme contract used by the provider, hook, and selector UI.
 
-import { createContext } from "react";
+import { createContext } from 'react';
 
 const ThemeContext = createContext(null);
-const STORAGE_KEY = "theme";
-const DEFAULT_THEME = "system";
+const STORAGE_KEY = 'theme';
+const DEFAULT_THEME = 'system';
 
-const THEMES = ["light", "dark", "contrast", "system"];
+const THEMES = ['light', 'dark', 'contrast', 'system'];
 
 const THEME_OPTIONS = [
-  { value: "system", label: "System" },
-  { value: "light", label: "Light" },
-  { value: "dark", label: "Dark" },
-  { value: "contrast", label: "Contrast" },
+  { value: 'system', label: 'System' },
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+  { value: 'contrast', label: 'Contrast' },
 ];
 
-const THEME_CLASS_NAMES = ["dark", "contrast"];
+const THEME_CLASS_NAMES = ['dark', 'contrast'];
 
 function isTheme(value) {
   return THEMES.includes(value);

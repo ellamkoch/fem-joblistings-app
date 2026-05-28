@@ -8,19 +8,14 @@
  * - Badges are matched against role, level, languages, and tools for each job.
  */
 
-import { useMemo, useState } from "react";
-import { Skeleton } from "@components/ui/skeleton";
-import JobCard from "@/components/jobs/JobCard";
-import FilterBar from "@/components/jobs/FilterBar";
-import { cn } from "@/lib/utils";
-import {
-  normalizeBadge,
-  toggleFilter,
-  removeFilter,
-  clearFilter,
-} from "@/utils/activeFilters";
-import { useBookmarksContext } from "@/contexts/BookmarksContext";
-import { useJobsContext } from "@/contexts/JobsContext";
+import { useMemo, useState } from 'react';
+import { Skeleton } from '@components/ui/skeleton';
+import JobCard from '@/components/jobs/JobCard';
+import FilterBar from '@/components/jobs/FilterBar';
+import { cn } from '@/lib/utils';
+import { normalizeBadge, toggleFilter, removeFilter, clearFilter } from '@/utils/activeFilters';
+import { useBookmarksContext } from '@/contexts/BookmarksContext';
+import { useJobsContext } from '@/contexts/JobsContext';
 
 /**
  * Renders the main jobs feed and keeps badge filtering local to the page.
@@ -78,26 +73,11 @@ function JobList() {
 
           const normalizeFilterBadge = normalizeBadge(badge);
 
-          if (
-            job.role &&
-            normalizeBadge(job.role).includes(normalizeFilterBadge)
-          )
+          if (job.role && normalizeBadge(job.role).includes(normalizeFilterBadge)) return true;
+          if (job.level && normalizeBadge(job.level).includes(normalizeFilterBadge)) return true;
+          if (job.languages && normalizeBadge(job.languages).includes(normalizeFilterBadge))
             return true;
-          if (
-            job.level &&
-            normalizeBadge(job.level).includes(normalizeFilterBadge)
-          )
-            return true;
-          if (
-            job.languages &&
-            normalizeBadge(job.languages).includes(normalizeFilterBadge)
-          )
-            return true;
-          if (
-            job.tools &&
-            normalizeBadge(job.tools).includes(normalizeFilterBadge)
-          )
-            return true;
+          if (job.tools && normalizeBadge(job.tools).includes(normalizeFilterBadge)) return true;
 
           return false;
         }, true);
@@ -109,9 +89,7 @@ function JobList() {
     <>
       <section>
         <div className="error">
-          {error && (
-            <p className="error-text text-destructive text-center">{error}</p>
-          )}
+          {error && <p className="error-text text-destructive text-center">{error}</p>}
 
           {!loading && !error && jobs.length === 0 && (
             <p className="no-jobs text-center text-lg">
@@ -137,8 +115,8 @@ function JobList() {
         ) : (
           <div
             className={cn(
-              "job-list flex flex-col gap-y-4",
-              filter.length === 0 && "mt-16 sm:mt-0 gap-y-4",
+              'job-list flex flex-col gap-y-4',
+              filter.length === 0 && 'mt-16 sm:mt-0 gap-y-4',
             )}
           >
             {visibleJobs.map((job) => (

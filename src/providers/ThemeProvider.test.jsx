@@ -1,15 +1,12 @@
-import { useState } from "react";
-import { MemoryRouter, useLocation } from "react-router-dom";
-import { act, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it } from "vitest";
+import { useState } from 'react';
+import { MemoryRouter, useLocation } from 'react-router-dom';
+import { act, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it } from 'vitest';
 
-import ThemeSelect from "@/components/layout/ThemeSelect";
-import {
-  DEFAULT_THEME,
-  STORAGE_KEY,
-} from "@/contexts/themeConstants";
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import ThemeSelect from '@/components/layout/ThemeSelect';
+import { DEFAULT_THEME, STORAGE_KEY } from '@/contexts/themeConstants';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 function mockMatchMedia(matches = false) {
   let currentMatches = matches;
@@ -20,7 +17,7 @@ function mockMatchMedia(matches = false) {
       get matches() {
         return currentMatches;
       },
-      media: "(prefers-color-scheme: dark)",
+      media: '(prefers-color-scheme: dark)',
       onchange: null,
       addEventListener: (_eventName, listener) => listeners.add(listener),
       removeEventListener: (_eventName, listener) => listeners.delete(listener),
@@ -62,7 +59,7 @@ function ShellCounter() {
 
 function renderThemeTree(defaultTheme = DEFAULT_THEME) {
   return render(
-    <MemoryRouter initialEntries={["/bookmarks"]}>
+    <MemoryRouter initialEntries={['/bookmarks']}>
       <ThemeProvider defaultTheme={defaultTheme}>
         <ShellCounter />
         <LocationDisplay />
@@ -72,93 +69,93 @@ function renderThemeTree(defaultTheme = DEFAULT_THEME) {
   );
 }
 
-describe("ThemeProvider", () => {
+describe('ThemeProvider', () => {
   beforeEach(() => {
     localStorage.clear();
-    document.documentElement.className = "";
+    document.documentElement.className = '';
     mockMatchMedia(false);
   });
 
-  it("restores a valid stored theme on first render", () => {
-    localStorage.setItem(STORAGE_KEY, "contrast");
+  it('restores a valid stored theme on first render', () => {
+    localStorage.setItem(STORAGE_KEY, 'contrast');
 
     renderThemeTree();
 
-    expect(screen.getByLabelText(/choose color theme/i)).toHaveValue("contrast");
-    expect(document.documentElement).toHaveClass("contrast");
-    expect(document.documentElement).not.toHaveClass("dark");
+    expect(screen.getByLabelText(/choose color theme/i)).toHaveValue('contrast');
+    expect(document.documentElement).toHaveClass('contrast');
+    expect(document.documentElement).not.toHaveClass('dark');
   });
 
-  it("falls back to the configured default when storage is invalid or missing", () => {
-    localStorage.setItem(STORAGE_KEY, "invalid-theme");
+  it('falls back to the configured default when storage is invalid or missing', () => {
+    localStorage.setItem(STORAGE_KEY, 'invalid-theme');
 
-    renderThemeTree("light");
+    renderThemeTree('light');
 
-    expect(screen.getByLabelText(/choose color theme/i)).toHaveValue("light");
-    expect(document.documentElement).not.toHaveClass("dark");
-    expect(document.documentElement).not.toHaveClass("contrast");
-    expect(localStorage.getItem(STORAGE_KEY)).toBe("light");
+    expect(screen.getByLabelText(/choose color theme/i)).toHaveValue('light');
+    expect(document.documentElement).not.toHaveClass('dark');
+    expect(document.documentElement).not.toHaveClass('contrast');
+    expect(localStorage.getItem(STORAGE_KEY)).toBe('light');
   });
 
-  it("switches themes in place and persists updates without navigation", async () => {
+  it('switches themes in place and persists updates without navigation', async () => {
     const user = userEvent.setup();
 
     renderThemeTree();
 
     const selector = screen.getByLabelText(/choose color theme/i);
-    const location = screen.getByTestId("location-display");
-    const shellCounter = screen.getByTestId("shell-counter");
+    const location = screen.getByTestId('location-display');
+    const shellCounter = screen.getByTestId('shell-counter');
 
-    expect(location).toHaveTextContent("/bookmarks");
-    expect(selector).toHaveValue("system");
-    expect(document.documentElement).not.toHaveClass("dark");
-    expect(document.documentElement).not.toHaveClass("contrast");
+    expect(location).toHaveTextContent('/bookmarks');
+    expect(selector).toHaveValue('system');
+    expect(document.documentElement).not.toHaveClass('dark');
+    expect(document.documentElement).not.toHaveClass('contrast');
 
     await user.click(shellCounter);
-    expect(shellCounter).toHaveTextContent("1");
+    expect(shellCounter).toHaveTextContent('1');
 
-    await user.selectOptions(selector, "contrast");
+    await user.selectOptions(selector, 'contrast');
 
-    expect(selector).toHaveValue("contrast");
-    expect(location).toHaveTextContent("/bookmarks");
-    expect(screen.getByTestId("shell-counter")).toHaveTextContent("1");
-    expect(document.documentElement).toHaveClass("contrast");
-    expect(document.documentElement).not.toHaveClass("dark");
-    expect(localStorage.getItem(STORAGE_KEY)).toBe("contrast");
+    expect(selector).toHaveValue('contrast');
+    expect(location).toHaveTextContent('/bookmarks');
+    expect(screen.getByTestId('shell-counter')).toHaveTextContent('1');
+    expect(document.documentElement).toHaveClass('contrast');
+    expect(document.documentElement).not.toHaveClass('dark');
+    expect(localStorage.getItem(STORAGE_KEY)).toBe('contrast');
 
-    await user.selectOptions(selector, "light");
+    await user.selectOptions(selector, 'light');
 
-    expect(selector).toHaveValue("light");
-    expect(document.documentElement).not.toHaveClass("dark");
-    expect(document.documentElement).not.toHaveClass("contrast");
-    expect(localStorage.getItem(STORAGE_KEY)).toBe("light");
+    expect(selector).toHaveValue('light');
+    expect(document.documentElement).not.toHaveClass('dark');
+    expect(document.documentElement).not.toHaveClass('contrast');
+    expect(localStorage.getItem(STORAGE_KEY)).toBe('light');
   });
 
-  it("follows the system color preference and updates live when the OS changes", () => {
+  it('follows the system color preference and updates live when the OS changes', () => {
     const matchMediaController = mockMatchMedia(true);
 
     renderThemeTree();
 
-    expect(screen.getByLabelText(/choose color theme/i)).toHaveValue("system");
-    expect(document.documentElement).toHaveClass("dark");
-    expect(localStorage.getItem(STORAGE_KEY)).toBe("system");
+    expect(screen.getByLabelText(/choose color theme/i)).toHaveValue('system');
+    expect(document.documentElement).toHaveClass('dark');
+    expect(localStorage.getItem(STORAGE_KEY)).toBe('system');
 
     act(() => {
       matchMediaController.setMatches(false);
     });
 
-    expect(document.documentElement).not.toHaveClass("dark");
-    expect(document.documentElement).not.toHaveClass("contrast");
+    expect(document.documentElement).not.toHaveClass('dark');
+    expect(document.documentElement).not.toHaveClass('contrast');
   });
 
-  it("renders all supported selector options", () => {
+  it('renders all supported selector options', () => {
     renderThemeTree();
 
     const selector = screen.getByLabelText(/choose color theme/i);
-    const optionValues = Array.from(selector.querySelectorAll("option")).map(
+    const optionValues = Array.from(selector.querySelectorAll('option')).map(
       (option) => option.value,
     );
 
-    expect(optionValues).toEqual(["system", "light", "dark", "contrast"]);
+    expect(optionValues).toEqual(['system', 'light', 'dark', 'contrast']);
   });
 });

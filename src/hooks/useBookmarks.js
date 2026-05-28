@@ -2,13 +2,9 @@
 // Shared bookmark state for loading, saving, removing, and checking saved jobs.
 // Bookmark data is tied to auth state so it loads after login and clears on logout.
 
-import {
-  listBookmarks,
-  createBookmark,
-  deleteBookmark,
-} from "@/api/bookmarks";
-import { useEffect, useState, useCallback } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { listBookmarks, createBookmark, deleteBookmark } from '@/api/bookmarks';
+import { useEffect, useState, useCallback } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 /**
  * Loads the authenticated user's saved jobs and exposes bookmark actions for the UI.
@@ -71,26 +67,29 @@ function useBookmarks() {
   }, []);
 
   // saves a job and appends it locally; if the backend reports it already exists, resync from the source of truth
-  const addBookmark = useCallback(async (job) => {
-    setError(null);
+  const addBookmark = useCallback(
+    async (job) => {
+      setError(null);
 
-    try {
-      await createBookmark(job.id);
+      try {
+        await createBookmark(job.id);
 
-      setBookmarks((prev) => {
-        const exists = prev.some((bookmark) => bookmark.id === job.id);
-        return exists ? prev : [...prev, job];
-      });
-    } catch (err) {
-      if (err.message?.toLowerCase().includes("already exists")) {
-        await loadBookmarks();
-        return;
+        setBookmarks((prev) => {
+          const exists = prev.some((bookmark) => bookmark.id === job.id);
+          return exists ? prev : [...prev, job];
+        });
+      } catch (err) {
+        if (err.message?.toLowerCase().includes('already exists')) {
+          await loadBookmarks();
+          return;
+        }
+
+        setError("There's a problem saving the bookmark: " + err.message);
+        throw err;
       }
-
-      setError("There's a problem saving the bookmark: " + err.message);
-      throw err;
-    }
-  }, [loadBookmarks]);
+    },
+    [loadBookmarks],
+  );
 
   // quick lookup helper so cards and details pages can render the correct save state
   const isBookmarked = useCallback(

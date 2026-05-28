@@ -1,20 +1,14 @@
 // RegisterPage.jsx
 // Renders the registration form and connects it to the auth API flow.
 
-import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useForm } from 'react-hook-form';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { useAuth } from "@/hooks/useAuth";
-import { getAuthToken } from "@/utils/getAuthToken";
-import AuthPageShell from "@/components/auth/AuthPageShell";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { useAuth } from '@/hooks/useAuth';
+import { getAuthToken } from '@/utils/getAuthToken';
+import AuthPageShell from '@/components/auth/AuthPageShell';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -22,9 +16,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { register } from "@/api/auth";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { register } from '@/api/auth';
 
 /**
  * Displays the registration form and handles post-submit auth behavior.
@@ -38,14 +32,14 @@ function RegisterPage() {
 
   const form = useForm({
     defaultValues: {
-      email: "",
-      name: "",
-      password: "",
+      email: '',
+      name: '',
+      password: '',
     },
   });
 
   async function onSubmit(values) {
-    form.clearErrors("root");
+    form.clearErrors('root');
 
     try {
       const response = await register(values);
@@ -54,23 +48,22 @@ function RegisterPage() {
       if (token) {
         saveAuthToken(token);
 
-        const redirectTo = location.state?.from?.pathname ?? "/";
+        const redirectTo = location.state?.from?.pathname ?? '/';
         navigate(redirectTo, { replace: true });
         return;
       }
 
-      navigate("/login", {
+      navigate('/login', {
         replace: true,
         state: {
           registeredEmail: values.email,
-          message: "Account created. Sign in with your new credentials.",
+          message: 'Account created. Sign in with your new credentials.',
         },
       });
     } catch (error) {
-      form.setError("root", {
-        type: "server",
-        message:
-          error.message || "Unable to create your account right now. Please try again.",
+      form.setError('root', {
+        type: 'server',
+        message: error.message || 'Unable to create your account right now. Please try again.',
       });
     }
   }
@@ -81,19 +74,14 @@ function RegisterPage() {
       description="Start searching for your next opportunity."
     >
       <Card className="rounded-2xl border-border/70 shadow-xl pt-5">
-     
         <CardContent>
           <Form {...form}>
-            <form
-              className="space-y-5"
-              onSubmit={form.handleSubmit(onSubmit)}
-              noValidate
-            >
+            <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)} noValidate>
               <FormField
                 control={form.control}
                 name="email"
                 rules={{
-                  required: "Email is required.",
+                  required: 'Email is required.',
                 }}
                 render={({ field }) => (
                   <FormItem>
@@ -115,17 +103,13 @@ function RegisterPage() {
                 control={form.control}
                 name="name"
                 rules={{
-                  required: "Name is required.",
+                  required: 'Name is required.',
                 }}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input
-                        autoComplete="name"
-                        placeholder="Jane Doe"
-                        {...field}
-                      />
+                      <Input autoComplete="name" placeholder="Jane Doe" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -136,7 +120,7 @@ function RegisterPage() {
                 control={form.control}
                 name="password"
                 rules={{
-                  required: "Password is required.",
+                  required: 'Password is required.',
                 }}
                 render={({ field }) => (
                   <FormItem>
@@ -162,16 +146,12 @@ function RegisterPage() {
                   disabled={form.formState.isSubmitting}
                   type="submit"
                 >
-                  {form.formState.isSubmitting ? "Creating account..." : "Create account"}
+                  {form.formState.isSubmitting ? 'Creating account...' : 'Create account'}
                 </Button>
 
                 <p className="text-center text-sm text-muted-foreground">
-                  Already registered?{" "}
-                  <Button
-                    asChild
-                    className="h-auto px-0 py-0 text-sm font-semibold"
-                    variant="link"
-                  >
+                  Already registered?{' '}
+                  <Button asChild className="h-auto px-0 py-0 text-sm font-semibold" variant="link">
                     <Link to="/login">Log in</Link>
                   </Button>
                 </p>

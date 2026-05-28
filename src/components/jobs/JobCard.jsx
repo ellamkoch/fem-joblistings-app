@@ -4,19 +4,14 @@
  * - Company and position link to the job details page.
  * - Role/level/language/tool badges can trigger filtering via `onToggleTag`.
  */
-import { Link } from "react-router";
+import { Link } from 'react-router';
 
-import JobBadge from "@/components/jobs/JobBadge";
-import StatusBadge from "@/components/jobs/StatusBadge";
-import {
-  Card,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@components/ui/card";
-import { Separator } from "@components/ui/separator";
-import BookmarkButton from "@/components/bookmarks/BookmarkButton";
-import { formatDate } from "@/utils/formatDate";
+import JobBadge from '@/components/jobs/JobBadge';
+import StatusBadge from '@/components/jobs/StatusBadge';
+import { Card, CardTitle, CardDescription, CardContent } from '@components/ui/card';
+import { Separator } from '@components/ui/separator';
+import BookmarkButton from '@/components/bookmarks/BookmarkButton';
+import { formatDate } from '@/utils/formatDate';
 /**
  * Renders a single job card for the list, detail, and bookmarks views.
  *
@@ -33,7 +28,7 @@ export default function JobCard({
   job,
   onToggleTag,
   isBookmarked = false,
-  bookmarkMode = "toggle",
+  bookmarkMode = 'toggle',
   addBookmark,
   removeBookmark,
 }) {
@@ -61,24 +56,21 @@ export default function JobCard({
         <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 ">
           <div className="logo w-auto h-auto absolute -top-12 px-0 sm:static shrink-0 ">
             {logoSrc && (
-                <img className="job-card-__logo"
+              <img
+                className="job-card-__logo"
                 src={logoSrc}
                 alt={`${job.company} logo`}
                 onError={(e) => {
-                    e.currentTarget.style.display = "none";
+                  e.currentTarget.style.display = 'none';
                 }}
-                />
-              )}
+              />
+            )}
           </div>
           <div className="top-line px-4 flex flex-col min-w-0">
             <div className="flex items-start justify-between gap-3">
               <div className="flex min-w-0 items-center gap-2">
-                <span className="min-w-0 truncate text-primary font-bold">
-                  {job.company}
-                </span>
-                {(newJob || featuredJob) && (
-                  <StatusBadge isNew={newJob} isFeatured={featuredJob} />
-                )}
+                <span className="min-w-0 truncate text-primary font-bold">{job.company}</span>
+                {(newJob || featuredJob) && <StatusBadge isNew={newJob} isFeatured={featuredJob} />}
               </div>
               {removeBookmark ? (
                 <BookmarkButton

@@ -7,17 +7,17 @@
  * 3. ThemeProvider - manages theme selection (light, dark, system)
  * 4. App - root application component
  */
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
-import "@styles/index.css";
+import '@styles/index.css';
 
-import App from "@/App.jsx";
+import App from '@/App.jsx';
 
-import { DEFAULT_THEME } from "@/contexts/themeConstants";
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import { AuthProvider } from "@/providers/AuthProvider";
+import { DEFAULT_THEME } from '@/contexts/themeConstants';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+import { AuthProvider } from '@/providers/AuthProvider';
 
 const rootElement = document.getElementById('root');
 

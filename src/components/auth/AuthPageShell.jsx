@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 /**
  * Shared layout for authentication pages that float over the hero background.
@@ -15,18 +15,14 @@ function AuthPageShell({ title, description, children, className }) {
   return (
     <section
       className={cn(
-        "relative z-10 mx-auto -mt-55 flex w-full max-w-md flex-col gap-4 lg:-mt-40",
+        'relative z-10 mx-auto -mt-55 flex w-full max-w-md flex-col gap-4 lg:-mt-40',
         className,
       )}
     >
       <div className="space-y-3 px-1 text-background dark:text-foreground">
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight ">
-            {title}
-          </h1>
-          <p className="max-w-sm text-base opacity-80">
-            {description}
-          </p>
+          <h1 className="text-3xl font-semibold tracking-tight ">{title}</h1>
+          <p className="max-w-sm text-base opacity-80">{description}</p>
         </div>
       </div>
 

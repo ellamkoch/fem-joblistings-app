@@ -3,13 +3,13 @@
  * Displays different navigation options based on authentication state.
  */
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 
-import HeroBackground from "@components/layout/HeroBackground.jsx";
-import { Button } from "@/components/ui/button";
-import LogoutButton from "@/components/auth/LogoutButton";
-import { useAuth } from "@/hooks/useAuth";
-import ThemeSelect from "@/components/layout/ThemeSelect";
+import HeroBackground from '@components/layout/HeroBackground.jsx';
+import { Button } from '@/components/ui/button';
+import LogoutButton from '@/components/auth/LogoutButton';
+import { useAuth } from '@/hooks/useAuth';
+import ThemeSelect from '@/components/layout/ThemeSelect';
 
 /**
  * Renders the application header with hero background, navigation, and theme selector.
@@ -25,14 +25,14 @@ function Header() {
   const { isAuthenticated } = useAuth();
   const navLinks = isAuthenticated
     ? [
-        { to: "/", label: "Jobs" },
-        { to: "/bookmarks", label: "Saved Jobs" },
-        { to: "/about", label: "About" },
+        { to: '/', label: 'Jobs' },
+        { to: '/bookmarks', label: 'Saved Jobs' },
+        { to: '/about', label: 'About' },
       ]
     : [
-        { to: "/about", label: "About" },
-        { to: "/login", label: "Log in" },
-        { to: "/register", label: "Register" },
+        { to: '/about', label: 'About' },
+        { to: '/login', label: 'Log in' },
+        { to: '/register', label: 'Register' },
       ];
 
   return (
@@ -47,14 +47,14 @@ function Header() {
             {navLinks.map((link) => {
               const isActive =
                 location.pathname === link.to ||
-                (link.to !== "/" && location.pathname.startsWith(link.to));
+                (link.to !== '/' && location.pathname.startsWith(link.to));
 
               return (
                 <Button
                   key={link.to}
                   asChild
                   size="pill"
-                  aria-current={isActive ? "page" : undefined}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`
                     h-8 rounded-full px-3
                     text-[11px] font-semibold uppercase tracking-[0.12em] leading-none
@@ -64,8 +64,8 @@ function Header() {
                     focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/70 focus-visible:ring-offset-2
                     ${
                       isActive
-                        ? "bg-primary text-[color:var(--active-nav-button-text)] ring-2 ring-primary/50 ring-offset-1 ring-offset-background shadow-sm hover:bg-primary/95"
-                        : "hover:bg-accent/10 hover:text-foreground"
+                        ? 'bg-primary text-[color:var(--active-nav-button-text)] ring-2 ring-primary/50 ring-offset-1 ring-offset-background shadow-sm hover:bg-primary/95'
+                        : 'hover:bg-accent/10 hover:text-foreground'
                     }
                   `}
                 >

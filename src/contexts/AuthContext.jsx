@@ -1,7 +1,7 @@
 // AuthContext.jsx
 // Shared React context for auth state and auth actions.
 
-import { createContext } from "react";
+import { createContext } from 'react';
 
 /**
  * Auth context that stores the current auth state and actions.

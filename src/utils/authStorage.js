@@ -1,7 +1,7 @@
 // authStorage.js
 // Tiny helpers for persisting the auth token in local storage.
 
-export const AUTH_TOKEN_STORAGE_KEY = "jobslistings:authToken";
+export const AUTH_TOKEN_STORAGE_KEY = 'jobslistings:authToken';
 
 /**
  * Reads the stored auth token.
@@ -9,11 +9,11 @@ export const AUTH_TOKEN_STORAGE_KEY = "jobslistings:authToken";
  * @returns {string | null} The saved token, or null when unavailable.
  */
 export function readStoredToken() {
-    try {
-        return localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
-    } catch {
-        return null;
-    }
+  try {
+    return localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -23,11 +23,11 @@ export function readStoredToken() {
  * @returns {void}
  */
 export function writeStoredToken(token) {
-    try {
-        localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token);
-    } catch {
-        //ignore
-    }
+  try {
+    localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token);
+  } catch {
+    //ignore
+  }
 }
 
 /**
@@ -36,9 +36,9 @@ export function writeStoredToken(token) {
  * @returns {void}
  */
 export function clearStoredToken() {
-    try {
-        localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
-    } catch {
-        //ignore
-    }
+  try {
+    localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
+  } catch {
+    //ignore
+  }
 }

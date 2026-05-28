@@ -1,16 +1,12 @@
 /**  AuthProvider.jsx
-* Keeps auth token state in sync with API headers and local storage.
-* Login/logout also update the API client immediately so protected requests do not race the next render.
-*/
+ * Keeps auth token state in sync with API headers and local storage.
+ * Login/logout also update the API client immediately so protected requests do not race the next render.
+ */
 
-import { useEffect, useMemo, useState } from "react";
-import { AuthContext } from "@/contexts/AuthContext";
-import { setAuthToken, setUnauthorizedHandler } from "@/lib/api/apiClient";
-import {
-  clearStoredToken,
-  readStoredToken,
-  writeStoredToken,
-} from "@/utils/authStorage";
+import { useEffect, useMemo, useState } from 'react';
+import { AuthContext } from '@/contexts/AuthContext';
+import { setAuthToken, setUnauthorizedHandler } from '@/lib/api/apiClient';
+import { clearStoredToken, readStoredToken, writeStoredToken } from '@/utils/authStorage';
 
 /**
  * Provides auth state and auth actions for the app.
@@ -27,7 +23,7 @@ import {
 
 export function AuthProvider({ children }) {
   /**  Initialize token from storage on first render. IMPORTANT: We also immediately apply it to the API client
-  * so that any request fired during initial render has auth headers. */
+   * so that any request fired during initial render has auth headers. */
   const [token, setToken] = useState(() => {
     const storedToken = readStoredToken();
     setAuthToken(storedToken); // prevents "refresh logout" race condition
@@ -36,8 +32,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     /**  Whenever token changes, keep everything in sync:
-    * 1. API client (axios headers)
-    * 2. localStorage (persistence) */
+     * 1. API client (axios headers)
+     * 2. localStorage (persistence) */
     setAuthToken(token);
 
     if (token) {
@@ -49,7 +45,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     /**  Register a global handler for 401 responses.
-    * If the backend says "unauthorized", we clear auth state*/
+     * If the backend says "unauthorized", we clear auth state*/
     return setUnauthorizedHandler(() => setToken(null));
   }, []);
 

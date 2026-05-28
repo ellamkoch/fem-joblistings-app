@@ -2,11 +2,11 @@
 //Dashboard page for viewing, managing, and interacting with saved job bookmarks.
 //Displays the user's bookmark collection and provides job removal functionality.
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import ProtectedPageHeader from "@/components/auth/ProtectedPageHeader";
-import BookmarksList from "@/components/bookmarks/BookmarksList";
-import { useBookmarksContext } from "@/contexts/BookmarksContext";
+import ProtectedPageHeader from '@/components/auth/ProtectedPageHeader';
+import BookmarksList from '@/components/bookmarks/BookmarksList';
+import { useBookmarksContext } from '@/contexts/BookmarksContext';
 
 /**
  * Saved jobs dashboard for authenticated users.

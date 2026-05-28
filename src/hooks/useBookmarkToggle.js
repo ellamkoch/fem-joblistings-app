@@ -1,7 +1,7 @@
 //useBookmarkToggle.js
 //This file keeps the bookmark toggle request logic out of the UI button component.
 
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 /**
  * Provides the async toggle action and pending state for a job bookmark button.
@@ -14,13 +14,7 @@ import { useCallback, useState } from "react";
  * @param {(jobId: string) => Promise<void>} params.removeBookmark - Removes a job bookmark.
  * @returns {{isBookmarked: boolean, pending: boolean, handleBookmarkAction: () => Promise<void>}} Pending state and action handler.
  */
-function useBookmarkToggle({
-  job,
-  isBookmarked,
-  addBookmark,
-  removeBookmark,
-  mode = "toggle",
-}) {
+function useBookmarkToggle({ job, isBookmarked, addBookmark, removeBookmark, mode = 'toggle' }) {
   const [pending, setPending] = useState(false);
 
   // guards double-clicks while the request is in flight, then routes to the right bookmark action
@@ -32,7 +26,7 @@ function useBookmarkToggle({
     setPending(true);
 
     try {
-      if (mode === "remove" || isBookmarked) {
+      if (mode === 'remove' || isBookmarked) {
         await removeBookmark(job.id);
         return;
       }

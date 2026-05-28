@@ -5,14 +5,7 @@
  * Available to both authenticated and unauthenticated users.
  */
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  
-} from "@/components/ui/card";
-
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 
 const builtWithItems = [
   'Frontend: React, Vite, Tailwind CSS, shadcn/ui',
@@ -107,7 +100,6 @@ function AboutPage() {
             </section>
           </div>
 
-          
           <div className="grid gap-6 lg:grid-cols-2">
             <section className="space-y-6">
               <div className="rounded-xl border border-border/70 p-5">

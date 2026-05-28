@@ -1,11 +1,8 @@
-import { useId } from "react";
+import { useId } from 'react';
 
-import { useTheme } from "@/hooks/useTheme";
-import { THEME_OPTIONS } from "@/contexts/themeConstants";
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/components/ui/native-select";
+import { useTheme } from '@/hooks/useTheme';
+import { THEME_OPTIONS } from '@/contexts/themeConstants';
+import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
 
 function ThemeSelect() {
   const { theme, setTheme } = useTheme();

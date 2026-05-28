@@ -1,6 +1,6 @@
 /* Button used to remove a single active filter from the filter bar. */
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 /**
  * Removes a single active filter from the filter bar.

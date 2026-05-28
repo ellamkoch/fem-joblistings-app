@@ -1,7 +1,7 @@
-import { LogOut } from "lucide-react";
+import { LogOut } from 'lucide-react';
 
-import { useLogoutAction } from "@/hooks/useLogoutAction";
-import { Button } from "@/components/ui/button";
+import { useLogoutAction } from '@/hooks/useLogoutAction';
+import { Button } from '@/components/ui/button';
 
 /**
  * Shared logout button for authenticated pages.
@@ -22,7 +22,7 @@ function LogoutButton({ className }) {
       variant="outline"
     >
       <LogOut aria-hidden="true" className="size-4" />
-      {isLoggingOut ? "Logging out..." : "Log out"}
+      {isLoggingOut ? 'Logging out...' : 'Log out'}
     </Button>
   );
 }

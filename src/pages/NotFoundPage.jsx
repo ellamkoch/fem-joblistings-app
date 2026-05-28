@@ -15,14 +15,14 @@
  * do not reroll it, while a different bad route gets a new message.
  */
 
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-import Title from "@/components/shared/Heading.component";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@components/ui/card";
-import { useAuth } from "@/hooks/useAuth";
-import { getStableNotFoundMsg } from "@/utils/getRandomNotFoundMsg";
+import Title from '@/components/shared/Heading.component';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@components/ui/card';
+import { useAuth } from '@/hooks/useAuth';
+import { getStableNotFoundMsg } from '@/utils/getRandomNotFoundMsg';
 
 /**
  * Displays a 404 not found page with navigation options.
