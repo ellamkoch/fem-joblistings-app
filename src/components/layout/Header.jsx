@@ -1,6 +1,7 @@
-//Header.jsx
-//Application header with navigation links and theme selector.
-//Displays different navigation options based on authentication state.
+/**Header.jsx
+ * Application header with navigation links and theme selector.
+ * Displays different navigation options based on authentication state.
+ */
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -50,23 +51,24 @@ function Header() {
 
               return (
                 <Button
-  key={link.to}
-  asChild
-  variant="outline"
-  size="pill"
-  className={`
-    h-8 rounded-full px-3
-    text-[11px] font-semibold uppercase tracking-[0.12em] leading-none
-    sm:h-9 sm:px-4 sm:text-xs
-    transition-colors
-    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/70 focus-visible:ring-offset-2
-    ${
-     isActive
-  ? "bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground"
-  : "text-muted-foreground/95 hover:bg-accent hover:text-accent-foreground"
+                  key={link.to}
+                  asChild
+                  size="pill"
+                  aria-current={isActive ? "page" : undefined}
+                  className={`
+                    h-8 rounded-full px-3
+                    text-[11px] font-semibold uppercase tracking-[0.12em] leading-none
+                    sm:h-9 sm:px-4 sm:text-xs
+                    transition-colors
+                    bg-card text-foreground/95
+                    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/70 focus-visible:ring-offset-2
+                    ${
+                      isActive
+                        ? "bg-primary text-[color:var(--active-nav-button-text)] ring-2 ring-primary/50 ring-offset-1 ring-offset-background shadow-sm hover:bg-primary/95"
+                        : "hover:bg-accent/10 hover:text-foreground"
                     }
                   `}
->
+                >
                   <Link to={link.to}>{link.label}</Link>
                 </Button>
               );

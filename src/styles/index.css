@@ -32,6 +32,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-active-nav-button-text: var(--active-nav-button-text);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -72,6 +73,7 @@
   /* Pills / tags */
   --accent: hsl(180deg 31% 95%);
   --accent-foreground: hsl(180deg 29% 50%);
+  --active-nav-button-text: hsl(0deg 0% 100%);
 
   /* Borders (barely visible) */
   --border: hsl(180deg 20% 90%);
@@ -84,7 +86,7 @@
   --secondary-foreground: var(--foreground);
   --destructive: hsl(0deg 84% 60%);
   --font-sans: "League Spartan", system-ui, sans-serif;
-
+  --active-nav-button-text: hsl(0deg 0% 100%);
 
 }
 
@@ -108,7 +110,7 @@
   --secondary-foreground: var(--foreground);
   --destructive: hsl(0deg 84% 60%);
   --input: var(--card);
-
+  --active-nav-button-text: hsl(0deg 0% 100%);
 
 }
 
@@ -149,6 +151,10 @@
 
     font-family: var(--font-sans);
     font-size: 15px;
+  }
+
+  .active-nav-button {
+    color: var(--active-nav-button-text);
   }
 }
 
