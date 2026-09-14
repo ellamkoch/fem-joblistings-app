@@ -177,7 +177,8 @@ Frontend tests were created earlier in development and are planned to be updated
 
 ## Known Limitations
 
-- Supabase free-tier projects may be paused after extended inactivity and require manual reactivation by the project owner.
+- Render free-tier services may spin down after inactivity and require a short startup period when accessed again
+- Supabase free-tier projects may be paused after extended inactivity and require manual reactivation by the project owner
 - Some frontend tests need to be updated after API refactor
 - Seed data is limited and may not cover all UI edge cases
 
