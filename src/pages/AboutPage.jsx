@@ -26,10 +26,11 @@ const featureItems = [
 ];
 
 const deploymentItems = [
-  'Frontend: AWS S3 + CloudFront (SPA with routing support)',
-  'Backend: Hosted API with environment-based configuration',
+  'Frontend: Netlify with environment-based configuration and continuous deployment',
+  'Backend: Node.js/Express API with environment-based configuration hosted on Render',
   'Database: Supabase Postgres connected via Prisma',
   'Secure environment variables for CORS, JWT, and database access',
+  'Previous deployment experience: AWS S3 and CloudFront',
 ];
 
 const focusItems = [
@@ -72,9 +73,7 @@ function AboutPage() {
         <CardHeader className="gap-1">
           <div className="space-y-2">
             <CardDescription className="max-w-3xl text-base leading-7">
-              This is a full-stack job listings application built as part of my CodeX Academy Level
-              4 capstone. It demonstrates a complete frontend to backend to database flow with
-              authentication, filtering, and saved jobs functionality.
+              This full-stack job listings application was originally built as my CodeX Academy Level 4 capstone and further developed as a portfolio project. It demonstrates a complete frontend-to-backend-to-database flow with authentication, filtering, and saved jobs functionality.
             </CardDescription>
           </div>
         </CardHeader>
@@ -125,7 +124,7 @@ function AboutPage() {
 
             <section className="rounded-xl border border-border/70 p-5">
               <h2 className="text-xl font-semibold tracking-tight text-foreground">
-                What I Learned
+                Development Experience
               </h2>
               <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
                 {learnedItems.map((item) => (
