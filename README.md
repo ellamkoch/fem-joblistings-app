@@ -50,13 +50,15 @@ This project focuses on clarity, structure, and explainable data flow rather tha
 
 ## Deployment Notes
 
-The frontend is currently deployed on Netlify with continuous deployment from the development branch. The project was previously deployed using AWS S3 and CloudFront, including SPA routing configured to serve `index.html` for unknown routes.
+The frontend is currently deployed on Netlify with continuous deployment from the development branch. Client-side routing is supported through a Netlify SPA fallback that serves `index.html` for application routes, allowing React Router to handle direct navigation and custom 404 behavior.
+
+The project was previously deployed using AWS S3 and CloudFront, including SPA routing configured to serve `index.html` for unknown routes.
 
 The backend API is currently deployed on Render. Because it uses a free-tier service, it may spin down after inactivity and can take a short time to wake when the application is accessed again.
 
 The database is currently hosted on Supabase (PostgreSQL). On the free tier, inactive projects may be paused after an extended period of inactivity and require the project owner to manually resume them.
 
-Planned Improvement
+### Planned Improvement
 
 A future improvement is migrating the database to a standalone PostgreSQL setup. This would remove the dependency on Supabase while preserving the existing relational data structure.
 
