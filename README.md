@@ -41,22 +41,24 @@ This project focuses on clarity, structure, and explainable data flow rather tha
 
 **Deployment**
 
-- Backend: Render
-- Frontend: previously deployed to AWS S3 + CloudFront
+* Frontend: Netlify with continuous deployment
+* Backend: Render
+* Database: Supabase PostgreSQL
+* Previous deployment experience: AWS S3 + CloudFront
 
 ---
 
 ## Deployment Notes
 
-This project was originally deployed using AWS S3 and CloudFront for the frontend, with SPA routing configured to serve `index.html` for unknown routes.
+The frontend is currently deployed on Netlify with continuous deployment from the development branch. The project was previously deployed using AWS S3 and CloudFront, including SPA routing configured to serve `index.html` for unknown routes.
 
-The backend API is currently deployed on Render and remains active.
+The backend API is currently deployed on Render. Because it uses a free-tier service, it may spin down after inactivity and can take a short time to wake when the application is accessed again.
 
-The database is currently hosted on Supabase (PostgreSQL). Because this is a free-tier service, it may spin down after periods of inactivity, which can cause temporary delays when reconnecting.
+The database is currently hosted on Supabase (PostgreSQL). On the free tier, inactive projects may be paused after an extended period of inactivity and require the project owner to manually resume them.
 
-### Planned Improvement
+Planned Improvement
 
-The database will be migrated to a standalone PostgreSQL setup in the future. This will remove the dependency on Supabase while keeping the same relational data structure.
+A future improvement is migrating the database to a standalone PostgreSQL setup. This would remove the dependency on Supabase while preserving the existing relational data structure.
 
 ---
 
@@ -175,7 +177,7 @@ Frontend tests were created earlier in development and are planned to be updated
 
 ## Known Limitations
 
-- Supabase free-tier database may spin down after inactivity
+- Supabase free-tier projects may be paused after extended inactivity and require manual reactivation by the project owner.
 - Some frontend tests need to be updated after API refactor
 - Seed data is limited and may not cover all UI edge cases
 
