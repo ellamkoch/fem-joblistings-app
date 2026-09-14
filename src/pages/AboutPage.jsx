@@ -22,7 +22,7 @@ const featureItems = [
   'Job listings with filtering',
   'Bookmark and saved jobs functionality',
   'Relative date formatting',
-  'Theme support (light, dark, system)',
+  'Theme support (light, dark, system, contrast)',
 ];
 
 const deploymentItems = [
