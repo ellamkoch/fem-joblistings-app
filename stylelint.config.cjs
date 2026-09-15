@@ -7,37 +7,64 @@
 
 /** @type {import("stylelint").Config} */
 module.exports = {
-  extends: ["stylelint-config-standard",
-    "stylelint-config-recommended-scss"],
+  extends: ['stylelint-config-standard', 'stylelint-config-recommended-scss'],
 
   rules: {
     //allows @import instead of forcing url
-    "import-notation": "string",
+    'import-notation': 'string',
 
     // Disallow invalid hex colors
-    "color-no-invalid-hex": true,
+    'color-no-invalid-hex': true,
 
     // Avoid empty rule blocks
-    "block-no-empty": true,
+    'block-no-empty': true,
 
     // Allow camelCase class
-    "selector-class-pattern": null,
+    'selector-class-pattern': null,
 
-    "at-rule-no-unknown": [true, { ignoreAtRules: ["use", "forward", "mixin", "include", "function","tailwind", "apply", "layer", "theme", "custom-variant"]}],
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'use',
+          'forward',
+          'mixin',
+          'include',
+          'function',
+          'tailwind',
+          'apply',
+          'layer',
+          'theme',
+          'custom-variant',
+        ],
+      },
+    ],
 
-    "scss/at-rule-no-unknown": [
-  true,
-  {
-    ignoreAtRules: [
-      "use", "forward","mixin","include", "function","tailwind", "apply", "layer","theme", "custom-variant", ], },],
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'use',
+          'forward',
+          'mixin',
+          'include',
+          'function',
+          'tailwind',
+          'apply',
+          'layer',
+          'theme',
+          'custom-variant',
+        ],
+      },
+    ],
 
     // Allow rgba
-    "color-function-notation": null,
+    'color-function-notation': null,
 
     // Allow percentages to be decimal numbers rather than strings
-    "alpha-value-notation": "number",
+    'alpha-value-notation': 'number',
 
     // Skip scss/no-global-function-names
-    "scss/no-global-function-names": null,
-  }
+    'scss/no-global-function-names': null,
+  },
 };

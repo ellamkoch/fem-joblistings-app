@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="app-footer px-6 pb-10 pt-8 text-center text-xs text-muted-foreground">
       <p>
-        Challenge by{" "}
+        Challenge by{' '}
         <a
           href="https://www.frontendmentor.io?ref=challenge"
           target="_blank"
@@ -14,7 +14,7 @@ export default function Footer() {
         >
           Frontend Mentor
         </a>
-        . Coded by{" "}
+        . Coded by{' '}
         <a href="#" className="underline hover:text-foreground">
           Ella Koch
         </a>

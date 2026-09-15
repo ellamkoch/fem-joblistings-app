@@ -1,0 +1,142 @@
+/**
+ * AboutPage.jsx
+ *
+ * Informational page showcasing project details, tech stack, features, and deployment information.
+ * Available to both authenticated and unauthenticated users.
+ */
+
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
+
+const builtWithItems = [
+  'Frontend: React, Vite, Tailwind CSS, shadcn/ui',
+  'State Management: React Context API, custom hooks',
+  'Backend: Node.js, Express (serverless-ready architecture)',
+  'Database & ORM: Supabase Postgres, Prisma ORM',
+  'Authentication: JWT-based authentication with protected routes',
+  'API: RESTful design with centralized API client and consistent responses',
+];
+
+const featureItems = [
+  'User registration and login',
+  'Protected routes and authenticated API access',
+  'Job listings with filtering',
+  'Bookmark and saved jobs functionality',
+  'Relative date formatting',
+  'Theme support (light, dark, system, contrast)',
+];
+
+const deploymentItems = [
+  'Frontend: Netlify with environment-based configuration and continuous deployment',
+  'Backend: Node.js/Express API with environment-based configuration hosted on Render',
+  'Database: Supabase Postgres connected via Prisma',
+  'Secure environment variables for CORS, JWT, and database access',
+  'Previous deployment experience: AWS S3 and CloudFront',
+];
+
+const focusItems = [
+  'End-to-end data flow (Frontend -> API -> Database -> Frontend)',
+  'Feature-based frontend architecture',
+  'Clean, reusable components and hooks',
+  'Maintainable and scalable code structure',
+  'Real-world deployment and environment configuration',
+];
+
+const learnedItems = [
+  'Building and deploying a full-stack application',
+  'Using Prisma with a hosted PostgreSQL database',
+  'Managing authentication and protected routes',
+  'Designing and consuming REST APIs',
+  'Organizing frontend code by feature',
+  'Debugging UI, state, and deployment issues',
+];
+
+/**
+ * Renders project information page with tech stack, features, and deployment details.
+ *
+ * @returns {JSX.Element} About page with project information.
+ */
+function AboutPage() {
+  return (
+    <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-4 -mt-28 sm:-mt-32 lg:-mt-40">
+      <div className="space-y-3 px-1 text-primary-foreground">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground/80">
+          Project overview
+        </p>
+        <div className="space-y-2">
+          <h1 className="text-3xl font-semibold tracking-tight text-primary-foreground sm:text-4xl">
+            About This Project
+          </h1>
+        </div>
+      </div>
+
+      <Card className="rounded-2xl border-border/70 shadow-xl">
+        <CardHeader className="gap-1">
+          <div className="space-y-2">
+            <CardDescription className="max-w-3xl text-base leading-7">
+              This full-stack job listings application was originally built as my CodeX Academy Level 4 capstone and further developed as a portfolio project. It demonstrates a complete frontend-to-backend-to-database flow with authentication, filtering, and saved jobs functionality.
+            </CardDescription>
+          </div>
+        </CardHeader>
+
+        <CardContent className="space-y-8 pb-8">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <section className="rounded-xl border border-border/70 bg-accent/40 p-5">
+              <h2 className="text-xl font-semibold tracking-tight text-foreground">Built With</h2>
+              <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
+                {builtWithItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="rounded-xl border border-border/70 bg-accent/40 p-5">
+              <h2 className="text-xl font-semibold tracking-tight text-foreground">Features</h2>
+              <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
+                {featureItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            <section className="space-y-6">
+              <div className="rounded-xl border border-border/70 p-5">
+                <h2 className="text-xl font-semibold tracking-tight text-foreground">Deployment</h2>
+                <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
+                  {deploymentItems.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-xl border border-border/70 p-5">
+                <h2 className="text-xl font-semibold tracking-tight text-foreground">
+                  Project Focus
+                </h2>
+                <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
+                  {focusItems.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+
+            <section className="rounded-xl border border-border/70 p-5">
+              <h2 className="text-xl font-semibold tracking-tight text-foreground">
+                Development Experience
+              </h2>
+              <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
+                {learnedItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          </div>
+        </CardContent>
+      </Card>
+    </section>
+  );
+}
+
+export default AboutPage;

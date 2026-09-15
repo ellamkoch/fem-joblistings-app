@@ -1,28 +1,34 @@
-// This file is where the React app starts, loads global styles, and wraps the app in providers (ThemeProvider).
-//react imports
+/**
+ * Boots the React app and mounts the global providers used across the UI.
+ *
+ * Sets up the provider hierarchy in the following order:
+ * 1. BrowserRouter - enables client-side routing
+ * 2. AuthProvider - manages authentication state and persistence
+ * 3. ThemeProvider - manages theme selection (light, dark, system)
+ * 4. App - root application component
+ */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from "react-router-dom";
-//style imports
+import { BrowserRouter } from 'react-router-dom';
 
-import "@styles/index.css";
+import '@styles/index.css';
 
-//app import
 import App from '@/App.jsx';
 
+import { DEFAULT_THEME } from '@/contexts/themeConstants';
 import { ThemeProvider } from '@/providers/ThemeProvider';
+import { AuthProvider } from '@/providers/AuthProvider';
 
-// Get the root element from the HTML
 const rootElement = document.getElementById('root');
 
-// Create a root and render the App component inside StrictMode
-// Wrap the app in theme provider so all components can access theme context (light/dark/contrast mode)
 createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
-      <ThemeProvider defaultTheme='dark'>
-        <App />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider defaultTheme={DEFAULT_THEME}>
+          <App />
+        </ThemeProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 );

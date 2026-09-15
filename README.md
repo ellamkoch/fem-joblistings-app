@@ -1,204 +1,231 @@
-# FEM Job Listings App with Filtering
 
-This is the repo for my Capstone for Level 3 with CodeX. This app is still in progress.
+# Job Listings App
 
-## Links
+A full-stack job listings application built with React, Node.js, Express, Prisma, and PostgreSQL.
 
-Live Site: [https://femjoblistings.netlify.app/](https://femjoblistings.netlify.app/)
-Repository: [https://github.com/ellamkoch/fem-joblistings-app](https://github.com/ellamkoch/fem-joblistings-app)
+Originally developed as my CodeX Academy Level 4 capstone and later expanded as a portfolio project, the application grew from a Frontend Mentor challenge into a multi-page full-stack application with authentication, protected routes, persistent data, saved jobs, filtering, and responsive theming.
 
-## Setup & Running the Project
+The project demonstrates a complete frontend → API → database flow with an emphasis on maintainable architecture, clear data flow, and practical full-stack integration.
 
-1. Clone the repository
-2. Install dependencies:
-   npm install
-3. Create a `.env` file with the following variables:
-   VITE_SUPABASE_URL=...
-   VITE_SUPABASE_ANON_KEY=...
-4. Start the development server:
-   npm run dev
+---
 
-## Environment Variables
+## Live Application
 
-This project uses Vite environment variables for Supabase configuration:
+**Live Site:** https://femjoblistings.netlify.app/
 
-VITE_SUPABASE_URL
-VITE_SUPABASE_ANON_KEY
+The React frontend is deployed on Netlify and communicates with a Node.js/Express API hosted on Render. Application data is stored in PostgreSQL hosted through Supabase and accessed through Prisma.
 
-These values are required to run the app locally and should not be committed to the repository.
+> **Note:** The backend uses Render's free tier and may take a short time to wake after a period of inactivity.
 
+---
 
-## Project Overview & Capstone Goals
+## Demo Account
 
-This project implements the **Frontend Mentor – Job Listings with Filtering** challenge as a CodeX Level 3 capstone.
+You can create your own account or use the demo account below to explore the authenticated experience.
 
-The goal is to build a multi-page React application that:
+**Email:** `user3@example.com`
 
-* Fetches job listing data from Supabase
-* Displays listings with interactive, AND-based tag filtering
-* Supports job detail views and graceful 404 handling
-* Uses modern component architecture, routing, and state management
-* Meets accessibility and responsiveness requirements
-* Includes component and logic testing using Vitest
-* Demonstrates clean separation of layout, routing, UI components, and logic
+**Password:** `Password1!Password1!`
 
-The focus is on **correct architecture, clarity, testability, and maintainability** , not pixel-perfect styling.
+The demo account includes saved jobs so you can test filtering, saving, removing jobs, and authenticated dashboard behavior.
 
-## My Process
+---
 
-I approached this capstone by focusing on **one reliable end-to-end flow first** , then layering in additional behavior once the foundation was stable.
+## Key Features
 
-I started by establishing a clean data pipeline from Supabase into React using a custom hook (`useJobs`) with explicit loading, error, and empty states. Once data rendering was stable, I implemented routing, core UI components, and responsive layout before introducing filtering behavior.
+- Browse and filter job listings
+- View individual job details through routed pages
+- Register and log in with JWT-based authentication
+- Access protected authenticated routes
+- Save and remove bookmarked jobs
+- Persist user and bookmark data through the backend API
+- Switch between light, dark, high-contrast, and system themes
+- Responsive layout for desktop and mobile screens
+- Custom 404 handling with SPA routing support
 
-Filtering was built using **React state only** , mirroring patterns used earlier in the course. Active filters are stored as state, while the visible job list is derived using `useMemo` and array helpers (`filter` and `reduce`) to support AND-based logic without mutating source data.
+---
 
-Visual polish and responsiveness were addressed after functional correctness. Testing and coverage are intentionally deferred to a separate branch so the demo build remains stable and easy to reason about.
+## Screenshots
 
-## Architecture Overview
+### Job Listings
 
-* **Data Source:** Supabase (read-only; SELECT only)
-* **Custom Hook:** `useJobs`
-  * Fetches jobs
-  * Manages loading and error state
-  * Acts as the single source of truth for job data
-* **State:**
-  * Filter state stored locally in React
-  * No URL query syncing (per requirement)
-* **Derived Data:**
-  * `visibleJobs` computed from jobs + active filters using `useMemo`
-* **Filtering Logic:**
-  * AND-based badge filtering stored in React state
-  * Tag values normalized for consistent comparison
-  * Filtered job list derived via `useMemo` using `filter` and `reduce`
-  * Original job data is never mutated
+![Job Listings desktop view showing active filters and saved jobs](public/screenshots/dark_mode_jobs_list_filtered_desktop.png)
 
-## Routes
+### Saved Jobs
 
-* **`/` — Job List Page**
-  * Fetches jobs via `useJobs`
-  * Renders loading, error, empty, and filtered states
-  * Supports interactive badge-based filtering
-* **`/jobs/:id` — Job Detail Page**
-  * Displays a single job by route parameter
-  * Reuses existing job data when available
-  * Handles “job not found” defensively
-* **`*` — Not Found Page**
-  * Catches invalid routes
-  * Displays one of three predefined messages
-  * Message is selected once on mount and remains stable across re-renders
+![Saved Jobs desktop view showing persisted bookmarked jobs](public/screenshots/dark_mode_saved_jobs_desktop.png)
 
-## Accessibility Notes
+---
 
-Accessibility considerations are included throughout the UI:
+## Tech Stack
 
-* Semantic HTML structure is used where possible
-* Interactive elements include appropriate `aria-labels`
-* Clickable badges and buttons are keyboard accessible
-* Focus states and hover states are preserved for usability
-* Empty and error states provide clear user feedback
+**Frontend**
 
-## Testing (Planned)
+- React
+- Vite
+- JavaScript (ES6+)
+- React Router
+- Tailwind CSS
+- shadcn/ui
+- Axios
 
-* Vitest is configured for unit and component testing
-* Tests will be implemented on a separate branch to preserve demo stability
-* Planned coverage includes:
-  * Filter logic (unit test)
-  * UI behavior (component test)
-  * Snapshot test for a stable layout component
+**Backend & Data**
 
-### Test Commands
+- Node.js
+- Express
+- Prisma ORM
+- PostgreSQL
+- Supabase database hosting
+- JSON Web Tokens (JWT)
+- bcryptjs
 
-npm run test:run
-npm run test:ui
-npm run test:coverage
+**Testing & Development**
 
+- Vitest
+- Testing Library
+- Cypress
+- Postman
+- ESLint
+- Stylelint
+- HTMLHint
+- Prettier
 
-## Project Status
+**Deployment**
 
-* Project scaffolded with Vite + React
-* Tailwind CSS installed and configured
-* shadcn/ui components installed and available for UI primitives
-* Supabase client configured with environment variables
-* Global layout implemented with shared header and footer
-* Header includes hero background and theme selector
-* Hero background uses a scoped Sass partial for breakpoint-based image swapping
-* Routing structure established for job list, job detail, and not found pages
-* Page-level UI and data rendering in progress
-* Theme context files added (ThemeProvider, useTheme, constants); wiring in progress
-* Not Found page implemented with a stable randomly selected message that persists across re-renders
-* Testing setup planned with Vitest per capstone requirements
-* Implemented a custom `useJobs` hook to retrieve job listings from Supabase (read-only, ordered by posting date)
-* Verified end-to-end data flow from Supabase through the hook and into the UI
-* Wired `JobList` to consume `useJobs`, including loading, error, and empty states
-* Confirmed loading skeleton renders during asynchronous data fetch
-* Integrated an initial JobCard render to validate visible job data output
-* Stabilized the baseline UI after resolving import/export mismatches and className issues
-* Job listings now render dynamically as cards using live Supabase data
-* Implemented JobCard component to display core job summary information
-* Wired dynamic routing from job titles to individual job detail pages (`/jobs/:id`)
-* Verified route parameter handling and successful navigation from list to detail view
-* Job detail page now renders as a valid route and is ready for data integration
-* Fully implemented and stabilized the `JobCard` component for the main job listings page
-* Job cards now render consistently on the main page using live Supabase data
-* Implemented status badge rendering for job listings (e.g., *New* and *Featured* ) with conditional logic based on database flags
-* Implemented interactive job attribute badges (role, level, languages, tools) as reusable UI primitives
-* Verified badge rendering across both the job list and job detail contexts
-* Prepared job badges for future filter interactions (click handling wired, filtering logic to be added)
-* Confirmed responsive JobCard layout behavior across mobile and desktop breakpoints
-* Resolved earlier rendering and data-shape issues related to text-based fields by normalizing values at the UI layer
-* Completed full Job Detail page data integration using the existing `useJobs` hook, selecting an individual job record by route parameter (`id`)
-* Implemented defensive rendering patterns on the Job Detail page to safely handle loading, error, and “job not found” states
-* Reused the existing `JobCard` component within the Job Detail page to ensure visual and structural consistency across routes
-* Successfully rendered extended job information sections, including job description, responsibilities, requirements, preferred skills, company overview, and equal opportunity statement
-* Preserved database-authored formatting in long-form text fields using whitespace-aware rendering for improved readability
-* Added a reusable Back Button component (shadcn/ui) to support navigation from the Job Detail page back to the main job list
-* Verified stable behavior for direct navigation to job detail routes (including page refreshes)
-* Confirmed end-to-end data flow from Supabase → custom hook → routed detail view without schema changes
-* Locked Job Detail page scope to functional completeness per capstone requirements (intentionally deferring visual polish)
-* Implemented reusable filter utility helpers (`normalizeTag`, `toggleFilter`, `removeFilter`, `clearFilter`) to manage active job badge filters using immutable array patterns
-* Incorporated `slice` and `splice` intentionally to demonstrate non-mutative state updates in filter logic (aligned with instructional guidance)
-* Finalized normalization strategy to ensure consistent filter comparison while preserving original badge casing for display
-* Built reusable UI components for filter interactions, including display-only Filter Badges, per-filter remove (X) button, and Clear Filters button using shadcn/ui primitives
-* Scaffolded the FilterBar component to render active filters conditionally, deferring list-filtering logic to the Job List page
-* Prepared the filtering UI architecture for final wiring without introducing schema changes or hook refactors
-* Completed end-to-end wiring of interactive job filtering using badge-based AND logic, allowing users to dynamically narrow results by role, level, language, and tools
-* Centralized filter state management within the Job List component to mirror prior Todo app architecture and simplify explanation of derived data patterns
-* Implemented `useMemo`-based derived job list computation to efficiently recalculate visible jobs based on active filter state
-* Verified correct filter behavior for add, remove (single badge), and clear-all interactions without mutating original job data
-* Successfully normalized filter input values to ensure consistent comparison across database-authored fields while maintaining UI responsiveness
-* Integrated the FilterBar UI to conditionally render only when active filters are present
-* Aligned FilterBar layout and width with job listing cards across all breakpoints to ensure visual consistency
-* Implemented floating FilterBar positioning over the hero background using controlled negative margins and z-index layering
-* Finalized responsive FilterBar behavior for mobile and desktop, including badge wrapping and pinned Clear action
-* Completed visual stabilization of filter interactions, including hover states, accessibility labels, and click targets
-* Verified complete demo-ready user flow: badge click → filter activation → dynamic list update → individual filter removal → full reset
-* Project is now functionally complete for capstone demo, with remaining scope focused on testing and validation
-* * Configured Stylelint to support Tailwind CSS and shadcn/ui by selectively relaxing import and at-rule validation
-* Resolved linter conflicts related to modern CSS syntax and framework-specific at-rules without modifying generated styles
-* Validated Stylelint configuration changes through incremental fixes rather than blanket autofix to prevent unintended style regressions
-* Confirmed clean Stylelint output for project CSS files after configuration updates
-* Stabilized linting workflow to support continued development and upcoming test implementation
-* Project codebase is now lint-clean and ready for deployment and test branch creation
+- Netlify — frontend
+- Render — backend API
+- Supabase — PostgreSQL database
+- AWS S3 and CloudFront — previous frontend deployment completed during CodeX Academy cloud deployment practice
 
-## Future Ideas
+---
 
-In the current implementation, the job detail page reuses the existing `useJobs` hook and selects a single job by ID. In a production setting, this could be refactored to fetch an individual job record directly (e.g., via a dedicated `useJob(id)` hook) to reduce data fetching and improve scalability.
+## Technical Approach
 
-Additional potential enhancements include:
+The frontend communicates with the backend through a centralized API client, keeping network requests separate from presentation components.
 
-* Introducing a prop-based option on the `JobCard` component to disable navigation links when reused within the Job Detail page
-* Refactoring long-form job text sections into smaller, presentational-only components to improve readability and maintainability
-* Enhancing semantic structure on the Job Detail page (e.g., converting multiline text fields into structured lists where appropriate)
-* Adding typography refinements to improve content hierarchy once core functionality is complete
-* Implementing memoized selectors or derived helpers for job lookup logic as data volume increases
-* Expanding accessibility considerations for long-form content (e.g., landmark regions and improved heading structure)
+Application data flows through:
 
-## Resources
+```text
+React → API client → Express routes → controllers → repositories → Prisma → PostgreSQL
+```
 
-* The Truth about CSS Breakpoints Most Teams Miss [https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints](https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints)
-* Random string from an array ideas for random Not Found Msg [https://forum.freecodecamp.org/t/is-it-possible-to-get-a-random-letter-from-a-string-element-inside-an-array/319223](https://forum.freecodecamp.org/t/is-it-possible-to-get-a-random-letter-from-a-string-element-inside-an-array/319223), [https://teamtreehouse.com/community/how-do-i-use-mathrandom-on-an-array-of-questions](https://teamtreehouse.com/community/how-do-i-use-mathrandom-on-an-array-of-questions), [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#:~:text=Math.-,random(),getRandomValues()%20method.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#:~:text=Math.-,random(),getRandomValues()%20method.)
-* React Router Docs [https://reactrouter.com/home](https://reactrouter.com/home)
-* MDN docs for Find(), splice(), slice(), filter(), reduce(), .findIndex, string normalization [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-* TailwindCSS docs [https://tailwindcss.com/docs](https://tailwindcss.com/docs)
-*
+The backend uses a layered structure that separates HTTP handling, business logic, and database access.
 
+Authentication is handled with JWTs. Protected frontend routes require an authenticated user, while protected backend endpoints validate Bearer tokens through middleware.
+
+Job and bookmark data are persisted in PostgreSQL. Bookmark relationships are scoped to individual users and enforced through the database layer.
+
+The frontend also includes an SPA fallback on Netlify so direct navigation to React Router routes continues to work correctly.
+
+---
+
+## Project Development
+
+This project evolved from a frontend job-listing challenge into a connected full-stack application.
+
+Development included:
+
+- Expanding a single-page frontend into a routed React application
+- Building a Node.js/Express REST API
+- Adding PostgreSQL persistence through Prisma
+- Implementing registration, login, logout, and protected routes
+- Adding user-specific saved-job functionality
+- Connecting the deployed Netlify frontend to the Render API
+- Configuring CORS between frontend and backend environments
+- Adding loading, authentication, error, and empty-data states
+- Building reusable hooks and shared frontend state
+- Adding responsive themes using shared CSS variables and tokens
+- Testing backend endpoints with Postman
+- Adding SPA routing support for direct Netlify navigation
+
+---
+
+## What I Learned
+
+This project strengthened my understanding of:
+
+- Connecting a React frontend to a separately deployed REST API
+- Designing and consuming authenticated API endpoints
+- Structuring backend applications with routes, controllers, repositories, and middleware
+- Modeling relational data with Prisma and PostgreSQL
+- Managing JWT-based authentication across frontend and backend
+- Handling environment variables and CORS across deployed services
+- Building reusable hooks and shared state for API-driven interfaces
+- Debugging issues across frontend, backend, database, and deployment layers
+- Refactoring an application as its architecture grows
+
+---
+
+## Running the Frontend Locally
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ellamkoch/fem-joblistings-app.git
+cd fem-joblistings-app
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file:
+
+```env
+VITE_API_BASE_URL=http://localhost:3005
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The frontend will typically be available at:
+
+```text
+http://localhost:5173
+```
+
+The backend should also be running locally, or `VITE_API_BASE_URL` can point to the deployed Render API.
+
+---
+
+## Backend Repository
+
+The backend API is maintained separately:
+
+https://github.com/ellamkoch/be-joblistings-app
+
+The backend repository contains the Express API, Prisma schema, database access layer, authentication middleware, API documentation, seed data, and Postman testing resources.
+
+---
+
+## Known Limitations
+
+- Render free-tier services may require a short startup period after inactivity
+- Supabase free-tier projects may pause after extended inactivity
+- Some frontend tests need updates following the API refactor
+- Light and high-contrast themes need additional token and contrast refinement
+- Seed data is intentionally limited
+
+---
+
+## Future Improvements
+
+Potential future enhancements include:
+
+- Expand automated frontend and backend test coverage
+- Improve accessibility and contrast validation
+- Refine light and high-contrast theme tokens
+- Move job-detail fetching into a dedicated hook
+- Expand seed data for additional UI states
+- Continue refining responsive behavior
+
+---
+
+## Acknowledgements
+
+The original interface concept was inspired by the [Frontend Mentor Job Listings challenge](https://www.frontendmentor.io/).
