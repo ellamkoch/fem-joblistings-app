@@ -1,38 +1,47 @@
-# Job Listings App (Full Stack)
 
-A full-stack job listings application originally built as my CodeX Academy Level 4 capstone and further developed as a portfolio project. It began as a Frontend Mentor challenge and was expanded into a multi-page React application with a backend API, authentication, persistent data, protected routes, and saved-job functionality.
+# Job Listings App
 
-The project demonstrates a complete frontend → API → database flow with an emphasis on clear architecture, maintainable code, and explainable data flow.
+A full-stack job listings application built with React, Node.js, Express, Prisma, and PostgreSQL.
+
+Originally developed as my CodeX Academy Level 4 capstone and later expanded as a portfolio project, the application grew from a Frontend Mentor challenge into a multi-page full-stack application with authentication, protected routes, persistent data, saved jobs, filtering, and responsive theming.
+
+The project demonstrates a complete frontend → API → database flow with an emphasis on maintainable architecture, clear data flow, and practical full-stack integration.
+
+---
 
 ## Live Application
 
 **Live Site:** https://femjoblistings.netlify.app/
 
-The frontend is deployed on Netlify and communicates with a Node.js/Express API hosted on Render. The application uses PostgreSQL hosted through Supabase.
+The React frontend is deployed on Netlify and communicates with a Node.js/Express API hosted on Render. Application data is stored in PostgreSQL hosted through Supabase and accessed through Prisma.
 
 > **Note:** The backend uses Render's free tier and may take a short time to wake after a period of inactivity.
 
+---
+
 ## Demo Account
 
-You can create your own account, or use the demo account below to explore the authenticated experience with saved jobs already in place.
+You can create your own account or use the demo account below to explore the authenticated experience.
 
 **Email:** `user3@example.com`
 
 **Password:** `Password1!Password1!`
 
-The demo account includes saved jobs so you can test filtering, saving and removing jobs, and the authenticated dashboard.
+The demo account includes saved jobs so you can test filtering, saving, removing jobs, and authenticated dashboard behavior.
 
 ---
 
 ## Key Features
 
-- Browse and filter job listings using AND-based tag filtering
-- View individual job details with direct URL routing
-- Register, log in, and access protected routes
-- Save and manage bookmarked jobs with persistent data
-- Maintain authentication using JWT-based authorization
+- Browse and filter job listings
+- View individual job details through routed pages
+- Register and log in with JWT-based authentication
+- Access protected authenticated routes
+- Save and remove bookmarked jobs
+- Persist user and bookmark data through the backend API
 - Switch between light, dark, high-contrast, and system themes
-- Use the application across responsive screen sizes
+- Responsive layout for desktop and mobile screens
+- Custom 404 handling with SPA routing support
 
 ---
 
@@ -40,13 +49,9 @@ The demo account includes saved jobs so you can test filtering, saving and remov
 
 ### Job Listings
 
-Browse and filter available jobs, view job details, and save listings to an authenticated account.
-
 ![Job Listings desktop view showing active filters and saved jobs](public/screenshots/dark_mode_jobs_list_filtered_desktop.png)
 
 ### Saved Jobs
-
-Authenticated users can review and manage their saved job listings from a persistent dashboard.
 
 ![Saved Jobs desktop view showing persisted bookmarked jobs](public/screenshots/dark_mode_saved_jobs_desktop.png)
 
@@ -56,141 +61,171 @@ Authenticated users can review and manage their saved job listings from a persis
 
 **Frontend**
 
-- React (Vite)
+- React
+- Vite
+- JavaScript (ES6+)
+- React Router
 - Tailwind CSS
 - shadcn/ui
-- React Router
-- JavaScript (ES6+)
+- Axios
 
-**Backend**
+**Backend & Data**
 
-- Express API
+- Node.js
+- Express
 - Prisma ORM
+- PostgreSQL
+- Supabase database hosting
+- JSON Web Tokens (JWT)
+- bcryptjs
 
-**Database**
+**Testing & Development**
 
-- PostgreSQL (currently hosted via Supabase)
+- Vitest
+- Testing Library
+- Cypress
+- Postman
+- ESLint
+- Stylelint
+- HTMLHint
+- Prettier
 
 **Deployment**
 
-- **Frontend:** Netlify with continuous deployment from the `dev` branch
-- **Backend:** Node.js/Express API hosted on Render
-- **Database:** Supabase PostgreSQL accessed through Prisma
-- **Previous deployment:** AWS S3 and CloudFront
-
-The Netlify deployment includes an SPA fallback that serves `index.html` for application routes, allowing React Router to handle direct navigation and the application's custom 404 page.
-
-The project was previously deployed using AWS S3 and CloudFront, including SPA routing configured to serve `index.html` for unknown routes.
-
-Because the backend uses Render's free tier, it may spin down after inactivity and require a short startup period. Supabase free-tier projects may also pause after extended inactivity and require manual reactivation by the project owner.
+- Netlify — frontend
+- Render — backend API
+- Supabase — PostgreSQL database
+- AWS S3 and CloudFront — previous frontend deployment completed during CodeX Academy cloud deployment practice
 
 ---
 
-## Architecture Overview
+## Technical Approach
 
-Frontend data flow:
+The frontend communicates with the backend through a centralized API client, keeping network requests separate from presentation components.
 
-<pre class="overflow-visible! px-0!" data-start="3196" data-end="3261"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="relative"><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span>React → API client → Express routes → Prisma → PostgreSQL</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+Application data flows through:
 
-Key patterns implemented:
+```text
+React → API client → Express routes → controllers → repositories → Prisma → PostgreSQL
+```
 
-- Centralized API client for all requests
-- Data normalization before rendering
-- Custom hooks for jobs and bookmarks
-- Context-based state for shared data
-- Protected routes for authenticated access
+The backend uses a layered structure that separates HTTP handling, business logic, and database access.
 
----
+Authentication is handled with JWTs. Protected frontend routes require an authenticated user, while protected backend endpoints validate Bearer tokens through middleware.
 
-## Authentication Flow
+Job and bookmark data are persisted in PostgreSQL. Bookmark relationships are scoped to individual users and enforced through the database layer.
 
-- Users register or log in through the frontend
-- JWT is returned from the backend and stored locally
-- Token is attached to API requests via the API client
-- Protected routes require authentication
-- Unauthorized responses trigger automatic logout
+The frontend also includes an SPA fallback on Netlify so direct navigation to React Router routes continues to work correctly.
 
 ---
 
-## Theme System
+## Project Development
 
-The application includes a global theme system with:
+This project evolved from a frontend job-listing challenge into a connected full-stack application.
 
-- Light mode
-- Dark mode
-- High contrast mode
-- System preference detection
+Development included:
 
-Themes are implemented using CSS variables and applied at the root level, allowing components to remain theme-agnostic.
-
----
-
-## Running the Project Locally
-
-### 1. Clone the repository
-
-<pre class="overflow-visible! px-0!" data-start="2364" data-end="2461"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span class="ͼs">git</span><span> clone https://github.com/ellamkoch/fem-joblistings-app.git</span><br/><span class="ͼs">cd</span><span> fem-joblistings-app</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
-
----
-
-### 2. Install dependencies
-
-<pre class="overflow-visible! px-0!" data-start="2497" data-end="2520"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span class="ͼs">npm</span><span> install</span></code></pre></div></div></div></div></div></div></div></div></div></div></div></div></pre>
+- Expanding a single-page frontend into a routed React application
+- Building a Node.js/Express REST API
+- Adding PostgreSQL persistence through Prisma
+- Implementing registration, login, logout, and protected routes
+- Adding user-specific saved-job functionality
+- Connecting the deployed Netlify frontend to the Render API
+- Configuring CORS between frontend and backend environments
+- Adding loading, authentication, error, and empty-data states
+- Building reusable hooks and shared frontend state
+- Adding responsive themes using shared CSS variables and tokens
+- Testing backend endpoints with Postman
+- Adding SPA routing support for direct Netlify navigation
 
 ---
 
-### 3. Configure environment variables
+## What I Learned
 
-Create a `.env` file in the root of the project:
+This project strengthened my understanding of:
 
-<pre class="overflow-visible! px-0!" data-start="2617" data-end="2667"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span>VITE_API_BASE_URL=http://localhost:3005</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
-
-If using the deployed backend:
-
-<pre class="overflow-visible! px-0!" data-start="2701" data-end="2761"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span>VITE_API_BASE_URL=https://your-render-backend-url</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
-
-The frontend uses `VITE_API_BASE_URL` through a centralized API client, allowing it to connect to either a local backend instance or the deployed Render API.
-
----
-
-### 4. Start the development server
-
-<pre class="overflow-visible! px-0!" data-start="2805" data-end="2828"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute inset-x-4 top-12 bottom-4"><div class="pointer-events-none sticky z-40 shrink-0 z-1!"><div class="sticky bg-token-border-light"></div></div></div><div class="relative"><div class=""><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span class="ͼs">npm</span><span> run dev</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
-
-The app will run at:
-
-<pre class="overflow-visible! px-0!" data-start="2852" data-end="2881"><div class="relative w-full mt-4 mb-1"><div class=""><div class="relative"><div class="h-full min-h-0 min-w-0"><div class="h-full min-h-0 min-w-0"><div class="border border-token-border-light border-radius-3xl corner-superellipse/1.1 rounded-3xl"><div class="h-full w-full border-radius-3xl bg-token-bg-elevated-secondary corner-superellipse/1.1 overflow-clip rounded-3xl lxnfua_clipPathFallback"><div class="pointer-events-none absolute end-1.5 top-1 z-2 md:end-2 md:top-1"></div><div class="relative"><div class="pe-11 pt-3"><div class="relative z-0 flex max-w-full"><div id="code-block-viewer" dir="ltr" class="q9tKkq_viewer cm-editor z-10 light:cm-light dark:cm-light flex h-full w-full flex-col items-stretch ͼk ͼy"><div class="cm-scroller"><pre class="cm-content q9tKkq_readonly m-0"><code><span>http://localhost:5173</span></code></pre></div></div></div></div></div></div></div></div></div><div class=""><div class=""></div></div></div></div></div></pre>
+- Connecting a React frontend to a separately deployed REST API
+- Designing and consuming authenticated API endpoints
+- Structuring backend applications with routes, controllers, repositories, and middleware
+- Modeling relational data with Prisma and PostgreSQL
+- Managing JWT-based authentication across frontend and backend
+- Handling environment variables and CORS across deployed services
+- Building reusable hooks and shared state for API-driven interfaces
+- Debugging issues across frontend, backend, database, and deployment layers
+- Refactoring an application as its architecture grows
 
 ---
 
-## Testing
+## Running the Frontend Locally
 
-Backend functionality was verified using Postman, including:
+Clone the repository:
 
-- Authentication
-- Protected routes
-- Job retrieval
-- Bookmark creation and deletion
-- Data persistence
+```bash
+git clone https://github.com/ellamkoch/fem-joblistings-app.git
+cd fem-joblistings-app
+```
 
-Frontend tests were created earlier in development and are planned to be updated to reflect the current API-based data layer.
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file:
+
+```env
+VITE_API_BASE_URL=http://localhost:3005
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The frontend will typically be available at:
+
+```text
+http://localhost:5173
+```
+
+The backend should also be running locally, or `VITE_API_BASE_URL` can point to the deployed Render API.
+
+---
+
+## Backend Repository
+
+The backend API is maintained separately:
+
+https://github.com/ellamkoch/be-joblistings-app
+
+The backend repository contains the Express API, Prisma schema, database access layer, authentication middleware, API documentation, seed data, and Postman testing resources.
 
 ---
 
 ## Known Limitations
 
-- Render free-tier services may spin down after inactivity and require a short startup period when accessed again
-- Supabase free-tier projects may be paused after extended inactivity and require manual reactivation by the project owner
-- Some frontend tests need to be updated after API refactor
-- Seed data is limited and may not cover all UI edge cases
+- Render free-tier services may require a short startup period after inactivity
+- Supabase free-tier projects may pause after extended inactivity
+- Some frontend tests need updates following the API refactor
+- Light and high-contrast themes need additional token and contrast refinement
+- Seed data is intentionally limited
 
 ---
 
 ## Future Improvements
 
-- Migrate database from Supabase to standalone PostgreSQL
-- Update CSS tokens to work for light and contrast themes
-- Expand test coverage (frontend and backend)
+Potential future enhancements include:
+
+- Expand automated frontend and backend test coverage
 - Improve accessibility and contrast validation
-- Refactor job detail data fetching into a dedicated hook
-- Expand seed data for better UI state coverage
+- Refine light and high-contrast theme tokens
+- Move job-detail fetching into a dedicated hook
+- Expand seed data for additional UI states
+- Continue refining responsive behavior
+
+---
+
+## Acknowledgements
+
+The original interface concept was inspired by the [Frontend Mentor Job Listings challenge](https://www.frontendmentor.io/).
