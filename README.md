@@ -22,6 +22,8 @@ You can create your own account, or use the demo account below to explore the au
 
 The demo account includes saved jobs so you can test filtering, saving and removing jobs, and the authenticated dashboard.
 
+---
+
 ## Key Features
 
 - Browse and filter job listings using AND-based tag filtering
@@ -31,6 +33,22 @@ The demo account includes saved jobs so you can test filtering, saving and remov
 - Maintain authentication using JWT-based authorization
 - Switch between light, dark, high-contrast, and system themes
 - Use the application across responsive screen sizes
+
+---
+
+## Screenshots
+
+### Job Listings
+
+Browse and filter available jobs, view job details, and save listings to an authenticated account.
+
+![Job Listings desktop view showing active filters and saved jobs](public/screenshots/dark_mode_jobs_list_filtered_desktop.png)
+
+### Saved Jobs
+
+Authenticated users can review and manage their saved job listings from a persistent dashboard.
+
+![Saved Jobs desktop view showing persisted bookmarked jobs](public/screenshots/dark_mode_saved_jobs_desktop.png)
 
 ---
 
@@ -171,6 +189,7 @@ Frontend tests were created earlier in development and are planned to be updated
 ## Future Improvements
 
 - Migrate database from Supabase to standalone PostgreSQL
+- Update CSS tokens to work for light and contrast themes
 - Expand test coverage (frontend and backend)
 - Improve accessibility and contrast validation
 - Refactor job detail data fetching into a dedicated hook
