@@ -71,7 +71,7 @@
 
   /* Pills / tags */
   --accent: hsl(180deg 31% 95%);
-  --accent-foreground: hsl(180deg 29% 50%);
+  --accent-foreground: hsl(180deg 29% 36%);
   --active-nav-button-text: hsl(0deg 0% 100%);
 
   /* Borders (barely visible) */
@@ -107,6 +107,7 @@
   --destructive: hsl(0deg 84% 60%);
   --input: var(--card);
   --active-nav-button-text: hsl(0deg 0% 100%);
+  --accent-foreground: hsl(180deg 29% 35%);
 }
 
 /* ---break--- */

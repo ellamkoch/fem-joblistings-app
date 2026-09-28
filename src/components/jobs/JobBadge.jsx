@@ -24,7 +24,7 @@ function JobBadge({ label, onToggle, className = '' }) {
         <button
           type="button"
           onClick={() => onToggle(label)}
-          className="cursor-pointer hover:bg-primary hover:text-secondary focus-visible:ring-0"
+          className="cursor-pointer hover:bg-accent-foreground hover:text-accent focus-visible:ring-0"
         >
           {label}
         </button>
