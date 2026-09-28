@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
  */
 function JobBadge({ label, onToggle, className = '' }) {
   const allJobBadges =
-    'bg-secondary text-center font-semibold tracking-wide rounded-sm pt-1 text-base rounded-xs ';
+    'bg-accent text-accent-foreground text-center font-semibold tracking-wide rounded-sm pt-1 text-base rounded-xs ';
 
   if (onToggle) {
     return (
