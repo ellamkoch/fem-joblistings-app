@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
  */
 function JobBadge({ label, onToggle, className = '' }) {
   const allJobBadges =
-    'bg-secondary text-center font-semibold tracking-wide rounded-sm pt-1 text-base rounded-xs ';
+    'bg-accent text-accent-foreground text-center font-semibold tracking-wide rounded-sm pt-1 text-base rounded-xs ';
 
   if (onToggle) {
     return (
@@ -24,7 +24,7 @@ function JobBadge({ label, onToggle, className = '' }) {
         <button
           type="button"
           onClick={() => onToggle(label)}
-          className="cursor-pointer hover:bg-primary hover:text-secondary focus-visible:ring-0"
+          className="cursor-pointer hover:bg-accent-foreground hover:text-accent focus-visible:ring-0"
         >
           {label}
         </button>

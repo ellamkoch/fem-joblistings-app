@@ -19,7 +19,7 @@ function ClearBtn({ clearFilter }) {
       variant="ghost"
       onClick={clearFilter}
       aria-label="Clear filters"
-      className="text-primary hover:underline hover:underline-offset-4 cursor-pointer"
+      className="text-accent-foreground hover:underline hover:underline-offset-4 cursor-pointer"
     >
       Clear filters
     </Button>
