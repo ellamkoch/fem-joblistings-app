@@ -51,13 +51,13 @@ function BookmarkButton({
         <TooltipTrigger asChild>
           <Button
             type="button"
-            variant="outline"
+            variant="default"
             size="sm"
             disabled={pending}
             onClick={handleBookmarkAction}
             aria-label={tooltipLabel}
             className={cn(
-              'shrink-0 rounded-full px-3 text-sm font-semibold text-destructive hover:text-destructive',
+              'shrink-0 rounded-full px-3 text-sm font-semibold hover:text-accent-foreground hover:bg-transparent',
               showLabel && 'gap-1.5',
               className,
             )}
@@ -82,14 +82,14 @@ function BookmarkButton({
       <TooltipTrigger asChild>
         <Toggle
           type="button"
-          variant="outline"
+          variant="default"
           size="sm"
           pressed={isBookmarked}
           disabled={pending}
           onClick={handleBookmarkAction}
           aria-label={buttonLabel}
           className={cn(
-            'shrink-0 rounded-full px-3 text-sm font-semibold',
+            'shrink-0 rounded-full px-3 text-sm font-semibold hover:text-accent-foreground hover:bg-transparent',
             showLabel && 'gap-1.5',
             className,
           )}
