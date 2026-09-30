@@ -90,6 +90,7 @@
   --nav-hover-background: var(--accent-foreground);
   --nav-hover-foreground: var(--accent);
 
+  /* Hero section */
   --hero-background: hsl(180deg 29% 35%);
 }
 
@@ -138,13 +139,15 @@
   --secondary: hsl(180deg 52% 96%);
   --secondary-foreground: var(--foreground);
   --destructive: hsl(0deg 84% 65%);
+
   /* Nav bar */
   --active-nav-button-text: var(--foreground);
   --nav-hover-background: hsl(180deg 52% 96%);
   --nav-hover-foreground: hsl(180deg 29% 36%);
 
+  /* Hero section */
   --hero-background: hsl(180deg 29% 35%);
-  }
+}
 
 /* ---break--- */
 @layer base {

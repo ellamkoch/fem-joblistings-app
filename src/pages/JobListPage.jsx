@@ -24,7 +24,9 @@ function JobListPage() {
       <h1 className="hidden">Job Listings</h1>
       <ProtectedPageHeader compact>
         <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground">Dashboard</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground">
+            Dashboard
+          </p>
           <div>
             <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
               Job Listings

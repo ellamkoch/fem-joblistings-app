@@ -17,7 +17,7 @@ $desktop-breakpoint: 1024px;
 }
 
 // Mobile auth pages only
-@media (max-width: 1023px) {
+@media (width < $desktop-breakpoint) {
   .header--auth .hero-img {
     background-image: none;
   }

@@ -69,7 +69,9 @@ export default function JobCard({
           <div className="top-line px-4 flex flex-col min-w-0">
             <div className="flex items-start justify-between gap-3">
               <div className="flex min-w-0 items-center gap-2">
-                <span className="min-w-0 truncate text-accent-foreground font-bold">{job.company}</span>
+                <span className="min-w-0 truncate text-accent-foreground font-bold">
+                  {job.company}
+                </span>
                 {(newJob || featuredJob) && <StatusBadge isNew={newJob} isFeatured={featuredJob} />}
               </div>
               {removeBookmark ? (

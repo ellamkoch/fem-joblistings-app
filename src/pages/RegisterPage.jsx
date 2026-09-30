@@ -158,8 +158,11 @@ function RegisterPage() {
 
                 <p className="text-center text-sm text-muted-foreground">
                   Already registered?{' '}
-                  <Button asChild className="h-auto px-0 py-0 text-sm font-semibold text-accent-foreground underline" 
-                    variant="link">
+                  <Button
+                    asChild
+                    className="h-auto px-0 py-0 text-sm font-semibold text-accent-foreground underline"
+                    variant="link"
+                  >
                     <Link to="/login">Log in</Link>
                   </Button>
                 </p>

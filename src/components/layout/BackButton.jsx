@@ -11,14 +11,15 @@ import { Button } from '@components/ui/button';
  */
 function BackButton() {
   return (
-    <Button 
+    <Button
       asChild
       variant="default"
       className="
         cursor-pointer 
         text-base 
         bg-accent-foreground text-accent
-        hover:bg-accent hover:text-accent-foreground focus-visible:ring">
+        hover:bg-accent hover:text-accent-foreground focus-visible:ring"
+    >
       <Link to="/">Back to all jobs</Link>
     </Button>
   );

@@ -73,7 +73,10 @@ function AboutPage() {
         <CardHeader className="gap-1">
           <div className="space-y-2">
             <CardDescription className="max-w-3xl text-base leading-7">
-              This full-stack job listings application was originally built as my CodeX Academy Level 4 capstone and further developed as a portfolio project. It demonstrates a complete frontend-to-backend-to-database flow with authentication, filtering, and saved jobs functionality.
+              This full-stack job listings application was originally built as my CodeX Academy
+              Level 4 capstone and further developed as a portfolio project. It demonstrates a
+              complete frontend-to-backend-to-database flow with authentication, filtering, and
+              saved jobs functionality.
             </CardDescription>
           </div>
         </CardHeader>
