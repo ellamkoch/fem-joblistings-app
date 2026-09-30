@@ -89,6 +89,8 @@
   /* Nav bar hovers */
   --nav-hover-background: var(--accent-foreground);
   --nav-hover-foreground: var(--accent);
+
+  --hero-background: hsl(180deg 29% 35%);
 }
 
 .contrast {
@@ -140,6 +142,8 @@
   --active-nav-button-text: var(--foreground);
   --nav-hover-background: hsl(180deg 52% 96%);
   --nav-hover-foreground: hsl(180deg 29% 36%);
+
+  --hero-background: hsl(180deg 29% 35%);
   }
 
 /* ---break--- */

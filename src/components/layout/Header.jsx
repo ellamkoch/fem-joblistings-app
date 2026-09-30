@@ -22,6 +22,7 @@ import ThemeSelect from '@/components/layout/ThemeSelect';
  */
 function Header() {
   const location = useLocation();
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
   const { isAuthenticated } = useAuth();
   const navLinks = isAuthenticated
     ? [
@@ -36,7 +37,7 @@ function Header() {
       ];
 
   return (
-    <header className="header relative flex">
+    <header className={`header relative flex ${isAuthPage ? 'header--auth' : ''}`}>
       <HeroBackground />
       <div className="pointer-events-none absolute inset-x-0 top-0 z-20 mx-auto flex max-w-7xl justify-end px-4 pt-4 sm:px-6 lg:px-8">
         <div className="pointer-events-auto flex max-w-full flex-wrap items-center justify-end gap-2">
@@ -65,7 +66,7 @@ function Header() {
                     ${
                       isActive
                         ? 'bg-accent-foreground text-accent ring-2 ring-primary/50 ring-offset-1 ring-offset-background shadow-sm hover:underline hover:underline-offset-4 hover:bg-accent-foreground'
-                        : 'hover:bg-[color:var(--nav-hover-background)] hover:text-[color:var(--nav-hover-foreground)] hover:underline hover:underline-offset-4'
+                        : 'hover:bg-(--nav-hover-background) hover:text-(--nav-hover-foreground) hover:underline hover:underline-offset-4'
                     }
                   `}
                 >

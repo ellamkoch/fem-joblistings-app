@@ -17,8 +17,8 @@ function LogoutButton({ className }) {
     <Button
       className={`
         bg-card text-foreground/95 border-0 shadow-none
-        hover:bg-[color:var(--nav-hover-background)]
-        hover:text-[color:var(--nav-hover-foreground)]
+        hover:bg-(--nav-hover-background)
+        hover:text-(--nav-hover-foreground)
         hover:underline hover:underline-offset-4
         focus-visible:ring-2 focus-visible:ring-foreground
         ${className ?? ''}
