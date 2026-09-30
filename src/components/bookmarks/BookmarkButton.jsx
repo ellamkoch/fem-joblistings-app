@@ -57,7 +57,7 @@ function BookmarkButton({
             onClick={handleBookmarkAction}
             aria-label={tooltipLabel}
             className={cn(
-              'shrink-0 rounded-full px-3 text-sm font-semibold hover:text-accent-foreground hover:bg-transparent',
+              'bg-accent-foreground shrink-0 rounded-full px-3 text-sm font-semibold hover:text-accent-foreground hover:bg-transparent',
               showLabel && 'gap-1.5',
               className,
             )}

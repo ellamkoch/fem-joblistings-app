@@ -58,12 +58,12 @@ const learnedItems = [
 function AboutPage() {
   return (
     <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-4 -mt-28 sm:-mt-32 lg:-mt-40">
-      <div className="space-y-3 px-1 text-primary-foreground">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground/80">
+      <div className="space-y-3 px-1 ">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-background/80 dark:text-foreground/80">
           Project overview
         </p>
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-primary-foreground sm:text-4xl">
+          <h1 className="text-3xl font-semibold tracking-tight text-background dark:text-foreground">
             About This Project
           </h1>
         </div>

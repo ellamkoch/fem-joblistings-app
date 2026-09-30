@@ -85,6 +85,10 @@
   --secondary-foreground: var(--foreground);
   --destructive: hsl(0deg 84% 60%);
   --font-sans: 'League Spartan', system-ui, sans-serif;
+
+  /* Nav bar hovers */
+  --nav-hover-background: var(--accent-foreground);
+  --nav-hover-foreground: var(--accent);
 }
 
 .contrast {
@@ -132,7 +136,11 @@
   --secondary: hsl(180deg 52% 96%);
   --secondary-foreground: var(--foreground);
   --destructive: hsl(0deg 84% 60%);
-}
+  /* Nav bar */
+  --active-nav-button-text: var(--foreground);
+  --nav-hover-background: hsl(180deg 52% 96%);
+  --nav-hover-foreground: hsl(180deg 29% 36%);
+  }
 
 /* ---break--- */
 @layer base {

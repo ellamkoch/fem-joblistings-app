@@ -135,7 +135,7 @@ function JobDetailPage() {
             >
               <Card className="rounded-2xl border-border/70 shadow-sm">
                 <CardHeader className="gap-2">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-foreground">
                     Role overview
                   </p>
                 </CardHeader>

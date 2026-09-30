@@ -61,11 +61,11 @@ function Header() {
                     sm:h-9 sm:px-4 sm:text-xs
                     transition-colors
                     bg-card text-foreground/95
-                    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/70 focus-visible:ring-offset-2
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2
                     ${
                       isActive
-                        ? 'bg-primary text-[color:var(--active-nav-button-text)] ring-2 ring-primary/50 ring-offset-1 ring-offset-background shadow-sm hover:bg-primary/95'
-                        : 'hover:bg-accent/10 hover:text-foreground'
+                        ? 'bg-accent-foreground text-accent ring-2 ring-primary/50 ring-offset-1 ring-offset-background shadow-sm hover:underline hover:underline-offset-4 hover:bg-accent-foreground'
+                        : 'hover:bg-[color:var(--nav-hover-background)] hover:text-[color:var(--nav-hover-foreground)] hover:underline hover:underline-offset-4'
                     }
                   `}
                 >

@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
  * @returns {JSX.Element} Status badges container with conditional rendering.
  */
 function StatusBadge({ isNew, isFeatured }) {
-  const newBadge = 'bg-primary text-center font-semibold pt-1.5 h-5 w-12 tracking-wide';
+  const newBadge = 'bg-accent-foreground text-center font-semibold pt-1.5 h-5 w-12 tracking-wide';
   const featuredBadge =
     'bg-foreground text-background text-center font-semibold pt-1.5 h-5 w-17 tracking-wide';
 
