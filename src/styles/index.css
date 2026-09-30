@@ -63,7 +63,7 @@
   --card-foreground: var(--foreground);
 
   /* Text */
-  --muted-foreground: hsl(180deg 8% 52%); /* Gray 400 */
+  --muted-foreground: hsl(180deg 8% 42%); /* Secondary gray text */
 
   /* Brand / interactive */
   --primary: hsl(180deg 29% 50%); /* teal from pills */

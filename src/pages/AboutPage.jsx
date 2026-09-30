@@ -80,7 +80,7 @@ function AboutPage() {
 
         <CardContent className="space-y-8 pb-8">
           <div className="grid gap-6 lg:grid-cols-2">
-            <section className="rounded-xl border border-border/70 bg-accent/40 p-5">
+            <section className="rounded-xl border border-border/70 p-5">
               <h2 className="text-xl font-semibold tracking-tight text-foreground">Built With</h2>
               <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
                 {builtWithItems.map((item) => (
@@ -89,7 +89,7 @@ function AboutPage() {
               </ul>
             </section>
 
-            <section className="rounded-xl border border-border/70 bg-accent/40 p-5">
+            <section className="rounded-xl border border-border/70 p-5">
               <h2 className="text-xl font-semibold tracking-tight text-foreground">Features</h2>
               <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
                 {featureItems.map((item) => (
