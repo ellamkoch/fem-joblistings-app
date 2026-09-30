@@ -1,4 +1,3 @@
-
 # Job Listings App
 
 A full-stack job listings application built with React, Node.js, Express, Prisma, and PostgreSQL.
@@ -42,6 +41,18 @@ The demo account includes saved jobs so you can test filtering, saving, removing
 - Switch between light, dark, high-contrast, and system themes
 - Responsive layout for desktop and mobile screens
 - Custom 404 handling with SPA routing support
+
+---
+
+## Accessibility
+
+- Refined theme colors to improve text contrast in light, dark, and contrast modes.
+- Improved keyboard focus indicators for navigation, buttons, links, and form inputs.
+- Updated hover states and form error colors for clearer feedback.
+- Adjusted mobile authentication layouts and backgrounds to improve heading readability while preserving the patterned header on other pages.
+- Manually checked the updated UI across themes and screen sizes.
+
+Further accessibility testing is planned; full WCAG conformance has not been verified.
 
 ---
 
@@ -208,8 +219,8 @@ The backend repository contains the Express API, Prisma schema, database access 
 - Render free-tier services may require a short startup period after inactivity
 - Supabase free-tier projects may pause after extended inactivity
 - Some frontend tests need updates following the API refactor
-- Light and high-contrast themes need additional token and contrast refinement
 - Seed data is intentionally limited
+- Accessibility validation is ongoing; full WCAG conformance has not been verified
 
 ---
 
@@ -218,11 +229,10 @@ The backend repository contains the Express API, Prisma schema, database access 
 Potential future enhancements include:
 
 - Expand automated frontend and backend test coverage
-- Improve accessibility and contrast validation
-- Refine light and high-contrast theme tokens
 - Move job-detail fetching into a dedicated hook
 - Expand seed data for additional UI states
 - Continue refining responsive behavior
+- Expand accessibility testing, including automated contrast checks and manual keyboard and screen-reader testing
 
 ---
 

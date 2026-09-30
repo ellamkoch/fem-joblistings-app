@@ -121,7 +121,14 @@ function LoginPage() {
 
               <div className="space-y-3">
                 <Button
-                  className="h-11 w-full text-sm font-semibold text-primary-foreground"
+                  className="
+                    h-11 w-full text-sm font-semibold
+                    bg-accent-foreground text-accent
+                    hover:bg-accent hover:text-accent-foreground
+                    hover:underline hover:underline-offset-4
+                    focus-visible:ring-2 focus-visible:ring-foreground
+                    focus-visible:ring-offset-2 focus-visible:ring-offset-card
+                    "
                   disabled={form.formState.isSubmitting}
                   type="submit"
                 >
@@ -130,7 +137,11 @@ function LoginPage() {
 
                 <p className="text-center text-sm text-muted-foreground">
                   Need an account?{' '}
-                  <Button asChild className="h-auto px-0 py-0 text-sm font-semibold" variant="link">
+                  <Button
+                    asChild
+                    className="h-auto px-0 py-0 text-sm font-semibold text-accent-foreground underline"
+                    variant="link"
+                  >
                     <Link to="/register">Register</Link>
                   </Button>
                 </p>

@@ -58,12 +58,12 @@ const learnedItems = [
 function AboutPage() {
   return (
     <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-4 -mt-28 sm:-mt-32 lg:-mt-40">
-      <div className="space-y-3 px-1 text-primary-foreground">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground/80">
+      <div className="space-y-3 px-1 ">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-background/80 dark:text-foreground/80">
           Project overview
         </p>
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-primary-foreground sm:text-4xl">
+          <h1 className="text-3xl font-semibold tracking-tight text-background dark:text-foreground">
             About This Project
           </h1>
         </div>
@@ -73,14 +73,17 @@ function AboutPage() {
         <CardHeader className="gap-1">
           <div className="space-y-2">
             <CardDescription className="max-w-3xl text-base leading-7">
-              This full-stack job listings application was originally built as my CodeX Academy Level 4 capstone and further developed as a portfolio project. It demonstrates a complete frontend-to-backend-to-database flow with authentication, filtering, and saved jobs functionality.
+              This full-stack job listings application was originally built as my CodeX Academy
+              Level 4 capstone and further developed as a portfolio project. It demonstrates a
+              complete frontend-to-backend-to-database flow with authentication, filtering, and
+              saved jobs functionality.
             </CardDescription>
           </div>
         </CardHeader>
 
         <CardContent className="space-y-8 pb-8">
           <div className="grid gap-6 lg:grid-cols-2">
-            <section className="rounded-xl border border-border/70 bg-accent/40 p-5">
+            <section className="rounded-xl border border-border/70 p-5">
               <h2 className="text-xl font-semibold tracking-tight text-foreground">Built With</h2>
               <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
                 {builtWithItems.map((item) => (
@@ -89,7 +92,7 @@ function AboutPage() {
               </ul>
             </section>
 
-            <section className="rounded-xl border border-border/70 bg-accent/40 p-5">
+            <section className="rounded-xl border border-border/70 p-5">
               <h2 className="text-xl font-semibold tracking-tight text-foreground">Features</h2>
               <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground sm:text-base">
                 {featureItems.map((item) => (

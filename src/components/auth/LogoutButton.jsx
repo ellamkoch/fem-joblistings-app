@@ -15,11 +15,18 @@ function LogoutButton({ className }) {
 
   return (
     <Button
-      className={className}
+      className={`
+        bg-card text-foreground/95 border-0 shadow-none
+        hover:bg-(--nav-hover-background)
+        hover:text-(--nav-hover-foreground)
+        hover:underline hover:underline-offset-4
+        focus-visible:ring-2 focus-visible:ring-foreground
+        ${className ?? ''}
+      `}
       disabled={isLoggingOut}
       onClick={logout}
       type="button"
-      variant="outline"
+      variant="default"
     >
       <LogOut aria-hidden="true" className="size-4" />
       {isLoggingOut ? 'Logging out...' : 'Log out'}
